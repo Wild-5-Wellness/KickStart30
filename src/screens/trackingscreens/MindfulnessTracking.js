@@ -54,6 +54,7 @@ const MindfulnessTracking = () => {
       >
         <View
           style={{
+            marginTop: 10,
             backgroundColor: mindfulnessColor,
             width: '85%',
             alignSelf: 'center',
@@ -78,7 +79,7 @@ const MindfulnessTracking = () => {
           <View
             style={{
               alignSelf: 'center',
-              marginTop: '10%',
+              marginTop: 10,
               alignItems: 'center',
             }}
           >

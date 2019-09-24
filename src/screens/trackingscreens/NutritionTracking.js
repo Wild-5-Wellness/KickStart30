@@ -65,12 +65,13 @@ const NutritionTracking = () => {
           activityTitle="Nutrition"
           onSave={submitForm}
         >
-          <ScrollView style={{flex: 1, padding: 30}}>
+          <ScrollView style={{flex: 1}}>
             <View
               style={{
                 backgroundColor: nutritionColor,
                 width: '100%',
                 alignSelf: 'center',
+                marginTop: 10
               }}
             >
               <Text
@@ -120,18 +121,17 @@ const NutritionTracking = () => {
                 alignSelf: 'center',
                 marginTop: '10%',
                 alignItems: 'center',
-                height:90
+                height:40
               }}
             >
               <Text
                 style={{
                   color: '#000',
-                  marginBottom: '5%',
                   textAlign: 'center',
                   fontWeight: '600',
                 }}
               >
-                Did I implement mind diet principles?
+                Did I implement MIND diet principles?
               </Text>
               {/* <RadioForm
                 radio_props={[
@@ -149,7 +149,7 @@ const NutritionTracking = () => {
               /> */}
             </View>
 
-            <View style={{marginTop: '10%'}}>
+            <View>
               <Text
                 style={{
                   color: '#000',
@@ -158,7 +158,7 @@ const NutritionTracking = () => {
                   fontWeight: '600',
                 }}
               >
-                Did I practice MINDful Meal Meditation?
+                Did I practice mindful Meal Meditation?
               </Text>
               <ListItem onPress={toggleBreakfastMeditation}>
                 <CheckBox

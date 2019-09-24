@@ -81,6 +81,7 @@ const SleepTracking = () => {
             width: '85%',
             alignSelf: 'center',
             height: 90,
+            marginTop: 10
           }}
         >
           <Text
@@ -129,8 +130,6 @@ const SleepTracking = () => {
             style={{
               fontSize: 20,
               textAlign: 'center',
-              marginTop: '10%',
-              marginBottom: '10%',
               fontWeight: '600',
             }}
           >
