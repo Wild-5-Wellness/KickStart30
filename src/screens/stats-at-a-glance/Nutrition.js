@@ -17,7 +17,7 @@ export function Nutrition(props) {
   return (
     <StatTile
       value={goalMetTotal / 30}
-      onPress={() => Actions.nutristats()}
+      onPress={() => null}
       progressColor="#f89829"
       header="Nutrition"
       goalMetTotal={goalMetTotal}

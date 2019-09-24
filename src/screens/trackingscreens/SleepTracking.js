@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Alert} from 'react-native';
-import {Text, Content, ListItem, CheckBox, Body, Container} from 'native-base';
+import {Text, Content, Container, Picker, Icon} from 'native-base';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
 import {Actions} from 'react-native-router-flux';
@@ -15,28 +15,32 @@ const SleepTracking = () => {
     setDidImplementSleepPractices,
   ] = React.useState(true);
 
-  const [noElectronics, setNoElectronics] = React.useState(false);
-  const [sleepMask, setSleepMask] = React.useState(false);
-  const [regularTime, setRegularTime] = React.useState(false);
-  const [noNapping, setNoNapping] = React.useState(false);
-  const [warmBath, setWarmBath] = React.useState(false);
-  const [noCaffeine, setNoCaffeine] = React.useState(false);
+  const [sleepHygiene, setSleepHygiene] = React.useState("")
 
-  const [
-    toggleNoElectronics,
-    toggleSleepMask,
-    toggleRegularTime,
-    toggleNoNapping,
-    toggleWarmBath,
-    toggleNoCaffeine,
-  ] = [
-    [noElectronics, setNoElectronics],
-    [sleepMask, setSleepMask],
-    [regularTime, setRegularTime],
-    [noNapping, setNoNapping],
-    [warmBath, setWarmBath],
-    [noCaffeine, setNoCaffeine],
-  ].map(([value, updater]) => () => updater(!value));
+  // const [noElectronics, setNoElectronics] = React.useState(false);
+  // const [sleepMask, setSleepMask] = React.useState(false);
+  // const [regularTime, setRegularTime] = React.useState(false);
+  // const [noNapping, setNoNapping] = React.useState(false);
+  // const [warmBath, setWarmBath] = React.useState(false);
+  // const [noCaffeine, setNoCaffeine] = React.useState(false);
+
+  // const [
+  //   toggleNoElectronics,
+  //   toggleSleepMask,
+  //   toggleRegularTime,
+  //   toggleNoNapping,
+  //   toggleWarmBath,
+  //   toggleNoCaffeine,
+  // ] = [
+  //   [noElectronics, setNoElectronics],
+  //   [sleepMask, setSleepMask],
+  //   [regularTime, setRegularTime],
+  //   [noNapping, setNoNapping],
+  //   [warmBath, setWarmBath],
+  //   [noCaffeine, setNoCaffeine],
+  // ].map(([value, updater]) => () => updater(!value));
+
+
 
   const submitForm = React.useCallback(async () => {
     const sleepRef = scopeRefByUserAndDate('Surveys', 'sleep');
@@ -45,26 +49,15 @@ const SleepTracking = () => {
       .database()
       .ref(sleepRef)
       .update({
-        didImplementSleepPractices,
-        noElectronics,
-        sleepMask,
-        regularTime,
-        noNapping,
-        warmBath,
-        noCaffeine,
+        didImplementSleepPractices
+       
       });
 
     Alert.alert('Success!', 'Your sleep for today has been recorded.', [
       {text: 'OK', onPress: Actions.landing()},
     ]);
   }, [
-    didImplementSleepPractices,
-    noElectronics,
-    sleepMask,
-    regularTime,
-    noNapping,
-    warmBath,
-    noCaffeine,
+    didImplementSleepPractices
   ]);
 
   return (
@@ -135,66 +128,30 @@ const SleepTracking = () => {
           >
             Which sleep hygiene practices did you implement today?
           </Text>
-          <ListItem onPress={toggleNoElectronics}>
-            <CheckBox
-              color={sleepColor}
-              checked={noElectronics}
-              onPress={toggleNoElectronics}
-            />
-            <Body>
-              <Text>No Electronics 90 minutes before bed</Text>
-            </Body>
-          </ListItem>
-          <ListItem onPress={toggleSleepMask}>
-            <CheckBox
-              onPress={toggleSleepMask}
-              color={sleepColor}
-              checked={sleepMask}
-            />
-            <Body>
-              <Text>Sleep mask or blackout shades</Text>
-            </Body>
-          </ListItem>
-          <ListItem onPress={toggleRegularTime}>
-            <CheckBox
-              onPress={toggleRegularTime}
-              color={sleepColor}
-              checked={regularTime}
-            />
-            <Body>
-              <Text>Regular bedtime</Text>
-            </Body>
-          </ListItem>
-          <ListItem onPress={toggleNoNapping}>
-            <CheckBox
-              onPress={toggleNoNapping}
-              color={sleepColor}
-              checked={noNapping}
-            />
-            <Body>
-              <Text>No Napping</Text>
-            </Body>
-          </ListItem>
-          <ListItem onPress={toggleWarmBath}>
-            <CheckBox
-              onPress={toggleWarmBath}
-              color={sleepColor}
-              checked={warmBath}
-            />
-            <Body>
-              <Text>Warm bath/shower prior to bed</Text>
-            </Body>
-          </ListItem>
-          <ListItem onPress={toggleNoCaffeine}>
-            <CheckBox
-              onPress={toggleNoCaffeine}
-              color={sleepColor}
-              checked={noCaffeine}
-            />
-            <Body>
-              <Text>Avoid caffeine 10 hours before bed</Text>
-            </Body>
-          </ListItem>
+          <Picker
+                selectedValue={sleepHygiene}
+                style={{height: 50, width: '100%'}}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSleepHygiene(itemValue)
+                }
+                mode="dropdown"
+                placeholder="Sleep Hygiene Practice"
+                placeholderStyle={{color: '#000'}}
+                placeholderIconColor="#000"
+                iosIcon={
+                  <Icon
+                    name="ios-arrow-dropdown"
+                    style={{color: '#000', fontSize: 25}}
+                  />
+                }
+                >
+                <Picker.Item label="No Electronics 90 minutes before bed" value="No Electronics 90 minutes before bed" />
+                <Picker.Item label="Sleep mask or blackout shades" value="Sleep mask or blackout shades" />
+                <Picker.Item label="Regular bedtime" value="Regular bedtime" />
+                <Picker.Item label="No Napping" value="No Napping" />
+                <Picker.Item label="Warm bath/shower prior to bed" value="Warm bath/shower prior to bed" />
+                <Picker.Item label="Avoid caffeine 10 hours before bed" value="Avoid caffeine 10 hours before bed" />
+              </Picker>
         </Content>
       </TrackingScreen>
     </Container>

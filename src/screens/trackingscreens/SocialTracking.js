@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native'
-import {Text, ListItem, CheckBox, Body} from 'native-base';
+import {Text, Picker, Icon} from 'native-base';
 import {Alert, StyleSheet} from 'react-native';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
@@ -9,32 +9,16 @@ import {TrackingScreen} from './TrackingScreen';
 import RadioForm from "react-native-simple-radio-button";
 import {socialColor} from '../../components/common/colors'
 
-const CALLED_FRIEND = 'calledFriend';
-const MET_FRIEND_IN_PERSON = 'metFriendInPerson';
-const CALLED_FAMILY = 'calledFamily';
-const MET_FAMILY_IN_PERSON = 'metFamilyInPerson';
 
-class SocialTracking extends Component {
-  state = {
-    [CALLED_FRIEND]: false,
-    [MET_FRIEND_IN_PERSON]: false,
-    [CALLED_FAMILY]: false,
-    [MET_FAMILY_IN_PERSON]: false,
-    didSociallyConnect: false,
-  };
+const SocialTracking = () => {
+ 
 
-  toggleCheckbox = stateKey => {
-    this.setState({[stateKey]: !this.state[stateKey]});
-  };
+  const [didSociallyConnect, setDidSociallyConnect] = useState(false)
+  const [type, setType] = useState("")
 
+ 
   submitForm = async () => {
-    const {
-      [CALLED_FRIEND]: calledFriend,
-      [MET_FRIEND_IN_PERSON]: metFriendInPerson,
-      [CALLED_FAMILY]: calledFamily,
-      [MET_FAMILY_IN_PERSON]: metFamilyInPerson,
-      didSociallyConnect,
-    } = this.state;
+   
 
     const socialRef = scopeRefByUserAndDate('Surveys', 'social');
 
@@ -43,10 +27,7 @@ class SocialTracking extends Component {
       .ref(socialRef)
       .update({
         didSociallyConnect,
-        calledFriend,
-        metFriendInPerson,
-        calledFamily,
-        metFamilyInPerson,
+       type
       });
 
     // Add error handling here...
@@ -54,17 +35,16 @@ class SocialTracking extends Component {
     Alert.alert(
       "Success!",
       "Your social interactions for today have been recorded.",
-      [{text: "OK", onPress: Actions.landing}]
+      [{text: "OK", onPress: Actions.landing()}]
     );
   };
 
-  render() {
     return (
       <TrackingScreen
         backgroundImage={{uri: "social-tracking-bg"}}
         color={socialColor}
         activityTitle="Social Connectedness"
-        onSave={this.submitForm}
+        onSave={submitForm}
       >
         <View
           style={{
@@ -111,64 +91,50 @@ class SocialTracking extends Component {
             labelStyle={{fontSize: 20, color: "#000"}}
             animation={true}
             onPress={value => {
-              this.setState({didSociallyConnect: Boolean(value)});
+              setDidSociallyConnect(Boolean(value));
             }}
           />
         </View>
         <Text style={styles.subtitle} numberOfLines={1}>
           What social contacts did you make?
         </Text>
-
-        <CheckBoxItem
-          checked={this.state.calledFriend}
-          onPress={() => this.toggleCheckbox(CALLED_FRIEND)}
-        >
-          Called Friend
-        </CheckBoxItem>
-
-        <CheckBoxItem
-          checked={this.state.metFriendInPerson}
-          onPress={() => this.toggleCheckbox(MET_FRIEND_IN_PERSON)}
-        >
-          Met Friend in Person
-        </CheckBoxItem>
-
-        <CheckBoxItem
-          checked={this.state.calledFamily}
-          onPress={() => this.toggleCheckbox(CALLED_FAMILY)}
-        >
-          Called Family
-        </CheckBoxItem>
-
-        <CheckBoxItem
-          checked={this.state.metFamilyInPerson}
-          onPress={() => this.toggleCheckbox(MET_FAMILY_IN_PERSON)}
-        >
-          Met Family in Person
-        </CheckBoxItem>
+        <Picker
+              style={{
+                width:(Platform.OS === 'ios') ? undefined : '90%',
+                marginLeft: 5, marginRight: 5}}
+              selectedValue={type}
+              onValueChange={type => setType(type)}
+              mode="dropdown"
+              placeholder="Type of SocialConnectedness"
+              placeholderStyle={{color: '#000'}}
+              placeholderIconColor="#000"
+              iosIcon={
+                <Icon
+                  name="ios-arrow-dropdown"
+                  style={{color: '#000', fontSize: 25}}
+                />
+              }
+              textStyle={{color: '#000'}}
+            >
+         
+                <Picker.Item label="Called Friend" value="called friend" />
+                <Picker.Item label="Met Friend in Person" value="met friend in person" />
+                <Picker.Item label="Called Family" value="called family" />
+                <Picker.Item label="Met Family in Person" value="met family in person" />
+            </Picker>
       </TrackingScreen>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
   subtitle: {
     textAlign: 'center',
     marginTop: '10%',
-    marginBottom: '10%',
     fontWeight: '600',
   },
 });
 
-function CheckBoxItem({onPress, children, ...checkboxProps}) {
-  return (
-    <ListItem onPress={onPress}>
-      <CheckBox {...checkboxProps} onPress={onPress} color={socialColor} />
-      <Body>
-        <Text>{children}</Text>
-      </Body>
-    </ListItem>
-  );
-}
+
 
 export default SocialTracking;
