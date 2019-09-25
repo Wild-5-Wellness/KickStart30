@@ -21,7 +21,7 @@ export function Sleep(props) {
   return (
     <StatTile
       value={goalMetTotal / 30}
-      onPress={() => Actions.sleepstats()}
+      onPress={() => null}
       progressColor="#b92e91"
       header="Sleep"
       goalMetTotal={goalMetTotal}
