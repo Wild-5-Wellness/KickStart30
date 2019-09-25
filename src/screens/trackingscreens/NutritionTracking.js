@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, View, SafeAreaView, Alert} from 'react-native';
-import {Text, ListItem, CheckBox, Body} from 'native-base';
+import {Text, Picker, Icon} from 'native-base';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
 import {Actions} from 'react-native-router-flux';
@@ -17,19 +17,19 @@ const NutritionTracking = () => {
     setImplementedMINDDietPrinciples,
   ] = React.useState(true);
 
-  const [breakfastMeditation, setBreakfastMeditation] = React.useState(false);
-  const [lunchMeditation, setLunchMeditation] = React.useState(false);
-  const [dinnerMeditation, setDinnerMeditation] = React.useState(false);
+  const [mealMeditation, setMealMeditation] = React.useState("");
+  // const [lunchMeditation, setLunchMeditation] = React.useState(false);
+  // const [dinnerMeditation, setDinnerMeditation] = React.useState(false);
 
-  const [
-    toggleBreakfastMeditation,
-    toggleLunchMeditation,
-    toggleDinnerMeditation,
-  ] = [
-    [breakfastMeditation, setBreakfastMeditation],
-    [lunchMeditation, setLunchMeditation],
-    [dinnerMeditation, setDinnerMeditation],
-  ].map(([value, updater]) => () => updater(!value));
+  // const [
+  //   toggleBreakfastMeditation,
+  //   toggleLunchMeditation,
+  //   toggleDinnerMeditation,
+  // ] = [
+  //   [breakfastMeditation, setBreakfastMeditation],
+  //   [lunchMeditation, setLunchMeditation],
+  //   [dinnerMeditation, setDinnerMeditation],
+  // ].map(([value, updater]) => () => updater(!value));
 
   const submitForm = React.useCallback(async () => {
     const nutritionRef = scopeRefByUserAndDate('Surveys', 'nutrition');
@@ -40,9 +40,7 @@ const NutritionTracking = () => {
       .update({
         loggedNutritionToday,
         implementedMINDDietPrinciples,
-        breakfastMeditation,
-        lunchMeditation,
-        dinnerMeditation,
+        mealMeditation
       });
 
     Alert.alert('Success!', 'Your nutrition for today has been recorded.', [
@@ -51,9 +49,7 @@ const NutritionTracking = () => {
   }, [
     loggedNutritionToday,
     implementedMINDDietPrinciples,
-    breakfastMeditation,
-    lunchMeditation,
-    dinnerMeditation,
+    mealMeditation
   ]);
 
   return (
@@ -65,12 +61,13 @@ const NutritionTracking = () => {
           activityTitle="Nutrition"
           onSave={submitForm}
         >
-          <ScrollView style={{flex: 1, padding: 30}}>
+          <ScrollView style={{flex: 1}}>
             <View
               style={{
                 backgroundColor: nutritionColor,
                 width: '100%',
                 alignSelf: 'center',
+                marginTop: 10
               }}
             >
               <Text
@@ -120,18 +117,17 @@ const NutritionTracking = () => {
                 alignSelf: 'center',
                 marginTop: '10%',
                 alignItems: 'center',
-                height:90
+                height:40
               }}
             >
               <Text
                 style={{
                   color: '#000',
-                  marginBottom: '5%',
                   textAlign: 'center',
                   fontWeight: '600',
                 }}
               >
-                Did I implement mind diet principles?
+                Did I implement MIND diet principles?
               </Text>
               {/* <RadioForm
                 radio_props={[
@@ -149,7 +145,7 @@ const NutritionTracking = () => {
               /> */}
             </View>
 
-            <View style={{marginTop: '10%'}}>
+            <View>
               <Text
                 style={{
                   color: '#000',
@@ -158,38 +154,29 @@ const NutritionTracking = () => {
                   fontWeight: '600',
                 }}
               >
-                Did I practice MINDful Meal Meditation?
+                Did I practice mindful Meal Meditation?
               </Text>
-              <ListItem onPress={toggleBreakfastMeditation}>
-                <CheckBox
-                  color={nutritionColor}
-                  checked={breakfastMeditation}
-                  onPress={toggleBreakfastMeditation}
-                />
-                <Body>
-                  <Text>Breakfast</Text>
-                </Body>
-              </ListItem>
-              <ListItem onPress={toggleLunchMeditation}>
-                <CheckBox
-                  color={nutritionColor}
-                  checked={lunchMeditation}
-                  onPress={toggleLunchMeditation}
-                />
-                <Body>
-                  <Text>Lunch</Text>
-                </Body>
-              </ListItem>
-              <ListItem onPress={toggleDinnerMeditation}>
-                <CheckBox
-                  color={nutritionColor}
-                  checked={dinnerMeditation}
-                  onPress={toggleDinnerMeditation}
-                />
-                <Body>
-                  <Text>Dinner</Text>
-                </Body>
-              </ListItem>
+              <Picker
+                selectedValue={mealMeditation}
+                style={{height: 50, width: '100%'}}
+                onValueChange={(itemValue, itemIndex) =>
+                  setMealMeditation(itemValue)
+                }
+                mode="dropdown"
+                placeholder="Meal"
+                placeholderStyle={{color: '#000'}}
+                placeholderIconColor="#000"
+                iosIcon={
+                  <Icon
+                    name="ios-arrow-dropdown"
+                    style={{color: '#000', fontSize: 25}}
+                  />
+                }
+                >
+                <Picker.Item label="Breakfast" value="breakfast" />
+                <Picker.Item label="Lunch" value="lunch" />
+                <Picker.Item label="Dinner" value="dinner" />
+              </Picker>
             </View>
           </ScrollView>
         </TrackingScreen>

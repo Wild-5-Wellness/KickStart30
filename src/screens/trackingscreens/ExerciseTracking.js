@@ -1,7 +1,7 @@
 import React from "react";
 import {Alert, View, KeyboardAvoidingView} from "react-native";
 import RadioForm from "react-native-simple-radio-button";
-import {Text, Item, Label, Input, Picker, Form} from "native-base";
+import {Text, Item, Label, Input, Picker, Form, Icon} from "native-base";
 import Slider from "@react-native-community/slider";
 import firebase from "react-native-firebase";
 import {Actions} from "react-native-router-flux";
@@ -129,7 +129,7 @@ function ExerciseTracking() {
             onValueChange={setType}
             mode="dropdown"
             style={{width: undefined}}
-            placeholder="Select One..."
+            placeholder="Exercises..."
             iosHeader="Exercises"
           >
             {exerciseTypes.map(type => (
@@ -147,25 +147,16 @@ function ExerciseTracking() {
 
         <Text
           style={{
-            marginBottom: "5%",
             fontWeight: "600",
             textAlign: "center",
           }}
         >
           Exercise Duration?
         </Text>
-        <Text style={{textAlign: "center"}}>{duration} minutes</Text>
-        <Slider
-          style={{width: "80%", alignSelf: "center"}}
-          minimumValue={0}
-          maximumValue={120}
-          minimumTrackTintColor={exerciseColor}
-          step={5}
-          onValueChange={setDuration}
-        />
+      
         <Text
           style={{
-            marginTop: "10%",
+            marginTop: "5%",
             marginBottom: 10,
             fontWeight: "600",
             textAlign: "center",
@@ -173,21 +164,29 @@ function ExerciseTracking() {
         >
           Intensity of Exercise?
         </Text>
-        <RadioForm
-          style={{alignSelf: "center"}}
-          radio_props={[
-            {label: "Low", value: EXERCISE_INTENSITY.LOW},
-            {label: "Moderate", value: EXERCISE_INTENSITY.MODERATE},
-            {label: "High", value: EXERCISE_INTENSITY.HIGH},
-          ]}
-          initial={false}
-          formHorizontal={false}
-          labelHorizontal={true}
-          buttonColor={exerciseColor}
-          selectedButtonColor={exerciseColor}
-          animation={true}
-          onPress={value => setIntensity(value)}
-        />
+        <Picker
+              style={{
+                width:(Platform.OS === 'ios') ? undefined : '90%',
+                marginLeft: 5, marginRight: 5}}
+              selectedValue={intensity}
+              onValueChange={type => setIntensity(type)}
+              mode="dropdown"
+              placeholder="Intensity"
+              placeholderStyle={{color: '#000'}}
+              placeholderIconColor="#000"
+              iosIcon={
+                <Icon
+                  name="ios-arrow-dropdown"
+                  style={{color: '#000', fontSize: 25}}
+                />
+              }
+              textStyle={{color: '#000'}}
+            >
+         
+                <Picker.Item label="Low" value="low" />
+                <Picker.Item label="Moderate" value="moderate" />
+                <Picker.Item label="High" value="high" />
+            </Picker>
       </TrackingScreen>
     </KeyboardAvoidingView>
   );

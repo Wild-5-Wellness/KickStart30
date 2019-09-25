@@ -17,7 +17,7 @@ export function Mindfulness(props) {
   return (
     <StatTile
       value={goalMetTotal / 30}
-      onPress={() => Actions.mindstats()}
+      onPress={() => null}
       progressColor="#0ab5eb"
       header="Mindfulness"
       goalMetTotal={goalMetTotal}
