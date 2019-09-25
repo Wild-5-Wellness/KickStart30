@@ -29,9 +29,8 @@ function Landing(props) {
       .ref(`HERO/${scopedUser}`)
       .once("value", snap => {
         if (snap.val() !== null && initialSurveydate !== "") {
-          const data = [Object.keys(snap.val())].sort();
+          const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
-
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);
