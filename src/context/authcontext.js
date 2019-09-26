@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import NetInfo from "@react-native-community/netinfo";
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
 import {getScopedUser} from '../utils/firebase';
@@ -9,6 +10,7 @@ export default class AuthProvider extends Component {
     user: '',
     ready: false,
     authenticated: false,
+    isConnected: false
   };
 
   unsubscribe;
@@ -25,6 +27,12 @@ export default class AuthProvider extends Component {
         Actions.replace('newlogin');
       }
     });
+
+    NetInfo.fetch().then(state => {
+      console.log("Connection type", state.type);
+      this.setState({isConnected: true})
+    })
+
   }
 
   componentWillUnmount() {

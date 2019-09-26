@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, Platform, TimePickerAndroid } from 'react-native';
+import {View, Text, TouchableOpacity, Platform, TimePickerAndroid, Modal, ActivityIndicator } from 'react-native';
 import {Icon} from 'native-base';
 import Navbar from '../components/Navbar';
 import ToggleSwitch from 'toggle-switch-react-native';
@@ -13,6 +13,10 @@ import {  exerciseColor,
   nutritionColor,
   sleepColor,
   socialColor} from '../components/common/colors';
+  import { scopeRefByUser } from '../utils/registration'
+  import { scopeRefByUserHero } from '../utils/heroRef'
+
+
 
 type Props = {};
 class Settings extends Component<Props> {
@@ -29,7 +33,12 @@ class Settings extends Component<Props> {
       senderId: appConfig.senderID,
       chosenDate: new Date(),
       user: '',
-      chosenAndroidTime: '00:00'
+      chosenAndroidTime: '00:00',
+      modalVisible: false,
+      loading: false,
+      error: '',
+      deleteCompleted: false
+
     };
     this.PushNotificationIOS = new PushNotificationIOS(this.onNotif);
   }
@@ -254,8 +263,54 @@ class Settings extends Component<Props> {
     Alert.alert('Permissions', JSON.stringify(perms));
   };
 
+  deleteAllData = () => {
+    this.setState({loading: true})
+    const delData = firebase.database()
+    const heroRef = scopeRefByUser('HERO')
+    const surveysRef = scopeRefByUser("Surveys");
+    const heroRefInitial = scopeRefByUserHero('HERO')
+    delData.ref(heroRef).set(null).then(()=> console.log("Hero info Deleted")).catch((err)=> this.setState({error: err}))
+    delData.ref(surveysRef).set(null).then(()=> console.log("Survey info Deleted")).catch((err)=> this.setState({error: err}))
+    delData.ref(heroRefInitial).set(null).then(()=> this.setState({deleteCompleted: true}, ()=> this.setState({loading: false}))).catch((err)=> this.setState({error: err}))
+
+
+
+  }
+
   render() {
     return (
+      <>
+      <Modal
+      animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={()=> null}
+      >
+        <View style={{height: '100%', width: '100%', justifyContent:'center', alignItems:'center'}}>
+        <View style={{height: '20%', width: '80%', borderColor:'#041D5D', borderWidth:2, borderRadius:9, backgroundColor:'#fff'}}>
+          {!this.state.deleteCompleted ? <><Text style={{fontSize:20, color:'#041D5D', textAlign:'center', marginTop:15}}>Are you sure you want to delete all existing data?</Text>
+          <View style={{flex:1,justifyContent:'flex-end'}}>
+          {this.state.loading ? <ActivityIndicator size="small" color="#041D5D"/> : this.state.error ? <Text>{this.state.error}</Text> : null}
+          <View style={{flexDirection:'row'}}>
+          <TouchableOpacity style={{height: 50, width:'50%', backgroundColor:'#041D5D', borderRightColor:"#fff", borderRightWidth:1, justifyContent:'center'}} onPress={()=> this.setState({modalVisible:false})}>
+            <Text style={{color:'#fff', alignSelf:'center', fontSize: 22}}>NO</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{height: 50, width:'50%', backgroundColor:'#041D5D', borderLeftColor:"#fff", borderLeftWidth:1, justifyContent:'center'}} onPress={() => this.deleteAllData()}>
+            <Text style={{color:'#fff', alignSelf:'center', fontSize:22}}>YES</Text>
+          </TouchableOpacity>
+          </View>
+          </View></> : 
+          <View style={{flex:1}}>
+            <Text  style={{fontSize:22, color:'#041D5D', textAlign:'center', marginTop: 20}}>Data Successfully Deleted!</Text>
+            <View style={{flex: 1, justifyContent:'flex-end'}}>
+            <TouchableOpacity style={{height: 50, width:'100%', backgroundColor:'#041D5D', justifyContent:'center'}} onPress={()=> this.setState({modalVisible: false})}>
+              <Text style={{color:'#fff', alignSelf:'center', fontSize:22}}>Ok</Text>
+            </TouchableOpacity>
+            </View>
+          </View>}
+        </View>
+        </View>
+      </Modal>
       <View style={{flex: 1, backgroundColor: '#fff'}}>
         <View style={{flex: 1}}>
           {this.state.showTimer && Platform.OS === 'ios' ? this.showTimePicker() : null}
@@ -372,11 +427,25 @@ class Settings extends Component<Props> {
             >
               <Text style={{color: '#fff', alignSelf: 'center', fontSize:18}}>Logout</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                marginTop: 10,
+                height: 60,
+                width: 100,
+                backgroundColor: '#041D5D',
+                justifyContent: 'center',
+                borderRadius: 7,
+              }}
+              onPress={() => this.setState({modalVisible: true})}
+            >
+              <Text style={{color: '#fff', alignSelf: 'center', fontSize:18, textAlign:'center'}}>Reset KickStart30</Text>
+            </TouchableOpacity>
           </View>
           {/* </View> */}
         </View>
         <Navbar settingsdisable/>
         </View>
+        </>
     );
   }
 }

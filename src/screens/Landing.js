@@ -6,6 +6,7 @@ import {spliceString} from "../utils/dateSplice";
 import {scopeRefByUserHero} from "../utils/heroRef";
 import LandingView from "../components/common/LandingView";
 import HeroSurvey from "../components/common/InitialHero";
+import {withAuthProvider} from '../context/authcontext'
 
 function Landing(props) {
   const [hero, setHero] = useState(false);
@@ -14,8 +15,19 @@ function Landing(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log(props.isConnected)
     checkHeroData();
   }, []);
+
+  const daysCompleted = () => {
+    const date = format(new Date(), "YYYY-MM-DD");
+    return Math.abs(Number(initialSurveydate.slice(8,10)) - Number(date.slice(8,10))) / 1000 * 30
+  }
+
+  const day = () => {
+    const date = format(new Date(), "YYYY-MM-DD");
+    return Math.abs(Number(initialSurveydate.slice(8,10)) - Number(date.slice(8,10)))
+  }
 
   useEffect(() => {
     const date = format(new Date(), "YYYY-MM-DD-HH-mm");
@@ -85,13 +97,17 @@ function Landing(props) {
       <LoadingIndicator />
     )
   ) : !loading ? (
-    <HeroSurvey hero={hero} hero2={hero2} />
+    <HeroSurvey hero={hero} hero2={hero2} daysTotal={daysCompleted()} day={day()}/>
+  ) : !props.isConnected && loading ? (
+    <View style={{justifyContent:'center', alignItems:'center'}}>
+    <Text style={{fontSize: 22, color: '#333'}}>Network Connection Lost</Text>
+    </View>
   ) : (
     <LoadingIndicator />
   );
 }
 
-export default Landing;
+export default withAuthProvider(Landing);
 
 function LoadingIndicator() {
   return (
