@@ -281,14 +281,14 @@ class Settings extends Component<Props> {
     return (
       <>
       <Modal
-      animationType="slide"
+      animationType="fade"
           transparent={true}
           visible={this.state.modalVisible}
           onRequestClose={()=> null}
       >
         <View style={{height: '100%', width: '100%', justifyContent:'center', alignItems:'center'}}>
         <View style={{height: '20%', width: '80%', borderColor:'#041D5D', borderWidth:2, borderRadius:9, backgroundColor:'#fff'}}>
-          {!this.state.deleteCompleted ? <><Text style={{fontSize:20, color:'#041D5D', textAlign:'center', marginTop:15}}>Are you sure you want to delete all existing data?</Text>
+          {!this.state.deleteCompleted ? <><Text style={{fontSize:20, color:'#041D5D', textAlign:'center', marginTop:15}}>Are you sure you want to delete your KickStart30 data?</Text>
           <View style={{flex:1,justifyContent:'flex-end'}}>
           {this.state.loading ? <ActivityIndicator size="small" color="#041D5D"/> : this.state.error ? <Text>{this.state.error}</Text> : null}
           <View style={{flexDirection:'row'}}>
@@ -414,7 +414,7 @@ class Settings extends Component<Props> {
                 </Text>
               </View>
             </TouchableOpacity> */}
-          <View style={{marginLeft: 15, marginTop: 20}}>
+          <View style={{marginLeft: 15, marginTop: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
             <TouchableOpacity
               style={{
                 height: 60,
@@ -429,7 +429,6 @@ class Settings extends Component<Props> {
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                marginTop: 10,
                 height: 60,
                 width: 100,
                 backgroundColor: '#041D5D',
@@ -438,7 +437,7 @@ class Settings extends Component<Props> {
               }}
               onPress={() => this.setState({modalVisible: true})}
             >
-              <Text style={{color: '#fff', alignSelf: 'center', fontSize:18, textAlign:'center'}}>Reset KickStart30</Text>
+              <Text style={{color: '#fff', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}><Text style={{color: 'red', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}>Reset </Text>KickStart30</Text>
             </TouchableOpacity>
           </View>
           {/* </View> */}

@@ -15,7 +15,7 @@ function Landing(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(props.isConnected)
+    console.log(props)
     checkHeroData();
   }, []);
 
@@ -98,13 +98,9 @@ function Landing(props) {
     )
   ) : !loading ? (
     <HeroSurvey hero={hero} hero2={hero2} daysTotal={daysCompleted()} day={day()}/>
-  ) : !props.isConnected && loading ? (
-    <View style={{justifyContent:'center', alignItems:'center'}}>
-    <Text style={{fontSize: 22, color: '#333'}}>Network Connection Lost</Text>
-    </View>
-  ) : (
+  )  :  (
     <LoadingIndicator />
-  );
+  )
 }
 
 export default withAuthProvider(Landing);
