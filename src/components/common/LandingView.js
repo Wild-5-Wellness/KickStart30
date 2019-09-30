@@ -50,7 +50,7 @@ export default LandingView = (props) => {
           <View style={{ flex: 1 }}>
             <Navigation hero={props.hero} hero2={props.hero2} />
           </View>
-          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top: 115}}>
+          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'22%'}}>
            <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day +1} of the KickStart30</Text>
           </View>  : null}
           <Image
@@ -78,7 +78,7 @@ export default LandingView = (props) => {
              <View style={{ flex: 1 }}>
                <Navigation hero={props.hero} hero2={props.hero2} />
              </View>
-             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'20%'}}>
+             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'22%'}}>
               <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day +1} of the KickStart30</Text>
              </View>  : null}
              <Image
