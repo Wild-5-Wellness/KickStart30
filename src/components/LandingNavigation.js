@@ -67,14 +67,14 @@ export function Navigation(props) {
   const renderItem = React.useCallback((item, index) => {
     return (
       <TouchableOpacity
-        activeOpacity={!props.hero ? 1 : 0.7}
+        activeOpacity={1}
         key={index}
         style={styles.touchable}
         onPress={!props.hero ? null : item.action}
       >
         <LinearGradient
           style={styles.item}
-          colors={props.hero ? item.background : ["white", "#ffffff00"]}
+          colors={ item.background}
         >
           {item.title === "HERO Exercises" ? (
             <Image
@@ -92,76 +92,44 @@ export function Navigation(props) {
 
   return (
     <View style={styles.container}>
-      {props.hero && !bothTrue ? (
-        chunk(navigationItems, 2).map((items, index) => (
+      { !props.hero && !props.hero2 || props.hero && props.hero2 ?
+      <>
+      {!props.hero && !props.hero2 ?<Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>}
+      <TouchableOpacity
+      style={[styles.touchableHERO3]}
+      onPress={() => Actions.herointro()}
+    >
+      <LinearGradient
+        style={styles.itemHERO3}
+        colors={["#041D5D", "#082774"]}
+      >
+          <Image
+            source={HEROlogo}
+            style={{
+              flex: 1,
+              width: undefined,
+              height: undefined,
+              resizeMode: "contain"
+            }}
+          />
+          <Text style={styles.titleHERO3}>Survey</Text>
+      </LinearGradient>
+    </TouchableOpacity>
+         {chunk(navigationItems, 2).map((items, index) => (
+           <View key={index} style={styles.row}>
+             {items.map(renderItem)}
+           </View>
+         ))}
+         </>
+         : 
+         <>
+         {chunk(navigationItems, 2).map((items, index) => (
           <View key={index} style={styles.row}>
             {items.map(renderItem)}
           </View>
-        ))
-      ) : !props.hero ? (
-        <>
-          <Text style={styles.titleHEROMain}>
-            Take Your HERO Wellness Survey
-          </Text>
-          <TouchableOpacity
-            style={styles.touchableHERO}
-            onPress={() => Actions.herointro()}
-          >
-            <LinearGradient
-              style={[styles.itemHERO, styles.itemHERO2]}
-              colors={["#041D5D", "#082774"]}
-            >
-              <Image
-                source={HEROlogo}
-                style={{
-                  width: "100%",
-                  height: "50%",
-                  resizeMode: "contain",
-                  alignSelf: "center"
-                }}
-              />
-              <Text style={styles.titleHERO}>Hero Wellness{"\n"} Survey</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+        ))}
         </>
-      ) : props.hero && props.hero2 ? (
-        <>
-          <TouchableOpacity
-            style={[styles.touchableHERO3]}
-            onPress={() => Actions.herointro()}
-          >
-            <LinearGradient
-              style={styles.itemHERO3}
-              colors={["#041D5D", "#082774"]}
-            >
-              <Text style={styles.titleHERO3}>Hero Wellness{"\n"} Survey</Text>
-              <View
-                style={{
-                  height: 300,
-                  width: "100%",
-                  alignSelf: "center",
-                  padding: 15
-                }}
-              >
-                <Image
-                  source={HEROlogo}
-                  style={{
-                    width: "100%",
-                    height: "30%",
-                    resizeMode: "contain"
-                  }}
-                />
-              </View>
-            </LinearGradient>
-          </TouchableOpacity>
-          {chunk(navigationItems, 2).map((items, index) => (
-            <View key={index} style={styles.row}>
-              {items.map(renderItem)}
-            </View>
-          ))}
-          {/* <Text style={styles.titleHEROMain}>Take Your HERO Wellness Survey</Text> */}
-        </>
-      ) : null}
+         }
     </View>
   );
 }
@@ -238,15 +206,14 @@ const styles = StyleSheet.create({
   itemHERO3: {
     alignSelf:'center',
     borderRadius: 5,
-    padding: 10,
-    height: 180,
+    paddingBottom: 10,
+    height: 100,
     width: "80%",
   },
-  titleHERO3: { color: "white", fontSize: 20, textAlign: "center" },
+  titleHERO3: { color: "white", fontSize: 22, textAlign: "center", fontWeight:'700' },
   touchableHERO3:{
     alignSelf:'center',
     justifyContent: "center",
-    height: 180,
     backgroundColor: "transparent",
     marginBottom: 10,
     width: width,
