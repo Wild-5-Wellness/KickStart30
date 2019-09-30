@@ -3,10 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:timePickerDialogTheme">@style/Time.Theme</item>
     </style>
-
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
-
+    <style name="Time.Theme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#041D5D</item>
+        <item name="android:textColorPrimary">#041D5D</item>
+    </style>
 </resources>

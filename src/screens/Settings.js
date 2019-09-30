@@ -107,6 +107,18 @@ class Settings extends Component<Props> {
       const date = new Date()
       this.setState({ chosenAndroidTime: `${h}:${m}` }, ()=> this.submitTime(new Date(date.setHours(h,m,)),
         this.state.currentPillar));
+      } else if (action === TimePickerAndroid.dismissedAction){
+        if (this.state.currentPillar === 'exercise') {
+          this.setState({exerciseReminder: false});
+        } else if (this.state.currentPillar === 'mind') {
+          this.setState({mindfulnessReminder: false});
+        } else if (this.state.currentPillar === 'sleep') {
+          this.setState({sleepReminder: false});
+        } else if (this.state.currentPillar === 'social') {
+          this.setState({socialReminder: false});
+        } else if (this.state.currentPillar === 'nutrition') {
+          this.setState({nutritionReminder: false});
+        }
       }
     } catch ({code, message}) {
       console.warn('Cannot open time picker', message);
@@ -176,7 +188,7 @@ class Settings extends Component<Props> {
               mindfulnessReminder: !this.state.mindfulnessReminder,
               showTimer: true,
               currentPillar: pillar,
-            });
+            }, ()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
       } else if (pillar === 'sleep') {
         this.state.sleepReminder
           ? this.setState({
@@ -186,7 +198,7 @@ class Settings extends Component<Props> {
               sleepReminder: !this.state.sleepReminder,
               showTimer: true,
               currentPillar: pillar,
-            }, );
+            }, ()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
       } else if (pillar === 'social') {
         this.state.socialReminder
           ? this.setState({
@@ -196,7 +208,7 @@ class Settings extends Component<Props> {
               socialReminder: !this.state.socialReminder,
               showTimer: true,
               currentPillar: pillar,
-            });
+            },()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
       } else if (pillar === 'nutrition') {
         this.state.nutritionReminder
           ? this.setState({
@@ -206,7 +218,7 @@ class Settings extends Component<Props> {
               nutritionReminder: !this.state.nutritionReminder,
               showTimer: true,
               currentPillar: pillar,
-            });
+            },()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
       }
       // this.setState({
       //     showTimer: true,
