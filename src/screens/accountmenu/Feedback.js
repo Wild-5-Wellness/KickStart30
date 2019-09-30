@@ -116,7 +116,7 @@ const Feedback = () => {
                 </Picker>
               </View>
             ) : null}
-            <View style={{flex: 1, alignItems: "center", marginTop: 5}}>
+            <View style={{flex: 1, alignItems: Platform.OS === 'ios' ? "center" : null, marginTop: 5}}>
               <Text
                 style={{
                   alignSelf: "center",
@@ -129,12 +129,14 @@ const Feedback = () => {
               </Text>
               <TextInput
                 style={{
-                  height: "60%",
+                  textAlignVertical:'top',
+                  height:'60%',
                   width: "90%",
                   borderWidth: 1,
                   borderColor: "black",
                   fontSize: 22,
                   padding: 10,
+                  alignSelf:'center'
                 }}
                 multiline={true}
                 numberOfLines={8}
@@ -153,6 +155,7 @@ const Feedback = () => {
                   justifyContent: "center",
                   marginTop: 10,
                   borderRadius: 9,
+                  alignSelf:'center'
                 }}
                 onPress={() => onSubmit()}
               >

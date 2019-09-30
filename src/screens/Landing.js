@@ -5,7 +5,6 @@ import {format} from "date-fns";
 import {spliceString} from "../utils/dateSplice";
 import {scopeRefByUserHero} from "../utils/heroRef";
 import LandingView from "../components/common/LandingView";
-import HeroSurvey from "../components/common/InitialHero";
 import {withAuthProvider} from '../context/authcontext'
 
 function Landing(props) {
@@ -90,16 +89,12 @@ function Landing(props) {
     Alert.alert(notif.title, notif.message);
   };
 
-  return !hero || hero2 ? (
+  return (
     !loading ? (
-      <LandingView hero={hero} hero2={hero2} />
+      <LandingView hero={hero} hero2={hero2} day={day()} />
     ) : (
       <LoadingIndicator />
     )
-  ) : !loading ? (
-    <HeroSurvey hero={hero} hero2={hero2} daysTotal={daysCompleted()} day={day()}/>
-  )  :  (
-    <LoadingIndicator />
   )
 }
 
