@@ -92,9 +92,9 @@ export function Navigation(props) {
 
   return (
     <View style={styles.container}>
-      { !props.hero && !props.hero2 ?
+      { !props.hero && !props.hero2 || props.hero && props.hero2 ?
       <>
-      <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey to START</Text>
+      {!props.hero && !props.hero2 ?<Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>}
       <TouchableOpacity
       style={[styles.touchableHERO3]}
       onPress={() => Actions.herointro()}

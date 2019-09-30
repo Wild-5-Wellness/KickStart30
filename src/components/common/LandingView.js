@@ -25,9 +25,6 @@ export default LandingView = (props) => {
           <View style={{ flex: 1 }}>
             <Navigation hero={props.hero} hero2={props.hero2} />
           </View>
-          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top: 115}}>
-           <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day +1} of the KickStart30</Text>
-          </View>  : null}
           <Image
             source={wild5title}
             style={{
@@ -39,8 +36,8 @@ export default LandingView = (props) => {
             }}
           />
           </ScrollView> 
-          : 
-          <>
+          : props.hero && props.hero2 ?
+          <ScrollView bounces={false}>
           <Image
             source={KS30title}
             style={{
@@ -60,13 +57,42 @@ export default LandingView = (props) => {
             source={wild5title}
             style={{
               width: "80%",
-              marginTop: "20%",
+              marginTop: "15%",
               resizeMode: "contain",
               marginBottom: "2%",
               alignSelf: "center"
             }}
           />
-           </>}
+          </ScrollView> 
+           :
+             <>
+             <Image
+               source={KS30title}
+               style={{
+                 width: "80%",
+                 resizeMode: "contain",
+                 marginTop: "3%",
+                 alignSelf: "center"
+               }}
+             />
+             <View style={{ flex: 1 }}>
+               <Navigation hero={props.hero} hero2={props.hero2} />
+             </View>
+             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'20%'}}>
+              <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day +1} of the KickStart30</Text>
+             </View>  : null}
+             <Image
+               source={wild5title}
+               style={{
+                 width: "80%",
+                 marginTop: "20%",
+                 resizeMode: "contain",
+                 marginBottom: "2%",
+                 alignSelf: "center"
+               }}
+             />
+              </>
+          }
       </SafeAreaView>
       <Navbar homedisable />
     </View>
