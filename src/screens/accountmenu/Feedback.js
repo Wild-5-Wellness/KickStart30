@@ -130,6 +130,7 @@ const Feedback = () => {
               <TextInput
                 style={{
                   textAlignVertical:'top',
+                  height:'60%',
                   width: "90%",
                   borderWidth: 1,
                   borderColor: "black",
