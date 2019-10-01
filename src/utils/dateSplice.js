@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export function spliceString (str, str2){
     const year = Number(str.slice(0,4))
       const month = Number(str.slice(5,7))
@@ -9,10 +11,10 @@ export function spliceString (str, str2){
       const day2 = Number(str2.slice(8,10))
       const hour2 = Number(str2.slice(11,13))
       const minute2 = Number(str2.slice(14,16))
-  
+      const initialDate = moment([year,month, day])
 
-         if([7,14,21,28,30].includes(Math.abs(day2 - day))){
+         if([7,14,21,28,30].includes(initialDate.from([year2, month2, day2]))){
           return true
-        } else return Math.abs(day2 - day)
+        } else return initialDate.from([year2, month2, day2])
        
   }
