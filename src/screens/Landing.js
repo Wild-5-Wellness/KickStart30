@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {ActivityIndicator, View} from "react-native";
 import firebase from "react-native-firebase";
+import moment from 'moment'
 import {format} from "date-fns";
 import {spliceString} from "../utils/dateSplice";
 import {scopeRefByUserHero} from "../utils/heroRef";
@@ -14,18 +15,23 @@ function Landing(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(props)
     checkHeroData();
   }, []);
 
-  const daysCompleted = () => {
-    const date = format(new Date(), "YYYY-MM-DD");
-    return Math.abs(Number(initialSurveydate.slice(8,10)) - Number(date.slice(8,10))) / 1000 * 30
-  }
-
   const day = () => {
     const date = format(new Date(), "YYYY-MM-DD");
-    return Math.abs(Number(initialSurveydate.slice(8,10)) - Number(date.slice(8,10)))
+    const year = Number(date.slice(0,4))
+      const month = Number(date.slice(5,7))
+      const day = Number(date.slice(8,10))
+      const year2 = Number(initialSurveydate.slice(0,4))
+      const month2 = Number(initialSurveydate.slice(5,7))
+      const day2 = Number(initialSurveydate.slice(8,10))
+      const todaysDate  = moment([year,month, day])
+      const initialDate = moment([year2, month2, day2])
+      const returnedDays = day2 < day ? todaysDate.diff(initialDate, 'days') : initialDate.diff(todaysDate, 'days')
+
+     
+    return returnedDays
   }
 
   useEffect(() => {
@@ -42,6 +48,7 @@ function Landing(props) {
         if (snap.val() !== null && initialSurveydate !== "") {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
+          console.log(dateDiff)
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);
@@ -72,7 +79,6 @@ function Landing(props) {
 
   checkHeroData = () => {
     const heroRef = scopeRefByUserHero("HERO");
-    console.log(heroRef);
     firebase
       .database()
       .ref(heroRef)
