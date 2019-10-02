@@ -29,7 +29,6 @@ export default class AuthProvider extends Component {
     });
 
     NetInfo.fetch().then(state => {
-      console.log("Connection type", state.type);
       this.setState({isConnected: true})
     })
 
