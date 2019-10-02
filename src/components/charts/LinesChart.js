@@ -14,7 +14,9 @@ useEffect(()=> {
     },[])
 
 useEffect(()=>{
-console.log(props.heroData)
+    console.log(typeof props.heroData)
+    console.log(props.heroData !== undefined ? Object.keys(props.heroData) : props.hero)
+ 
 }, [props.heroData])
   
         // const data = props.data
