@@ -14,9 +14,13 @@ export function spliceString (str, str2){
       const initialDate = moment([year,month, day])
       const todaysDate = moment([year2, month2, day2])
 
-         if([7,14,21,28,30].includes(initialDate.diff(todaysDate,'days') + 1)){
+      if(day < day2){
+         if([7,14,21,28,30].includes(todaysDate.diff(initialDate,'days') + 1)){
          return true
-           
         } else return todaysDate.diff(initialDate,'days') + 1
-       
+      } else if(day > day2){
+        if([7,14,21,28,30].includes(todaysDate.diff(initialDate,'days') + 1)){
+          return true
+         } else return initialDate.diff(todaysDate,'days') + 1
+      }
   }

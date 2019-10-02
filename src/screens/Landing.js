@@ -28,7 +28,8 @@ function Landing(props) {
       const day2 = Number(initialSurveydate.slice(8,10))
       const todaysDate  = moment([year,month, day])
       const initialDate = moment([year2, month2, day2])
-      const returnedDays = todaysDate.diff(initialDate, 'days')
+      const returnedDays = day2 < day ? todaysDate.diff(initialDate, 'days') : initialDate.diff(todaysDate, 'days')
+
      
     return returnedDays
   }
