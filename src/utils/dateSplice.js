@@ -12,9 +12,11 @@ export function spliceString (str, str2){
       const hour2 = Number(str2.slice(11,13))
       const minute2 = Number(str2.slice(14,16))
       const initialDate = moment([year,month, day])
+      const todaysDate = moment([year2, month2, day2])
 
-         if([7,14,21,28,30].includes(initialDate.from([year2, month2, day2]))){
-          return true
-        } else return initialDate.from([year2, month2, day2])
+         if([7,14,21,28,30].includes(initialDate.diff(todaysDate,'days') + 1)){
+         return true
+           
+        } else return todaysDate.diff(initialDate,'days') + 1
        
   }

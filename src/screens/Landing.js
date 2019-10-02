@@ -15,7 +15,6 @@ function Landing(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(props)
     checkHeroData();
   }, []);
 
@@ -27,9 +26,11 @@ function Landing(props) {
       const year2 = Number(initialSurveydate.slice(0,4))
       const month2 = Number(initialSurveydate.slice(5,7))
       const day2 = Number(initialSurveydate.slice(8,10))
-      const initialDate = moment([year,month, day])
-      const returnedDays = initialDate.from([year2, month2, day2]).slice(0,1)
-    return console.log(Number(returnedDays))
+      const todaysDate  = moment([year,month, day])
+      const initialDate = moment([year2, month2, day2])
+      const returnedDays = todaysDate.diff(initialDate, 'days')
+     
+    return returnedDays
   }
 
   useEffect(() => {
@@ -46,7 +47,7 @@ function Landing(props) {
         if (snap.val() !== null && initialSurveydate !== "") {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
-          console.log(typeof(dateDiff))
+          console.log(dateDiff)
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);
