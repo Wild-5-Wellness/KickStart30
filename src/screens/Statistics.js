@@ -9,6 +9,7 @@ import {Sleep} from './stats-at-a-glance/Sleep';
 import {Nutrition} from './stats-at-a-glance/Nutrition';
 import {Layout} from '../components/common/Layout';
 import {Hero} from './stats-at-a-glance/HERO'
+import LinesChart from '../components/charts/LinesChart'
 
 export function Statistics(props) {
   const [loading, setLoading] = React.useState(false);
@@ -49,6 +50,7 @@ export function Statistics(props) {
       {loading ? (
         <ActivityIndicator size="large" />
       ) : (
+        <>
         <View style={{marginBottom: 10}}>
           <View style={styles.tiles}>
             <Exercise data={exerciseData} />
@@ -63,6 +65,8 @@ export function Statistics(props) {
             <Hero data={heroDailyData}/>  
           </View>
         </View>
+        <LinesChart />
+        </>
       )}
     </Layout>
   );

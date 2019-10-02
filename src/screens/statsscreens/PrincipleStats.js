@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Dimensions, ScrollView} from 'react-native';
 import {Text} from 'native-base';
-import BarGraph from '../../components/charts/BarGraph';
 import {withAuthProvider} from '../../context/authcontext';
 import {EXERCISE_INTENSITY} from '../trackingscreens/ExerciseTracking';
 

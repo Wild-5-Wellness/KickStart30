@@ -1,40 +1,49 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts'
-import { View } from 'react-native'
+import {withAuthProvider}from '../../context/authcontext'
+import { View, Text } from 'react-native'
 
 //https://github.com/JesperLekland/react-native-svg-charts
 
-class LinesChart extends React.PureComponent {
+const LinesChart = (props) => {
 
-    render() {
+    const [heroData, setHeroData] = useState([])
 
-        const data = this.props.data
+useEffect(()=> {
+    props.getHeroData()
+    },[])
+
+useEffect(()=>{
+console.log(props.heroData)
+}, [props.heroData])
+  
+        // const data = props.data
 
         const contentInset = { top: 20, bottom: 20 }
 
         return (
             <View style={{ height: 200, flexDirection: 'row' }}>
-                <YAxis
-                    data={ data }
+            <Text>chart</Text>
+                {/* <YAxis
+                    data={ null }
                     contentInset={ contentInset }
                     svg={{
                         fill: 'grey',
                         fontSize: 10,
                     }}
                     numberOfTicks={ 10 }
-                    formatLabel={ value => `${value}` }
-                />
-                <LineChart
+                    // formatLabel={ value => `${value}` }
+                /> */}
+                {/* <LineChart
                     style={{ flex: 1, marginLeft: 16 }}
-                    data={ data }
+                    data={ null }
                     svg={{ stroke: 'rgb(134, 65, 244)' }}
                     contentInset={ contentInset }
                 >
                     <Grid/>
-                </LineChart>
+                </LineChart> */}
             </View>
         )
     }
 
-}
-export default LinesChart;
+export default withAuthProvider(LinesChart);
