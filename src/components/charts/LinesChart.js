@@ -2,24 +2,43 @@ import React, {useEffect, useState} from 'react'
 import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts'
 import {withAuthProvider}from '../../context/authcontext'
 import { View, Text } from 'react-native'
+import firebase from 'react-native-firebase'
 
 //https://github.com/JesperLekland/react-native-svg-charts
 
 const LinesChart = (props) => {
 
     const [heroData, setHeroData] = useState([])
+    const [heroDataTotal, setHeroDataTotal] = useState(0)
 
 useEffect(()=> {
     props.getHeroData()
     },[])
 
 useEffect(()=>{
-    console.log(typeof props.heroData)
-    console.log(props.heroData !== undefined ? Object.keys(props.heroData) : props.hero)
- 
+    const user = firebase.auth().currentUser;
+    const [scopedUser] = user.email.split(".") || undefined;
+    let mappedHero;
+    props.heroData !== undefined ? mappedHero = Object.values(props.heroData)
+    .reduce((acc,{optimismValue, resilienceValue, enthusiasmValue, happyValue, mentalWellValue}) => {
+        acc.push(Number(optimismValue), Number(resilienceValue),Number(enthusiasmValue), Number(happyValue), Number(mentalWellValue))
+        return setHeroData([...heroData,acc]);
+    }, [])  
+    : props.heroData
 }, [props.heroData])
+
+useEffect(()=> {
+    console.log(...heroData)
+    console.log(heroData.map(num => typeof num))
+    console.log(heroData.map(num => console.log(typeof num)))
+const totalScore = heroData.reduce((tot, val)=> {
+tot + val;
+return tot;
+    
+},0)
+setHeroDataTotal(totalScore)
+},[heroData])
   
-        // const data = props.data
 
         const contentInset = { top: 20, bottom: 20 }
 
