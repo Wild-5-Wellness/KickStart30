@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
-import {ActivityIndicator, View} from "react-native";
+import React, { useState, useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 import firebase from "react-native-firebase";
-import moment from 'moment'
-import {format} from "date-fns";
-import {spliceString} from "../utils/dateSplice";
-import {scopeRefByUserHero} from "../utils/heroRef";
+import moment from "moment";
+import { format } from "date-fns";
+import { spliceString } from "../utils/dateSplice";
+import { scopeRefByUserHero } from "../utils/heroRef";
 import LandingView from "../components/common/LandingView";
-import {withAuthProvider} from '../context/authcontext'
+import { withAuthProvider } from "../context/authcontext";
 
 function Landing(props) {
   const [hero, setHero] = useState(false);
@@ -20,19 +20,19 @@ function Landing(props) {
 
   const day = () => {
     const date = format(new Date(), "YYYY-MM-DD");
-    const year = Number(date.slice(0,4))
-      const month = Number(date.slice(5,7))
-      const day = Number(date.slice(8,10))
-      const year2 = Number(initialSurveydate.slice(0,4))
-      const month2 = Number(initialSurveydate.slice(5,7))
-      const day2 = Number(initialSurveydate.slice(8,10))
-      const todaysDate  = moment([year,month, day])
-      const initialDate = moment([year2, month2, day2])
-      const returnedDays = day2 < day ? todaysDate.diff(initialDate, 'days') : initialDate.diff(todaysDate, 'days')
+    // const year = Number(date.slice(0,4))
+    //   const month = Number(date.slice(5,7))
+    //   const day = Number(date.slice(8,10))
+    // const year2 = Number(initialSurveydate.slice(0,4))
+    // const month2 = Number(initialSurveydate.slice(5,7))
+    // const day2 = Number(initialSurveydate.slice(8,10))
+    const sliceInitialDate = initialSurveydate.slice(0, -6);
+    const todaysDate = moment().startOf("day");
+    const initialDate = moment(sliceInitialDate);
+    const returnedDays = Math.round(todaysDate.diff(initialDate, "days", true));
 
-     
-    return returnedDays
-  }
+    return returnedDays;
+  };
 
   useEffect(() => {
     const date = format(new Date(), "YYYY-MM-DD-HH-mm");
@@ -48,7 +48,7 @@ function Landing(props) {
         if (snap.val() !== null && initialSurveydate !== "") {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
-          console.log(dateDiff)
+          console.log(dateDiff);
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);
@@ -95,20 +95,18 @@ function Landing(props) {
     Alert.alert(notif.title, notif.message);
   };
 
-  return (
-    !loading ? (
-      <LandingView hero={hero} hero2={hero2} day={day()} />
-    ) : (
-      <LoadingIndicator />
-    )
-  )
+  return !loading ? (
+    <LandingView hero={hero} hero2={hero2} day={day()} />
+  ) : (
+    <LoadingIndicator />
+  );
 }
 
 export default withAuthProvider(Landing);
 
 function LoadingIndicator() {
   return (
-    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <ActivityIndicator size="small" color="#041D5D" />
     </View>
   );

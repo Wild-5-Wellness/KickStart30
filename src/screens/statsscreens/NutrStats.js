@@ -3,7 +3,6 @@ import {View, Dimensions, ScrollView, Button} from 'react-native';
 import {Text, Icon} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import {withAuthProvider} from '../../context/authcontext';
-import BarGraph from '../../components/charts/NutriGraph';
 import {compose} from '../../utils/array';
 import {emptyState} from './EmptyState';
 
