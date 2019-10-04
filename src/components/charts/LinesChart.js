@@ -1,51 +1,56 @@
-import React, {useEffect, useState} from 'react'
-import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts'
-import {withAuthProvider}from '../../context/authcontext'
-import { View, Text } from 'react-native'
-import firebase from 'react-native-firebase'
+import React, { useEffect, useState } from "react";
+import { LineChart, YAxis, XAxis, Grid } from "react-native-svg-charts";
+import { withAuthProvider } from "../../context/authcontext";
+import { View, Text } from "react-native";
+import firebase from "react-native-firebase";
 
 //https://github.com/JesperLekland/react-native-svg-charts
 
-const LinesChart = (props) => {
+const LinesChart = props => {
+  const [heroData, setHeroData] = useState({});
+  const [heroDataTotal, setHeroDataTotal] = useState(0);
 
-    const [heroData, setHeroData] = useState([])
-    const [heroDataTotal, setHeroDataTotal] = useState(0)
+  useEffect(() => {
+    props.getHeroData();
+  }, []);
 
-useEffect(()=> {
-    props.getHeroData()
-    },[])
-
-useEffect(()=>{
+  useEffect(() => {
     const user = firebase.auth().currentUser;
     const [scopedUser] = user.email.split(".") || undefined;
     let mappedHero;
-    props.heroData !== undefined ? mappedHero = Object.values(props.heroData)
-    .reduce((acc,{optimismValue, resilienceValue, enthusiasmValue, happyValue, mentalWellValue}) => {
-        acc.push(Number(optimismValue), Number(resilienceValue),Number(enthusiasmValue), Number(happyValue), Number(mentalWellValue))
-        return setHeroData([...heroData,acc]);
-    }, [])  
-    : props.heroData
-}, [props.heroData])
 
-useEffect(()=> {
-    console.log(...heroData)
-    console.log(heroData.map(num => typeof num))
-    console.log(heroData.map(num => console.log(typeof num)))
-const totalScore = heroData.reduce((tot, val)=> {
-tot + val;
-return tot;
-    
-},0)
-setHeroDataTotal(totalScore)
+    if (props.heroData) {
+      const totals = Object.keys(props.heroData).reduce(
+        (totalsByDate, date) => {
+          return {
+            ...totalsByDate,
+            [date]: Object.values(props.heroData[date]).reduce(
+              (total,
+              number) => total + number,
+              0
+            )
+          };
+        },
+        {}
+      );
+
+      // {[date]: [total]}
+
+      return setHeroData(totals);
+    }
+    console.log(heroData)
+  }, [props.heroData]);
+
+useEffect(()=>{
+    console.log(heroData)
 },[heroData])
-  
 
-        const contentInset = { top: 20, bottom: 20 }
+  const contentInset = { top: 20, bottom: 20 };
 
-        return (
-            <View style={{ height: 200, flexDirection: 'row' }}>
-            <Text>chart</Text>
-                {/* <YAxis
+  return (
+    <View style={{ height: 200, flexDirection: "row" }}>
+      <Text>chart</Text>
+      {/* <YAxis
                     data={ null }
                     contentInset={ contentInset }
                     svg={{
@@ -55,7 +60,7 @@ setHeroDataTotal(totalScore)
                     numberOfTicks={ 10 }
                     // formatLabel={ value => `${value}` }
                 /> */}
-                {/* <LineChart
+      {/* <LineChart
                     style={{ flex: 1, marginLeft: 16 }}
                     data={ null }
                     svg={{ stroke: 'rgb(134, 65, 244)' }}
@@ -63,8 +68,8 @@ setHeroDataTotal(totalScore)
                 >
                     <Grid/>
                 </LineChart> */}
-            </View>
-        )
-    }
+    </View>
+  );
+};
 
 export default withAuthProvider(LinesChart);
