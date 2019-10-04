@@ -45,29 +45,29 @@ export default class AuthProvider extends Component {
     })
   }
 
-  getUser = () => {
-    var user = firebase.auth().currentUser;
-    if (user) {
-      var res = user.email.split('.');
-      var userEm = res[0].toString();
-      this.setState({
-        user: userEm,
-      });
-    } else {
-      console.log('noperz');
-    }
-    var today = new Date();
-    var date =
-      today.getFullYear() +
-      '-' +
-      (today.getMonth() + 1) +
-      '-' +
-      today.getDate();
-    var dateTime = date;
-    this.setState({
-      date: dateTime,
-    });
-  };
+  // getUser = () => {
+  //   var user = firebase.auth().currentUser;
+  //   if (user) {
+  //     var res = user.email.split('.');
+  //     var userEm = res[0].toString();
+  //     this.setState({
+  //       user: userEm,
+  //     });
+  //   } else {
+  //     console.log('noperz');
+  //   }
+  //   var today = new Date();
+  //   var date =
+  //     today.getFullYear() +
+  //     '-' +
+  //     (today.getMonth() + 1) +
+  //     '-' +
+  //     today.getDate();
+  //   var dateTime = date;
+  //   this.setState({
+  //     date: dateTime,
+  //   });
+  // };
 
   getTrackingData = () => {
     const ref = scopeRefByUserAndDate('Surveys');
@@ -87,7 +87,7 @@ export default class AuthProvider extends Component {
 
   getHeroData = () => {
     var database = firebase.database();
-    var ref = database.ref(`HERO/${this.state.user}`);
+    var ref = database.ref(`HERO/${getScopedUser()}`);
     ref.on('value', this.gotHeroData, this.errData);
   };
 
