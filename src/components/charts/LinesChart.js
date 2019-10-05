@@ -7,7 +7,8 @@ import firebase from "react-native-firebase";
 //https://github.com/JesperLekland/react-native-svg-charts
 
 const LinesChart = props => {
-  const [heroData, setHeroData] = useState({});
+  const [heroData, setHeroData] = useState([]);
+  const [heroDates, setHeroDates] =useState()
   const [heroDataTotal, setHeroDataTotal] = useState(0);
 
   useEffect(() => {
@@ -17,7 +18,6 @@ const LinesChart = props => {
   useEffect(() => {
     const user = firebase.auth().currentUser;
     const [scopedUser] = user.email.split(".") || undefined;
-    let mappedHero;
 
     if (props.heroData) {
       const totals = Object.keys(props.heroData).reduce(
@@ -33,41 +33,49 @@ const LinesChart = props => {
         },
         {}
       );
-
-      // {[date]: [total]}
-
-      return setHeroData(totals);
+        const totalsArrDates = []
+        for(num in totals){
+          totalsArrDates.push(num)
+        }
+        console.log(typeof totalsArrDates)
+        // setHeroData(totalsArr)
+        setHeroDates([...totalsArrDates])
     }
-    console.log(heroData)
   }, [props.heroData]);
 
 useEffect(()=>{
     console.log(heroData)
 },[heroData])
 
+useEffect(()=>{
+  debugger;
+  console.log(typeof heroDates)
+  console.log(heroDates)
+}, [heroDates])
+
   const contentInset = { top: 20, bottom: 20 };
 
   return (
     <View style={{ height: 200, flexDirection: "row" }}>
       <Text>chart</Text>
-      {/* <YAxis
-                    data={ null }
+      <YAxis
+                    data={ [9,8,3,4,5] }
                     contentInset={ contentInset }
                     svg={{
                         fill: 'grey',
                         fontSize: 10,
                     }}
                     numberOfTicks={ 10 }
-                    // formatLabel={ value => `${value}` }
-                /> */}
-      {/* <LineChart
+                    formatLabel={ value => `${value}` }
+                />
+      <LineChart
                     style={{ flex: 1, marginLeft: 16 }}
-                    data={ null }
+                    data={ [3,4,5,6,7,7] }
                     svg={{ stroke: 'rgb(134, 65, 244)' }}
                     contentInset={ contentInset }
                 >
                     <Grid/>
-                </LineChart> */}
+                </LineChart>
     </View>
   );
 };

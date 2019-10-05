@@ -48,6 +48,7 @@ function Landing(props) {
         if (snap.val() !== null && initialSurveydate !== "") {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
+          console.log(data.length)
           console.log(dateDiff);
           if (dateDiff === true) {
             setLoading(false);
