@@ -28,7 +28,6 @@ class ProgressChartDisp extends Component {
   }
 
   render(props) {
-    console.log(this.props);
     return (
       <View>
         <Text>Today's chart</Text>

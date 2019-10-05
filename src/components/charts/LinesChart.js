@@ -38,7 +38,8 @@ const LinesChart = props => {
           totalsArrDates.push(num)
         }
   
-        // console.log(typeof totalsArrDates)
+        console.log(totals)
+        console.log(totalsArrDates)
         setHeroData(Object.values(totals))
         setHeroDates([...totalsArrDates])
         // debugger;

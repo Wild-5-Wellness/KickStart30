@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
 import {withAuthProvider} from '../context/authcontext';
 import {Exercise} from './stats-at-a-glance/Exercise';
 import {Social} from './stats-at-a-glance/Social';
@@ -23,7 +23,7 @@ export function Statistics(props) {
     if (Boolean(props.princData)) {
       setLoading(false);
     }
-    console.log(heroDailyData)
+    // console.log(heroDailyData)
   }, [props.princData]);
 
   const {
@@ -65,7 +65,10 @@ export function Statistics(props) {
             <Hero data={heroDailyData}/>  
           </View>
         </View>
+        <View>
+          <View style={{alignSelf:'center'}}><Text style={{fontSize: 20, color: '#041D5D'}}>Hero Survey Scores</Text></View>
         <LinesChart style={{paddingBottom: 30}}/>
+        </View>
         </>
       )}
     </Layout>

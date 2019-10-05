@@ -54,7 +54,6 @@ class PushNotificationsIOS {
     };
 
     if (pillar === "exercise") {
-      console.log(date)
       Platform.OS === 'android' ?  config.id = '0' : config.userInfo = {id: '0'}
       config.repeatType = "day"
       config.date = new Date(date)
@@ -91,11 +90,11 @@ class PushNotificationsIOS {
       config.message = "Fill out your HERO Wellness Survey"
     }
     PushNotification.localNotificationSchedule(config);
-    console.log(config)
+    // console.log(config)
   };
 
   cancel = id => {
-    console.log(id)
+    // console.log(id)
     PushNotification.cancelLocalNotifications({id: id})
   }
 

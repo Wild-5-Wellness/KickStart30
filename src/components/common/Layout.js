@@ -12,7 +12,9 @@ export function Layout(props) {
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
       </SafeAreaView>
+      <View style={{justifyContent:'flex-end'}}>
       <Navbar statsdisable/>
+      </View>
     </View>
   );
 }
@@ -23,13 +25,12 @@ Layout.propTypes = {
 
 const styles = StyleSheet.create({
   flex: {
-    flex: 1,
-  },
+    flex: 1
+    },
   scrollView: {
     flex: 1,
-    padding: 10,
-    paddingBottom: 30
-  },
+    padding: 10
+    },
   title: {
     color: Platform.OS === 'android' ? '#000' : null,
     fontSize: 36,
@@ -38,5 +39,6 @@ const styles = StyleSheet.create({
   },
   mainArea: {
     paddingTop: '10%',
+    paddingBottom: 60
   },
 });

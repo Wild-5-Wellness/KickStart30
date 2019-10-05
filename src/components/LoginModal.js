@@ -35,7 +35,7 @@ const LoginModal = props => {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-          console.log("logged in");
+          null
         })
         .catch(err => {
           this.onLoginFail(err);

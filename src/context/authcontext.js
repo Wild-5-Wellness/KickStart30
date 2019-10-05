@@ -35,7 +35,7 @@ export default class AuthProvider extends Component {
   }
 
   componentWillUnmount() {
-    console.log("unmounting")
+    // console.log("unmounting")
     this.unsubscribe();
   }
 
@@ -132,7 +132,7 @@ export default class AuthProvider extends Component {
         });
       }
     );
-    console.log(this.state.heroData);
+    // console.log(this.state.heroData);
   };
 
   errData = err => {

@@ -5,7 +5,6 @@ import { Defs, LinearGradient, Stop } from "react-native-svg";
 class SocialGraph extends React.PureComponent {
 
     render() {
-        console.log(this.props)
         const data = [
             {
                 value: this.props.calledfriend,
