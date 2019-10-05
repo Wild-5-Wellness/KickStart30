@@ -65,7 +65,7 @@ export function Statistics(props) {
             <Hero data={heroDailyData}/>  
           </View>
         </View>
-        <LinesChart />
+        <LinesChart style={{paddingBottom: 30}}/>
         </>
       )}
     </Layout>

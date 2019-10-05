@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { LineChart, YAxis, XAxis, Grid } from "react-native-svg-charts";
+import { LineChart } from "react-native-chart-kit";
 import { withAuthProvider } from "../../context/authcontext";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import firebase from "react-native-firebase";
 
 //https://github.com/JesperLekland/react-native-svg-charts
 
 const LinesChart = props => {
   const [heroData, setHeroData] = useState([]);
-  const [heroDates, setHeroDates] =useState()
+  const [heroDates, setHeroDates] =useState([])
   const [heroDataTotal, setHeroDataTotal] = useState(0);
 
   useEffect(() => {
@@ -37,9 +37,11 @@ const LinesChart = props => {
         for(num in totals){
           totalsArrDates.push(num)
         }
-        console.log(typeof totalsArrDates)
-        // setHeroData(totalsArr)
+  
+        // console.log(typeof totalsArrDates)
+        setHeroData(Object.values(totals))
         setHeroDates([...totalsArrDates])
+        // debugger;
     }
   }, [props.heroData]);
 
@@ -48,34 +50,42 @@ useEffect(()=>{
 },[heroData])
 
 useEffect(()=>{
-  debugger;
   console.log(typeof heroDates)
   console.log(heroDates)
+  console.log(heroDates.length)
 }, [heroDates])
 
   const contentInset = { top: 20, bottom: 20 };
 
   return (
-    <View style={{ height: 200, flexDirection: "row" }}>
-      <Text>chart</Text>
-      <YAxis
-                    data={ [9,8,3,4,5] }
-                    contentInset={ contentInset }
-                    svg={{
-                        fill: 'grey',
-                        fontSize: 10,
-                    }}
-                    numberOfTicks={ 10 }
-                    formatLabel={ value => `${value}` }
-                />
-      <LineChart
-                    style={{ flex: 1, marginLeft: 16 }}
-                    data={ [3,4,5,6,7,7] }
-                    svg={{ stroke: 'rgb(134, 65, 244)' }}
-                    contentInset={ contentInset }
-                >
-                    <Grid/>
-                </LineChart>
+    <View style={{flex: 1, height: 200, alignItems:'center' }}>
+      {heroDates.length !== 0 && heroData.length !== 0 ?
+                      <LineChart
+                      data={{
+                        labels: heroDates.sort(),
+                        datasets: [{
+                          data: heroData
+                        }]
+                      }}
+                      width={Dimensions.get('window').width - 20} // from react-native
+                      height={220}
+                      chartConfig={{
+                        backgroundColor: '#113FB5',
+                        backgroundGradientFrom: '#041D5D',
+                        backgroundGradientTo: '#1A4CCE',
+                        decimalPlaces: 2, // optional, defaults to 2dp
+                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        style: {
+                          borderRadius: 16
+                        }
+                      }}
+                      bezier
+                      style={{
+                        marginVertical: 8,
+                        borderRadius: 16
+                      }}
+                    /> : null}
+               
     </View>
   );
 };

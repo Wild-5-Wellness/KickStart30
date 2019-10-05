@@ -6,8 +6,8 @@ import Navbar from '../Navbar';
 export function Layout(props) {
   return (
     <View style={styles.flex}>
-      <SafeAreaView style={styles.flex}>
-        <ScrollView style={styles.scrollView}>
+      <SafeAreaView style={{flex: 1}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} style={styles.scrollView}>
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
+    flex: 1,
     padding: 10,
+    paddingBottom: 30
   },
   title: {
     color: Platform.OS === 'android' ? '#000' : null,
