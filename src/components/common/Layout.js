@@ -6,13 +6,15 @@ import Navbar from '../Navbar';
 export function Layout(props) {
   return (
     <View style={styles.flex}>
-      <SafeAreaView style={styles.flex}>
-        <ScrollView style={styles.scrollView}>
+      <SafeAreaView style={{flex: 1}}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} style={styles.scrollView}>
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
       </SafeAreaView>
+      <View style={{justifyContent:'flex-end'}}>
       <Navbar statsdisable/>
+      </View>
     </View>
   );
 }
@@ -23,11 +25,12 @@ Layout.propTypes = {
 
 const styles = StyleSheet.create({
   flex: {
-    flex: 1,
-  },
+    flex: 1
+    },
   scrollView: {
-    padding: 10,
-  },
+    flex: 1,
+    padding: 10
+    },
   title: {
     color: Platform.OS === 'android' ? '#000' : null,
     fontSize: 36,
@@ -36,5 +39,6 @@ const styles = StyleSheet.create({
   },
   mainArea: {
     paddingTop: '10%',
+    paddingBottom: 60
   },
 });
