@@ -7,7 +7,6 @@ import Navbar from "../Navbar"
 
 
 export default LandingView = (props) => {
-  console.log(props.daysTotal)
     return (
         <View style={{ flex: 1, backgroundColor:'#fff' }}>
       <SafeAreaView style={{ flex: 1 }}>
