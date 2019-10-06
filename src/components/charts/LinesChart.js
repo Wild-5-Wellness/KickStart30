@@ -18,9 +18,10 @@ const LinesChart = props => {
   useEffect(() => {
     const user = firebase.auth().currentUser;
     const [scopedUser] = user.email.split(".") || undefined;
-
+    console.log(props.heroData)
     if (props.heroData) {
-      const totals = Object.keys(props.heroData).reduce(
+      const sortedDates = Object.keys(props.heroData).sort()
+      const totals = sortedDates.reduce(
         (totalsByDate, date) => {
           return {
             ...totalsByDate,
