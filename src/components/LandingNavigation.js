@@ -69,7 +69,7 @@ export function Navigation(props) {
       <TouchableOpacity
         activeOpacity={1}
         key={index}
-        style={styles.touchable}
+        style={!props.hero ? styles.touchableHERO : styles.touchable}
         onPress={!props.hero ? null : item.action}
       >
         <LinearGradient
@@ -158,11 +158,10 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   touchableHERO: {
-    justifyContent: "center",
-    height: 300,
+    opacity: 0.50,
     backgroundColor: "transparent",
     marginBottom: 10,
-    width: width,
+    width: (1 / 2) * width - 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -189,9 +188,6 @@ const styles = StyleSheet.create({
   icon: { color: "white", fontSize: 60 },
   title: { color: "white", fontSize: 18 },
   titleHERO: { color: "white", fontSize: 28, textAlign: "center" },
-  touchableHERO: {
-    alignSelf: "center"
-  },
   titleHEROMain: {
     color: "#041D5D",
     fontSize: 24,
