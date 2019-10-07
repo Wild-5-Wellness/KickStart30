@@ -29,9 +29,9 @@ function Landing(props) {
     const sliceInitialDate = initialSurveydate.slice(0, -6);
     const todaysDate = moment().startOf("day");
     const initialDate = moment(sliceInitialDate);
-    const returnedDays = Math.round(todaysDate.diff(initialDate, "days", true));
-
-    return returnedDays;
+    const returnedDays = todaysDate.diff(initialDate, "days");
+    // console.log(returnedDays)
+    return returnedDays +1;
   };
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function Landing(props) {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
           // console.log(data.length)
-          // console.log(dateDiff);
+          console.log(dateDiff);
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);

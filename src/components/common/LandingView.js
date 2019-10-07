@@ -49,14 +49,14 @@ export default LandingView = (props) => {
           <View style={{ flex: 1 }}>
             <Navigation hero={props.hero} hero2={props.hero2} />
           </View>
-          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'22%'}}>
+          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'25%'}}>
            <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day} of the KickStart30</Text>
           </View>  : null}
           <Image
             source={wild5title}
             style={{
               width: "80%",
-              marginTop: "15%",
+              marginTop: "10%",
               resizeMode: "contain",
               marginBottom: "2%",
               alignSelf: "center"
@@ -77,7 +77,7 @@ export default LandingView = (props) => {
              <View style={{ flex: 1 }}>
                <Navigation hero={props.hero} hero2={props.hero2} />
              </View>
-             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'22%'}}>
+             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'25%'}}>
               <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day} of the KickStart30</Text>
              </View>  : null}
              <Image
