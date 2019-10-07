@@ -16,9 +16,9 @@ export function spliceString(str, str2) {
 
   if (
     [7, 14, 21, 28, 30].includes(
-      Math.round(todaysDate.diff(initialDate, "days", true))
+      todaysDate.diff(initialDate, "days", true) +1
     )
   ) {
     return true;
-  } else return Math.round(todaysDate.diff(initialDate, "days", true));
+  } else return todaysDate.diff(initialDate, "days", true) + 1;
 }

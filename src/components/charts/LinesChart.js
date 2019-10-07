@@ -57,12 +57,14 @@ useEffect(()=>{
   console.log(heroDates.length)
 }, [heroDates])
 
-  const contentInset = { top: 20, bottom: 20 };
-
   return (
+    heroDates.length !== 0 && heroData.length !== 0 ?
+     <>
+      <View style={{alignSelf:'center'}}><Text style={{fontSize: 20, color: '#041D5D'}}>Hero Survey Scores</Text></View>
     <View style={{flex: 1, height: 200, alignItems:'center' }}>
-      {heroDates.length !== 0 && heroData.length !== 0 ?
+      
                       <LineChart
+                      // yAxisLabel={[10,20,30,40,50]}
                       data={{
                         labels: heroDates.sort(),
                         datasets: [{
@@ -86,9 +88,11 @@ useEffect(()=>{
                         marginVertical: 8,
                         borderRadius: 16
                       }}
-                    /> : null}
+                    /> 
                
     </View>
+    </>
+    : null
   );
 };
 

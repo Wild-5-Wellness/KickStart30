@@ -69,7 +69,7 @@ export function Navigation(props) {
       <TouchableOpacity
         activeOpacity={1}
         key={index}
-        style={styles.touchable}
+        style={!props.hero ? styles.touchableHERO : styles.touchable}
         onPress={!props.hero ? null : item.action}
       >
         <LinearGradient
@@ -94,7 +94,7 @@ export function Navigation(props) {
     <View style={styles.container}>
       { !props.hero && !props.hero2 || props.hero && props.hero2 ?
       <>
-      {!props.hero && !props.hero2 ?<Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>}
+      {!props.hero && !props.hero2 ?<Text style={styles.heroText}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>}
       <TouchableOpacity
       style={[styles.touchableHERO3]}
       onPress={() => Actions.herointro()}
@@ -158,11 +158,10 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   touchableHERO: {
-    justifyContent: "center",
-    height: 300,
+    opacity: 0.50,
     backgroundColor: "transparent",
     marginBottom: 10,
-    width: width,
+    width: (1 / 2) * width - 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -189,9 +188,6 @@ const styles = StyleSheet.create({
   icon: { color: "white", fontSize: 60 },
   title: { color: "white", fontSize: 18 },
   titleHERO: { color: "white", fontSize: 28, textAlign: "center" },
-  touchableHERO: {
-    alignSelf: "center"
-  },
   titleHEROMain: {
     color: "#041D5D",
     fontSize: 24,
@@ -226,5 +222,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5
+  },
+  heroText: {
+    alignSelf:'center', 
+    color: '#041D5D', 
+    fontWeight:'700', 
+    fontSize:20, 
+    marginBottom:10, 
+    textAlign:'center'
   }
 });

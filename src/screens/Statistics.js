@@ -66,7 +66,6 @@ export function Statistics(props) {
           </View>
         </View>
         <View>
-          <View style={{alignSelf:'center'}}><Text style={{fontSize: 20, color: '#041D5D'}}>Hero Survey Scores</Text></View>
         <LinesChart style={{paddingBottom: 30}}/>
         </View>
         </>
