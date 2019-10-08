@@ -70,7 +70,7 @@ export default Navbar;
 const styles = StyleSheet.create({
   icon:{
     color: "#fff",
-    fontSize: height < 666 && width < 374 ? 18 : 18
+    fontSize: height < 666 && width < 374 ? 18 : 20
   },
   buttons: {
     color: "#fff",
@@ -81,7 +81,7 @@ fontSize: height < 666 && width < 374 ? 7 : 10
 },
 feedback: {
     color: "#fff",
-  fontSize: height < 666 && width < 374 ? 6 : 10
+  fontSize: height < 666 && width < 374 ? 6 : 9
   
 }
 })
