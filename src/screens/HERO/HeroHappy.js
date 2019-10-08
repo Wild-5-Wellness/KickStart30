@@ -105,7 +105,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
 
 
     return (
-      <View style={{ backgroundColor: "white", height: screenheight }}>
+      <View style={{ backgroundColor: "white", flex: 1 }}>
         <View style={{height: 100, marginTop: 10}}>
           <Text
             style={{

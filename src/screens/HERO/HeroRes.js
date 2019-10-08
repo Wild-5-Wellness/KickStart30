@@ -116,7 +116,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
           </Text>
         </View>
 
-        <View style={{height: 80, width: '95%'}}>
+        <View style={{height: 80}}>
           <Text
             style={{
               fontSize: 22,
