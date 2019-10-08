@@ -21,7 +21,7 @@ const Navbar = (props) => {
       <View>
           <Footer>
             <FooterTab style={{backgroundColor: "#041D5D"}}>
-              <Button disabled={props.homedisable}>
+              <Button disabled={props.homedisable} onPress={()=> Actions.landing()}>
                 <Icon name={"ios-home"} style={styles.icon}/>
                 <Text style={styles.buttons}>Track</Text>
               </Button>

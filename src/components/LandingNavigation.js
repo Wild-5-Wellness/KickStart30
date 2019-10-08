@@ -137,7 +137,7 @@ export function Navigation(props) {
 export default withAuthProvider(Navigation);
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, marginLeft:height < 666 && width < 374 ? 15 : null, marginBottom: height < 666 && width < 374 ? 15 : null },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -176,13 +176,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     padding: height < 666 && width < 374 ? 2 : 10,
-    height:height < 666 && width < 374 ? 90 : 110
+    height: height < 666 && width < 374 ? 90 : 110
   },
   itemHERO: {
     alignItems: "center",
     borderRadius: 5,
-    padding: 10,
-    height: 250,
+    padding: height < 666 && width < 374 ? 2 : 10,
+    height: height < 666 && width < 374 ? 90 : 110,
     width: 300
   },
   icon: { color: "white", fontSize: 60 },
