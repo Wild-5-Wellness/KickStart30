@@ -35,6 +35,7 @@ const Navbar = (props) => {
             </Button> */}
             <Button disabled={props.feedbackdisable} onPress={() => Actions.feedback()}>
                 <Icon name={"clipboard"} style={styles.icon}/>
+                
                 <Text style={styles.feedback}>Feedback</Text>
               </Button>
             {/* <Button disabled={this.props.questdisable} onPress={() => Actions.quests()}>
