@@ -59,7 +59,7 @@ export function Navigation(props) {
   const [bothTrue, setBothTrue] = useState(false);
 
   useEffect(() => {
-    console.log(Dimensions.get("window"))
+    // console.log(Dimensions.get("window"))
     if (props.hero && props.hero2) {
       setBothTrue(true);
     }
