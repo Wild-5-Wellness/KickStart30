@@ -1,12 +1,18 @@
-import React from 'react'
-import {View, SafeAreaView, Image, Text, ScrollView} from 'react-native'
+import React, {useEffect} from 'react'
+import {View, SafeAreaView, Image, Text, ScrollView, Dimensions} from 'react-native'
 import KS30title from "../../images/KS30_578_113.png";
 import wild5title from "../../images/wild5_logo_resized4.png";
 import Navigation from "../LandingNavigation"
 import Navbar from "../Navbar"
 
-
+const { width, height} = Dimensions.get('window')
 export default LandingView = (props) => {
+
+  useEffect(()=>{
+    console.log(Dimensions.get('window'))
+    console.log(Dimensions.get('screen'))
+  },[])
+
     return (
         <View style={{ flex: 1, backgroundColor:'#fff' }}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -49,8 +55,8 @@ export default LandingView = (props) => {
           <View style={{ flex: 1 }}>
             <Navigation hero={props.hero} hero2={props.hero2} />
           </View>
-          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'25%'}}>
-           <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day} of the KickStart30</Text>
+          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:height < 666 && width < 374 ? '32%' : '25%'}}>
+           <Text style={{fontSize:height < 666 && width < 374 ? 15 : 20, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
           </View>  : null}
           <Image
             source={wild5title}
@@ -77,8 +83,8 @@ export default LandingView = (props) => {
              <View style={{ flex: 1 }}>
                <Navigation hero={props.hero} hero2={props.hero2} />
              </View>
-             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'25%'}}>
-              <Text style={{fontSize: 22, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>You're on Day {props.day} of the KickStart30</Text>
+             {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:height < 666 && width < 374 ? '32%' : '25%'}}>
+              <Text style={{fontSize:height < 666 && width < 374 ? 15 : 20, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
              </View>  : null}
              <Image
                source={wild5title}

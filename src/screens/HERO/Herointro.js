@@ -41,7 +41,7 @@ const HeroIntro = () => {
             Check Your HERO Wellness Score For This Week
           </Text>
         </View>
-        <View style={{marginTop:'15%'}}>
+        <View style={{marginTop:'7%'}}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => Actions.herohappy()}>
             <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Start</Text>
             </TouchableOpacity>

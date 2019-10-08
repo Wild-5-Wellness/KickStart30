@@ -14,7 +14,7 @@ import chunk from "lodash/chunk";
 import { withAuthProvider } from "../context/authcontext";
 import HEROlogo from "../images/herologo.png";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const navigationItems = [
   {
@@ -59,6 +59,7 @@ export function Navigation(props) {
   const [bothTrue, setBothTrue] = useState(false);
 
   useEffect(() => {
+    // console.log(Dimensions.get("window"))
     if (props.hero && props.hero2) {
       setBothTrue(true);
     }
@@ -137,7 +138,7 @@ export function Navigation(props) {
 export default withAuthProvider(Navigation);
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, marginLeft:height < 666 || width < 374 ? 15 : null, marginBottom: height < 666 || width < 374 ? 15 : null },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   touchable: {
     backgroundColor: "transparent",
     marginBottom: 10,
-    width: (1 / 2) * width - 20,
+    width: height < 666 || width < 374 ? (1 / 2) * width - 35 : (1 / 2) * width - 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     opacity: 0.50,
     backgroundColor: "transparent",
     marginBottom: 10,
-    width: (1 / 2) * width - 20,
+    width: height < 666 || width < 374 ? (1 / 2) * width - 35 : (1 / 2) * width - 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -175,18 +176,18 @@ const styles = StyleSheet.create({
   item: {
     alignItems: "center",
     borderRadius: 5,
-    padding: 10,
-    height: 110
+    padding: height < 666 || width < 374 ? 2 : 10,
+    height: height < 666 || width < 374 ? 90 : 110
   },
   itemHERO: {
     alignItems: "center",
     borderRadius: 5,
-    padding: 10,
-    height: 250,
+    padding: height < 666 || width < 374 ? 2 : 10,
+    height: height < 666 || width < 374 ? 90 : 110,
     width: 300
   },
   icon: { color: "white", fontSize: 60 },
-  title: { color: "white", fontSize: 18 },
+  title: { color: "white", fontSize: height < 666 || width < 374 ? 12 : 16},
   titleHERO: { color: "white", fontSize: 28, textAlign: "center" },
   titleHEROMain: {
     color: "#041D5D",

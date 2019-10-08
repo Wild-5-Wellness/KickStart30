@@ -98,27 +98,25 @@ const HeroEnth = () => {
   };
 
     return (
-      <View style={{ backgroundColor: "white", height: screenheight }}>
-        <View>
+      <View style={{ backgroundColor: "white", flex: 1 }}>
+        <View style={{height: 100, marginTop: 10}}>
           <Text
             style={{
               fontSize: 30,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "15%"
+              textAlign: "center"
             }}
           >
             Enthusiastic
           </Text>
         </View>
 
-        <View>
+        <View style={{height: 80}}>
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "10%"
+              textAlign: "center"
             }}
           >
             On average, during the last 7 DAYS, how enthusiastic have you felt?
@@ -135,6 +133,7 @@ const HeroEnth = () => {
           }}
         >
           <Slider
+            thumbTintColor="#041D5D"
             value={enthusiasmValue}
             step={1}
             minimumValue={0}
@@ -145,15 +144,14 @@ const HeroEnth = () => {
             style={{
               fontSize: 25,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "10%"
+              textAlign: "center"
             }}
           >
             Value: {enthusiasmValue}
           </Text>
           {feeling()}
 
-          <View style={{ alignSelf: "center", marginTop: "20%" }}>
+          <View style={{ alignSelf: "center", marginTop: "15%" }}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
             <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>

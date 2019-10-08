@@ -105,27 +105,25 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
 
 
     return (
-      <View style={{ backgroundColor: "white", height: screenheight }}>
-        <View>
+      <View style={{ backgroundColor: "white", flex: 1 }}>
+        <View style={{height: 100, marginTop: 10}}>
           <Text
             style={{
               fontSize: 30,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "15%"
+              textAlign: "center"
             }}
           >
             Happiness
           </Text>
         </View>
 
-        <View>
+        <View style={{height: 60}}>
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "10%"
+              textAlign: "center"
             }}
           >
             On average, during the last 7 DAYS, how happy have you felt?
@@ -134,7 +132,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
 
         <View
           style={{
-            flex: 1,
+            height: 70,
             alignItems: "stretch",
             marginLeft: "5%",
             marginRight: "5%",
@@ -142,6 +140,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
           }}
         >
           <Slider
+            thumbTintColor="#041D5D"
             value={happyValue}
             step={1}
             minimumValue={0}
@@ -152,15 +151,15 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             style={{
               fontSize: 25,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "10%"
+              textAlign: "center"
             }}
           >
             Value: {happyValue}
           </Text>
+          <View style={{height: 65}}>
           {feeling()}
-
-          <View style={{ alignSelf: "center", marginTop: "20%" }}>
+          </View>
+          <View style={{ alignSelf: "center", marginTop: "10%" }}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
             <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
