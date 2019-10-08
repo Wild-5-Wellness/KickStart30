@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import React from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
 import {
   Container,
   Footer,
@@ -12,23 +12,17 @@ import {
 } from "native-base";
 import { Actions } from "react-native-router-flux";
 
-class Navbar extends Component {
-  state = {
-    show: 0
-  };
+const {width, height} = Dimensions.get('window')
 
-  homePress = () => {
-    this.setState({ show: 0 });
-    Actions.landing();
-  };
+const Navbar = (props) => {
+ 
 
-  render() {
     return (
       <View>
           <Footer>
             <FooterTab style={{backgroundColor: "#041D5D"}}>
-              <Button disabled={this.props.homedisable} onPress={this.homePress.bind(this)}>
-                <Icon name={"ios-home"} style={styles.buttons}/>
+              <Button disabled={props.homedisable}>
+                <Icon name={"ios-home"} style={styles.icon}/>
                 <Text style={styles.buttons}>Track</Text>
               </Button>
               {/* <Button disabled={this.props.learndisable} onPress={() => Actions.edroadmap()}>
@@ -39,28 +33,28 @@ class Navbar extends Component {
             <Icon name={"rocket"} />
               <Text>Kickstart</Text>
             </Button> */}
-            <Button disabled={this.props.feedbackdisable} onPress={() => Actions.feedback()}>
-                <Icon name={"clipboard"} style={styles.buttons}/>
-                <Text style={{fontSize:9, color:'#fff'}}>Feedback</Text>
+            <Button disabled={props.feedbackdisable} onPress={() => Actions.feedback()}>
+                <Icon name={"clipboard"} style={styles.icon}/>
+                <Text style={styles.feedback}>Feedback</Text>
               </Button>
             {/* <Button disabled={this.props.questdisable} onPress={() => Actions.quests()}>
                 <Icon name={"flame"} />
                 <Text>Quest</Text>
               </Button> */}
-              <Button disabled={this.props.statsdisable} onPress={() => Actions.statistics()}>
-                <Icon name={"stats"} style={styles.buttons}/>
+              <Button disabled={props.statsdisable} onPress={() => Actions.statistics()}>
+                <Icon name={"stats"} style={styles.icon}/>
                 <Text style={styles.buttons}>Stats</Text>
               </Button>
               {/* <Button onPress={() => Actions.help()}>
         <Icon name={'md-help'} />
           <Text>Help</Text>
         </Button> */}
-              <Button disabled={this.props.faqdisable} onPress={() => Actions.about()}>
-                <Icon name={"chatbubbles"} style={styles.buttons}/>
+              <Button disabled={props.faqdisable} onPress={() => Actions.about()}>
+                <Icon name={"chatbubbles"} style={styles.icon}/>
                 <Text style={styles.buttons}>About</Text>
               </Button>
-              <Button disabled={this.props.settingsdisable} onPress={() => Actions.settings()}>
-                <Icon name={"ios-settings"} style={styles.buttons}/>
+              <Button disabled={props.settingsdisable} onPress={() => Actions.settings()}>
+                <Icon name={"ios-settings"} style={styles.icon}/>
                 <Text style={styles.settings}>Settings</Text>
               </Button>
             </FooterTab>
@@ -68,15 +62,25 @@ class Navbar extends Component {
       </View>
     );
   }
-}
+
 
 export default Navbar;
 
 const styles = StyleSheet.create({
+  icon:{
+    color: "#fff",
+    fontSize: height < 666 && width < 374 ? 18 : 18
+  },
   buttons: {
-    color: "#fff" },
+    color: "#fff",
+    fontSize: 10 },
 settings: {
   color: "#fff",
-fontSize: 10
+fontSize: height < 666 && width < 374 ? 7 : 10
+},
+feedback: {
+    color: "#fff",
+  fontSize: height < 666 && width < 374 ? 6 : 10
+  
 }
 })

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, Platform, TimePickerAndroid, Modal, ActivityIndicator } from 'react-native';
+import {View, Text, TouchableOpacity, Platform, TimePickerAndroid, Modal, ActivityIndicator, Dimensions } from 'react-native';
 import {Icon} from 'native-base';
 import Navbar from '../components/Navbar';
 import ToggleSwitch from 'toggle-switch-react-native';
@@ -16,7 +16,7 @@ import {  exerciseColor,
   import { scopeRefByUser } from '../utils/registration'
   import { scopeRefByUserHero } from '../utils/heroRef'
 
-
+const {width, height} = Dimensions.get('window')
 
 type Props = {};
 class Settings extends Component<Props> {
@@ -231,6 +231,11 @@ class Settings extends Component<Props> {
     firebase.database().ref(`notifications/${this.state.user}/${pillar}`).set(null)
   }
 
+  // openModal = () => {
+    
+  //   this.setState({modalVisible: true})
+  // }
+
   submitTime = (date, pillar) => {
       console.log(pillar, date)
       this.PushNotificationIOS.scheduleNotif(pillar, date);
@@ -334,6 +339,35 @@ class Settings extends Component<Props> {
               <Icon />
             </View>
             <Text style={{fontSize: 20, color: '#000'}}>Notifications</Text>
+            {height < 666 && width < 374 ?
+           <View style={{left:'50%', flex: 1, flexDirection: 'column', top:'10%', zIndex: 1}}>
+           <TouchableOpacity
+             style={{
+               height: 60,
+               width: 100,
+               backgroundColor: '#041D5D',
+               justifyContent: 'center',
+               borderRadius: 7,
+               marginBottom: 10
+             }}
+             onPress={() => firebase.auth().signOut()}
+           >
+             <Text style={{color: '#fff', alignSelf: 'center', fontSize:18}}>Logout</Text>
+           </TouchableOpacity>
+           <TouchableOpacity
+             style={{
+               height: 60,
+               width: 100,
+               backgroundColor: '#041D5D',
+               justifyContent: 'center',
+               borderRadius: 7,
+             }}
+             onPress={()=>this.setState({modalVisible: true})}
+           >
+             <Text style={{color: '#fff', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}><Text style={{color: 'red', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}>Reset </Text>KickStart30</Text>
+           </TouchableOpacity>
+         </View> : null
+          }
             <View
               style={{
                 borderTopWidth: 1,
@@ -398,6 +432,7 @@ class Settings extends Component<Props> {
               </View>
             </View>
           </View>
+          
           {/* <Text style={{ fontSize: 20, marginLeft: "5%", marginTop: 20 }}>
             Quests
           </Text> */}
@@ -426,6 +461,7 @@ class Settings extends Component<Props> {
                 </Text>
               </View>
             </TouchableOpacity> */}
+          {height > 666 && width > 374 ?
           <View style={{marginLeft: 15, marginTop: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
             <TouchableOpacity
               style={{
@@ -451,7 +487,7 @@ class Settings extends Component<Props> {
             >
               <Text style={{color: '#fff', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}><Text style={{color: 'red', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}>Reset </Text>KickStart30</Text>
             </TouchableOpacity>
-          </View>
+          </View> : null}
           {/* </View> */}
         </View>
         <Navbar settingsdisable/>

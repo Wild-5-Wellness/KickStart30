@@ -9,7 +9,8 @@ import {
   SafeAreaView,
   StyleSheet,
   Modal,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Dimensions
 } from "react-native";
 import { withAuthProvider } from "../context/authcontext";
 import {Actions} from 'react-native-router-flux';
@@ -25,6 +26,10 @@ const NewLoginScreen = props => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [viewModal, setViewModal] = useState("")
+
+  useEffect(()=>{
+    console.log(Dimensions.get('window'))
+  },[])
 
   showModal = (view) => {
     setViewModal(view)
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     fontWeight: '900',
     color: '#52669c', 
-    fontSize: 18, 
+    fontSize: 16, 
     alignSelf: 'center'
   },
   imageView:{
