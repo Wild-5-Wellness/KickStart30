@@ -102,27 +102,26 @@ const [resilienceValue, setResilienceValue] = useState(0)
 
 
     return (
-      <View style={{ backgroundColor: "white", height: screenheight }}>
-        <View>
+      <View style={{ backgroundColor: "white", flex: 1 }}>
+        <View style={{height: 100, marginTop: 10}}>
           <Text
             style={{
               fontSize: 30,
               fontWeight: "600",
               textAlign: "center",
-              marginTop: "15%"
+              marginTop: 20
             }}
           >
             Resilience
           </Text>
         </View>
 
-        <View>
+        <View style={{height: 50}}>
           <Text
             style={{
               fontSize: 25,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "10%"
+              textAlign: "center"
             }}
           >
             On average, during the last 7 DAYS, how resilient have you felt?
@@ -131,7 +130,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
 
         <View
           style={{
-            flex: 1,
+            height: 70,
             alignItems: "stretch",
             marginLeft: "5%",
             marginRight: "5%",
@@ -157,7 +156,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
           </Text>
           {feeling()}
 
-          <View style={{ alignSelf: "center", marginTop: "20%" }}>
+          <View style={{ alignSelf: "center", marginTop: "10%" }}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
             <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
