@@ -132,30 +132,35 @@ const Routercomponent = () => {
           hideNavBar
         />
         <Scene
+          gesturesEnabled={false}
           key="herohappy"
           component={HeroHappy}
           backTitle="Back"
           title="Happiness"
         />
         <Scene
+          gesturesEnabled={false}
           key="heroenth"
           component={HeroEnth}
           backTitle="Back"
           title="Enthusiasm"
         />
         <Scene
+          gesturesEnabled={false}
           key="herores"
           component={HeroRes}
           backTitle="Back"
           title="Resilience"
         />
         <Scene
+          gesturesEnabled={false}
           key="heroopt"
           component={HeroOpt}
           backTitle="Back"
           title="Optimism"
         />
         <Scene
+          gesturesEnabled={false}
           key="heroment"
           component={HeroMent}
           backTitle="Back"
