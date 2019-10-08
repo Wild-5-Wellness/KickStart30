@@ -519,14 +519,13 @@ class Settings extends Component<Props> {
                 <Icon />
               </View>
               <Text style={{ fontSize: 20, color: "#000" }}>Notifications</Text>
-              {height < 666 && width < 374 ? (
+              {height < 666 || width < 374 ? (
                 <View
                   style={{
                     left: "50%",
                     flex: 1,
                     flexDirection: "column",
-                    top: "10%",
-                    zIndex: 1
+                    top: "10%"
                   }}
                 >
                   <TouchableOpacity
@@ -536,7 +535,8 @@ class Settings extends Component<Props> {
                       backgroundColor: "#041D5D",
                       justifyContent: "center",
                       borderRadius: 7,
-                      marginBottom: 10
+                      marginBottom: 10,
+                      zIndex: 1
                     }}
                     onPress={() => firebase.auth().signOut()}
                   >
@@ -556,7 +556,8 @@ class Settings extends Component<Props> {
                       width: 100,
                       backgroundColor: "#041D5D",
                       justifyContent: "center",
-                      borderRadius: 7
+                      borderRadius: 7,
+                      zIndex: 1
                     }}
                     onPress={() => this.setState({ modalVisible: true })}
                   >
@@ -576,7 +577,7 @@ class Settings extends Component<Props> {
                         style={{
                           color: "red",
                           alignSelf: "center",
-                          fontSize: 10,
+                          fontSize: 12,
                           textAlign: "center",
                           fontWeight: "700"
                         }}
@@ -708,38 +709,41 @@ class Settings extends Component<Props> {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{
-                    height: 60,
-                    width: 100,
-                    backgroundColor: "#041D5D",
-                    justifyContent: "center",
-                    borderRadius: 7
-                  }}
-                  onPress={() => this.setState({ modalVisible: true })}
-                >
-                  <Text
                     style={{
-                      color: "#fff",
-                      alignSelf: "center",
-                      fontSize: 17,
-                      textAlign: "center",
-                      fontWeight: "700"
+                      height: 60,
+                      width: 100,
+                      backgroundColor: "#041D5D",
+                      justifyContent: "center",
+                      borderRadius: 7,
+                      zIndex: 1
                     }}
+                    onPress={() => this.setState({ modalVisible: true })}
                   >
-                    <Text
-                      style={{
-                        color: "red",
-                        alignSelf: "center",
-                        fontSize: 17,
-                        textAlign: "center",
-                        fontWeight: "700"
-                      }}
-                    >
-                      Reset{" "}
-                    </Text>
-                    KickStart30
-                  </Text>
-                </TouchableOpacity>
+                    <View>
+                      <Text
+                        style={{
+                          color: "#fff",
+                          alignSelf: "center",
+                          fontSize: 17,
+                          textAlign: "center",
+                          fontWeight: "700"
+                        }}
+                      >
+                        Reset
+                      </Text>
+                      <Text
+                        style={{
+                          color: "red",
+                          alignSelf: "center",
+                          fontSize: 12,
+                          textAlign: "center",
+                          fontWeight: "700"
+                        }}
+                      >
+                        KickStart30
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
               </View>
             ) : null}
             {/* </View> */}

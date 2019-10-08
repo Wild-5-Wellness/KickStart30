@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 10 },
 settings: {
   color: "#fff",
-fontSize: height < 666 && width < 374 ? 7 : 10
+fontSize: height < 666 || width < 374 ? 7 : 10
 },
 feedback: {
     color: "#fff",
