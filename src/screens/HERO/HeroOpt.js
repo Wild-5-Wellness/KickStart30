@@ -112,7 +112,7 @@ const HeroOpt = () => {
           </Text>
         </View>
 
-        <View style={{height: 60, width: '95%', alignItems:'center'}}>
+        <View style={{height: 80, width: '95%'}}>
           <Text
             style={{
               fontSize: 22,
@@ -133,6 +133,7 @@ const HeroOpt = () => {
           }}
         >
           <Slider
+          thumbTintColor="#041D5D"
             value={optimismValue}
             step={1}
             minimumValue={0}

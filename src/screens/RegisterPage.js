@@ -55,6 +55,11 @@ const RegisterPage = (props) => {
     }
   };
 
+  decline = () => {
+    props.closeModal()
+    setShowDisclaimer(false)
+  }
+
   registerPress = () => {
     setLoading(true);
     setError("");
@@ -302,10 +307,12 @@ const RegisterPage = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <Disclaimer />
       {loading && !error ? (
+        <View style={{ alignSelf: "center", backgroundColor: '#fff' }}>
         <ActivityIndicator size="large" color="#041D5D"/>
+        </View>
       ) : error ? (
-        <View style={{ alignSelf: "center" }}>
-          <Text style={{ fontSize: 20, color: "red", alignSelf: "center" }}>
+        <View style={{ alignSelf: "center", backgroundColor: '#fff' }}>
+          <Text style={{ fontSize: 20, color: "red", alignSelf: "center", textAlign:'center' }}>
             {error}
           </Text>
         </View>
@@ -328,7 +335,7 @@ const RegisterPage = (props) => {
         </View>
         <View style={{ alignSelf: "center" }}>
         <TouchableOpacity style={{height: 70, width:150, backgroundColor:"#041D5D", borderRadius:7, justifyContent:'center'}} onPress={() => Actions.newlogin()}>
-               <Text style={{fontSize:24, color:"#fff", alignSelf:'center'}} onPress={props.closeModal}>Decline</Text>
+               <Text style={{fontSize:24, color:"#fff", alignSelf:'center'}} onPress={()=> decline()}>Decline</Text>
              </TouchableOpacity>
         </View>
       </View>

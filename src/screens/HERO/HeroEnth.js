@@ -111,7 +111,7 @@ const HeroEnth = () => {
           </Text>
         </View>
 
-        <View style={{height: 60}}>
+        <View style={{height: 80, width: '95%'}}>
           <Text
             style={{
               fontSize: 22,
@@ -129,12 +129,11 @@ const HeroEnth = () => {
             alignItems: "stretch",
             marginLeft: "5%",
             marginRight: "5%",
-            marginTop: "10%",
-            borderColor: 'black',
-            borderWidth: 1
+            marginTop: "10%"
           }}
         >
           <Slider
+            thumbTintColor="#041D5D"
             value={enthusiasmValue}
             step={1}
             minimumValue={0}

@@ -56,8 +56,8 @@ const NewLoginScreen = props => {
       </Modal>
       
         <View style={{ alignSelf: "center", marginTop: "5%", marginBottom:'10%' }}>
-          <Image source={KS30} style={{ alignSelf: "center" }} />
-          <View style={{ height: 200, width: 400, display: 'flex', justifyContent:'center', alignSelf:'center', marginTop: '10%' }}>
+          <Image source={KS30} style={{alignSelf:'center' }} />
+          <View style={{ height: 200, width: 400, display: 'flex', justifyContent:'center', alignSelf:'center', marginTop: '10%'}}>
             <Image
               style={{ flex: 1, height: undefined, width: undefined }}
               source={require("../images/water_rocks.jpg")}

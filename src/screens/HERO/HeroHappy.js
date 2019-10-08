@@ -140,6 +140,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
           }}
         >
           <Slider
+            thumbTintColor="#041D5D"
             value={happyValue}
             step={1}
             minimumValue={0}

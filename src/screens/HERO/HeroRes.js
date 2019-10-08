@@ -116,7 +116,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
           </Text>
         </View>
 
-        <View style={{height: 60, width: '95%'}}>
+        <View style={{height: 80, width: '95%'}}>
           <Text
             style={{
               fontSize: 22,
@@ -137,6 +137,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
           }}
         >
           <Slider
+            thumbTintColor="#041D5D"
             value={resilienceValue}
             step={1}
             minimumValue={0}

@@ -384,7 +384,7 @@ class Settings extends Component<Props> {
           >
             <View
               style={{
-                height: "20%",
+                height: 150,
                 width: "80%",
                 borderColor: "#041D5D",
                 borderWidth: 2,
@@ -525,7 +525,8 @@ class Settings extends Component<Props> {
                     left: "50%",
                     flex: 1,
                     flexDirection: "column",
-                    top: "10%"
+                    top: "10%",
+                    zIndex: Platform.OS === "ios" ? 1 : null
                   }}
                 >
                   <TouchableOpacity

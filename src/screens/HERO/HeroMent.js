@@ -133,6 +133,7 @@ const [mentalWellValue, setMentalWellValue] = useState(0)
           }}
         >
           <Slider
+            thumbTintColor="#041D5D"
             value={mentalWellValue}
             step={1}
             minimumValue={0}
