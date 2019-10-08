@@ -99,7 +99,7 @@ const HeroEnth = () => {
 
     return (
       <View style={{ backgroundColor: "white", flex: 1 }}>
-        <View style={{height: 50, marginBottom: '10%', marginTop: 10}}>
+        <View style={{height: 100, marginBottom: '10%', marginTop: 10}}>
           <Text
             style={{
               fontSize: 30,

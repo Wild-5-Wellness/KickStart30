@@ -1,29 +1,40 @@
-import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, Platform, TimePickerAndroid, Modal, ActivityIndicator, Dimensions } from 'react-native';
-import {Icon} from 'native-base';
-import Navbar from '../components/Navbar';
-import ToggleSwitch from 'toggle-switch-react-native';
-import PushNotificationIOS from '../components/common/PushNotificationsIOS';
-import appConfig from '../../app.json';
-import TimePicker from '../components/common/TimePicker';
-import {Actions} from 'react-native-router-flux';
-import firebase from 'react-native-firebase';
-import {  exerciseColor,
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  TimePickerAndroid,
+  Modal,
+  ActivityIndicator,
+  Dimensions
+} from "react-native";
+import { Icon } from "native-base";
+import Navbar from "../components/Navbar";
+import ToggleSwitch from "toggle-switch-react-native";
+import PushNotificationIOS from "../components/common/PushNotificationsIOS";
+import appConfig from "../../app.json";
+import TimePicker from "../components/common/TimePicker";
+import { Actions } from "react-native-router-flux";
+import firebase from "react-native-firebase";
+import {
+  exerciseColor,
   mindfulnessColor,
   nutritionColor,
   sleepColor,
-  socialColor} from '../components/common/colors';
-  import { scopeRefByUser } from '../utils/registration'
-  import { scopeRefByUserHero } from '../utils/heroRef'
+  socialColor
+} from "../components/common/colors";
+import { scopeRefByUser } from "../utils/registration";
+import { scopeRefByUserHero } from "../utils/heroRef";
 
-const {width, height} = Dimensions.get('window')
+const { width, height } = Dimensions.get("window");
 
 type Props = {};
 class Settings extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      currentPillar: '',
+      currentPillar: "",
       exerciseReminder: false,
       mindfulnessReminder: false,
       sleepReminder: false,
@@ -32,13 +43,12 @@ class Settings extends Component<Props> {
       showTimer: false,
       senderId: appConfig.senderID,
       chosenDate: new Date(),
-      user: '',
-      chosenAndroidTime: '00:00',
+      user: "",
+      chosenAndroidTime: "00:00",
       modalVisible: false,
       loading: false,
-      error: '',
+      error: "",
       deleteCompleted: false
-
     };
     this.PushNotificationIOS = new PushNotificationIOS(this.onNotif);
   }
@@ -46,13 +56,13 @@ class Settings extends Component<Props> {
   componentDidMount() {
     var user = firebase.auth().currentUser;
     if (user) {
-      var res = user.email.split('.');
+      var res = user.email.split(".");
       var userEm = res[0].toString();
       this.setState({
-        user: userEm,
+        user: userEm
       });
     } else {
-      console.log('set State for user failed sleepquest line 52');
+      console.log("set State for user failed sleepquest line 52");
     }
     this.getNotifStatus();
   }
@@ -61,7 +71,7 @@ class Settings extends Component<Props> {
     firebase
       .database()
       .ref(`notifications/${this.state.user}/`)
-      .once('value', snap => {
+      .once("value", snap => {
         if (snap.val() !== null) {
           let data = snap.val();
           this.setState({
@@ -84,7 +94,7 @@ class Settings extends Component<Props> {
             nutritionReminder:
               data[`${this.state.user}`].nutrition !== undefined
                 ? data[`${this.state.user}`].nutrition.notifOn
-                : false,
+                : false
           });
         }
       })
@@ -94,39 +104,43 @@ class Settings extends Component<Props> {
 
   androidTimePicker = async () => {
     try {
-      const {action, hour, minute} = await TimePickerAndroid.open({
+      const { action, hour, minute } = await TimePickerAndroid.open({
         hour: 14,
         minute: 0,
         is24Hour: false,
-        mode: 'default'
+        mode: "default"
       });
       if (action !== TimePickerAndroid.dismissedAction) {
-      const m = (minute < 10) ? `0${minute}` : minute;
-      const h = (hour < 10) ? `0${hour}` : hour;
-      console.log(`time: ${hour}:${minute}`);
-      const date = new Date()
-      this.setState({ chosenAndroidTime: `${h}:${m}` }, ()=> this.submitTime(new Date(date.setHours(h,m,)),
-        this.state.currentPillar));
-      } else if (action === TimePickerAndroid.dismissedAction){
-        if (this.state.currentPillar === 'exercise') {
-          this.setState({exerciseReminder: false});
-        } else if (this.state.currentPillar === 'mind') {
-          this.setState({mindfulnessReminder: false});
-        } else if (this.state.currentPillar === 'sleep') {
-          this.setState({sleepReminder: false});
-        } else if (this.state.currentPillar === 'social') {
-          this.setState({socialReminder: false});
-        } else if (this.state.currentPillar === 'nutrition') {
-          this.setState({nutritionReminder: false});
+        const m = minute < 10 ? `0${minute}` : minute;
+        const h = hour < 10 ? `0${hour}` : hour;
+        console.log(`time: ${hour}:${minute}`);
+        const date = new Date();
+        this.setState({ chosenAndroidTime: `${h}:${m}` }, () =>
+          this.submitTime(
+            new Date(date.setHours(h, m)),
+            this.state.currentPillar
+          )
+        );
+      } else if (action === TimePickerAndroid.dismissedAction) {
+        if (this.state.currentPillar === "exercise") {
+          this.setState({ exerciseReminder: false });
+        } else if (this.state.currentPillar === "mind") {
+          this.setState({ mindfulnessReminder: false });
+        } else if (this.state.currentPillar === "sleep") {
+          this.setState({ sleepReminder: false });
+        } else if (this.state.currentPillar === "social") {
+          this.setState({ socialReminder: false });
+        } else if (this.state.currentPillar === "nutrition") {
+          this.setState({ nutritionReminder: false });
         }
       }
-    } catch ({code, message}) {
-      console.warn('Cannot open time picker', message);
+    } catch ({ code, message }) {
+      console.warn("Cannot open time picker", message);
     }
-  }
+  };
 
   setDate = newDate => {
-    this.setState({chosenDate: newDate});
+    this.setState({ chosenDate: newDate });
     // schedule notification (this.state.piller, newDate)
   };
 
@@ -136,10 +150,9 @@ class Settings extends Component<Props> {
         date={this.state.chosenDate}
         onDateChange={this.setDate}
         showTimer={this.state.showTimer}
-        onConfirm={()=>this.submitTime(
-          this.state.chosenDate,
-          this.state.currentPillar
-        )}
+        onConfirm={() =>
+          this.submitTime(this.state.chosenDate, this.state.currentPillar)
+        }
         onCancel={this.showTimer(this.state.currentPillar)}
       />
     );
@@ -150,75 +163,115 @@ class Settings extends Component<Props> {
 
   showTimer = pillar => {
     return () => {
-      if (pillar === 'exercise') {
-        this.setState({exerciseReminder: !this.state.exerciseReminder});
-      } else if (pillar === 'mind') {
-        this.setState({mindfulnessReminder: !this.state.mindfulnessReminder});
-      } else if (pillar === 'sleep') {
-        this.setState({sleepReminder: !this.state.sleepReminder});
-      } else if (pillar === 'social') {
-        this.setState({socialReminder: !this.state.socialReminder});
-      } else if (pillar === 'nutrition') {
-        this.setState({nutritionReminder: !this.state.nutritionReminder});
+      if (pillar === "exercise") {
+        this.setState({ exerciseReminder: !this.state.exerciseReminder });
+      } else if (pillar === "mind") {
+        this.setState({ mindfulnessReminder: !this.state.mindfulnessReminder });
+      } else if (pillar === "sleep") {
+        this.setState({ sleepReminder: !this.state.sleepReminder });
+      } else if (pillar === "social") {
+        this.setState({ socialReminder: !this.state.socialReminder });
+      } else if (pillar === "nutrition") {
+        this.setState({ nutritionReminder: !this.state.nutritionReminder });
       }
       this.setState(prevState => ({
-        showTimer: false,
+        showTimer: false
       }));
     };
   };
 
   toggleSwitch = pillar => {
     return e => {
-      if (pillar === 'exercise') {
+      if (pillar === "exercise") {
         this.state.exerciseReminder
-          ? this.setState({
-              exerciseReminder: false,
-            },()=> this.deleteTime(pillar), this.PushNotificationIOS.cancel('0'))
-          : this.setState({
-              exerciseReminder: !this.state.exerciseReminder,
-              showTimer: true,
-              currentPillar: pillar,
-            }, ()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
-      } else if (pillar === 'mind') {
+          ? this.setState(
+              {
+                exerciseReminder: false
+              },
+              () => this.deleteTime(pillar),
+              this.PushNotificationIOS.cancel("0")
+            )
+          : this.setState(
+              {
+                exerciseReminder: !this.state.exerciseReminder,
+                showTimer: true,
+                currentPillar: pillar
+              },
+              () =>
+                Platform.OS === "android" ? this.androidTimePicker() : null
+            );
+      } else if (pillar === "mind") {
         this.state.mindfulnessReminder
-          ? this.setState({
-              mindfulnessReminder: false,
-            }, ()=> this.deleteTime(pillar), this.PushNotificationIOS.cancel('1'))
-          : this.setState({
-              mindfulnessReminder: !this.state.mindfulnessReminder,
-              showTimer: true,
-              currentPillar: pillar,
-            }, ()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
-      } else if (pillar === 'sleep') {
+          ? this.setState(
+              {
+                mindfulnessReminder: false
+              },
+              () => this.deleteTime(pillar),
+              this.PushNotificationIOS.cancel("1")
+            )
+          : this.setState(
+              {
+                mindfulnessReminder: !this.state.mindfulnessReminder,
+                showTimer: true,
+                currentPillar: pillar
+              },
+              () =>
+                Platform.OS === "android" ? this.androidTimePicker() : null
+            );
+      } else if (pillar === "sleep") {
         this.state.sleepReminder
-          ? this.setState({
-              sleepReminder: false,
-            },()=> this.deleteTime(pillar), this.PushNotificationIOS.cancel('2'))
-          : this.setState({
-              sleepReminder: !this.state.sleepReminder,
-              showTimer: true,
-              currentPillar: pillar,
-            }, ()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
-      } else if (pillar === 'social') {
+          ? this.setState(
+              {
+                sleepReminder: false
+              },
+              () => this.deleteTime(pillar),
+              this.PushNotificationIOS.cancel("2")
+            )
+          : this.setState(
+              {
+                sleepReminder: !this.state.sleepReminder,
+                showTimer: true,
+                currentPillar: pillar
+              },
+              () =>
+                Platform.OS === "android" ? this.androidTimePicker() : null
+            );
+      } else if (pillar === "social") {
         this.state.socialReminder
-          ? this.setState({
-              socialReminder: false,
-            },()=> this.deleteTime(pillar), this.PushNotificationIOS.cancel('3'))
-          : this.setState({
-              socialReminder: !this.state.socialReminder,
-              showTimer: true,
-              currentPillar: pillar,
-            },()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
-      } else if (pillar === 'nutrition') {
+          ? this.setState(
+              {
+                socialReminder: false
+              },
+              () => this.deleteTime(pillar),
+              this.PushNotificationIOS.cancel("3")
+            )
+          : this.setState(
+              {
+                socialReminder: !this.state.socialReminder,
+                showTimer: true,
+                currentPillar: pillar
+              },
+              () =>
+                Platform.OS === "android" ? this.androidTimePicker() : null
+            );
+      } else if (pillar === "nutrition") {
         this.state.nutritionReminder
-          ? this.setState({
-              nutritionReminder: false,
-            },()=> this.deleteTime(pillar), this.PushNotificationIOS.cancel('4'))
-          : this.setState({
-              nutritionReminder: !this.state.nutritionReminder,
-              showTimer: true,
-              currentPillar: pillar,
-            },()=> Platform.OS === 'android' ? this.androidTimePicker() : null);
+          ? this.setState(
+              {
+                nutritionReminder: false
+              },
+              () => this.deleteTime(pillar),
+              this.PushNotificationIOS.cancel("4")
+            )
+          : this.setState(
+              {
+                nutritionReminder: !this.state.nutritionReminder,
+                showTimer: true,
+                currentPillar: pillar
+              },
+              () =>
+                Platform.OS === "android" ? this.androidTimePicker() : null
+            );
       }
       // this.setState({
       //     showTimer: true,
@@ -227,48 +280,53 @@ class Settings extends Component<Props> {
     };
   };
 
-  deleteTime = (pillar) => {
-    firebase.database().ref(`notifications/${this.state.user}/${pillar}`).set(null)
-  }
+  deleteTime = pillar => {
+    firebase
+      .database()
+      .ref(`notifications/${this.state.user}/${pillar}`)
+      .set(null);
+  };
 
   // openModal = () => {
-    
+
   //   this.setState({modalVisible: true})
   // }
 
   submitTime = (date, pillar) => {
-      console.log(pillar, date)
-      this.PushNotificationIOS.scheduleNotif(pillar, date);
-      let date1 = date;
-      const data = {
-        notifOn: '',
-        timeChosen: date,
-      };
-      if (pillar === 'exercise') {
-        data.notifOn = this.state.exerciseReminder;
-      } else if (pillar === 'mind') {
-        data.notifOn = this.state.mindfulnessReminder;
-      } else if (pillar === 'sleep') {
-        data.notifOn = this.state.sleepReminder;
-      } else if (pillar === 'social') {
-        data.notifOn = this.state.socialReminder;
-      } else if (pillar === 'nutrition') {
-        data.notifOn = this.state.nutritionReminder;
-      }
-      firebase
-        .database()
-        .ref(`notifications/${this.state.user}/${pillar}`)
-        .set(data);
-      this.setState(prevState => ({
-        showTimer: false,
-        currentPillar: '',
-      }));
+    console.log(pillar, date);
+    this.PushNotificationIOS.scheduleNotif(pillar, date);
+    let date1 = date;
+    const data = {
+      notifOn: "",
+      timeChosen: date
     };
+    if (pillar === "exercise") {
+      data.notifOn = this.state.exerciseReminder;
+    } else if (pillar === "mind") {
+      data.notifOn = this.state.mindfulnessReminder;
+    } else if (pillar === "sleep") {
+      data.notifOn = this.state.sleepReminder;
+    } else if (pillar === "social") {
+      data.notifOn = this.state.socialReminder;
+    } else if (pillar === "nutrition") {
+      data.notifOn = this.state.nutritionReminder;
+    }
+    firebase
+      .database()
+      .ref(`notifications/${this.state.user}/${pillar}`)
+      .set(data);
+    this.setState(prevState => ({
+      showTimer: false,
+      currentPillar: ""
+    }));
+  };
 
   onRegister = token => {
-    Alert.alert('Registered !', JSON.stringify(token));
+    Alert.alert("Registered !", JSON.stringify(token));
     console.log(token);
-    this.setState({registerToken: token.token, gcmRegistered: true}, ()=>console.log("onRegister setState ran"));
+    this.setState({ registerToken: token.token, gcmRegistered: true }, () =>
+      console.log("onRegister setState ran")
+    );
   };
 
   onNotif = notif => {
@@ -277,166 +335,329 @@ class Settings extends Component<Props> {
   };
 
   handlePerm = perms => {
-    Alert.alert('Permissions', JSON.stringify(perms));
+    Alert.alert("Permissions", JSON.stringify(perms));
   };
 
   deleteAllData = () => {
-    this.setState({loading: true})
-    const delData = firebase.database()
-    const heroRef = scopeRefByUser('HERO')
+    this.setState({ loading: true });
+    const delData = firebase.database();
+    const heroRef = scopeRefByUser("HERO");
     const surveysRef = scopeRefByUser("Surveys");
-    const heroRefInitial = scopeRefByUserHero('HERO')
-    delData.ref(heroRef).set(null).then(()=> console.log("Hero info Deleted")).catch((err)=> this.setState({error: err}))
-    delData.ref(surveysRef).set(null).then(()=> console.log("Survey info Deleted")).catch((err)=> this.setState({error: err}))
-    delData.ref(heroRefInitial).set(null).then(()=> this.setState({deleteCompleted: true}, ()=> this.setState({loading: false}))).catch((err)=> this.setState({error: err}))
-
-
-
-  }
+    const heroRefInitial = scopeRefByUserHero("HERO");
+    delData
+      .ref(heroRef)
+      .set(null)
+      .then(() => console.log("Hero info Deleted"))
+      .catch(err => this.setState({ error: err }));
+    delData
+      .ref(surveysRef)
+      .set(null)
+      .then(() => console.log("Survey info Deleted"))
+      .catch(err => this.setState({ error: err }));
+    delData
+      .ref(heroRefInitial)
+      .set(null)
+      .then(() =>
+        this.setState({ deleteCompleted: true }, () =>
+          this.setState({ loading: false })
+        )
+      )
+      .catch(err => this.setState({ error: err }));
+  };
 
   render() {
     return (
       <>
-      <Modal
-      animationType="fade"
+        <Modal
+          animationType="fade"
           transparent={true}
           visible={this.state.modalVisible}
-          onRequestClose={()=> null}
-      >
-        <View style={{height: '100%', width: '100%', justifyContent:'center', alignItems:'center'}}>
-        <View style={{height: '20%', width: '80%', borderColor:'#041D5D', borderWidth:2, borderRadius:9, backgroundColor:'#fff'}}>
-          {!this.state.deleteCompleted ? <><Text style={{fontSize:20, color:'#041D5D', textAlign:'center', marginTop:15}}>Are you sure you want to delete your KickStart30 data?</Text>
-          <View style={{flex:1,justifyContent:'flex-end'}}>
-          {this.state.loading ? <ActivityIndicator size="small" color="#041D5D"/> : this.state.error ? <Text>{this.state.error}</Text> : null}
-          <View style={{flexDirection:'row'}}>
-          <TouchableOpacity style={{height: 50, width:'50%', backgroundColor:'#041D5D', borderRightColor:"#fff", borderRightWidth:1, justifyContent:'center'}} onPress={()=> this.setState({modalVisible:false})}>
-            <Text style={{color:'#fff', alignSelf:'center', fontSize: 22}}>NO</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{height: 50, width:'50%', backgroundColor:'#041D5D', borderLeftColor:"#fff", borderLeftWidth:1, justifyContent:'center'}} onPress={() => this.deleteAllData()}>
-            <Text style={{color:'#fff', alignSelf:'center', fontSize:22}}>YES</Text>
-          </TouchableOpacity>
-          </View>
-          </View></> : 
-          <View style={{flex:1}}>
-            <Text  style={{fontSize:22, color:'#041D5D', textAlign:'center', marginTop: 20}}>Data Successfully Deleted!</Text>
-            <View style={{flex: 1, justifyContent:'flex-end'}}>
-            <TouchableOpacity style={{height: 50, width:'100%', backgroundColor:'#041D5D', justifyContent:'center'}} onPress={()=> this.setState({modalVisible: false})}>
-              <Text style={{color:'#fff', alignSelf:'center', fontSize:22}}>Ok</Text>
-            </TouchableOpacity>
-            </View>
-          </View>}
-        </View>
-        </View>
-      </Modal>
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <View style={{flex: 1}}>
-          {this.state.showTimer && Platform.OS === 'ios' ? this.showTimePicker() : null}
-          <View style={{marginTop: Platform.OS === 'ios' ? '12%' : '5%', marginLeft: '5%'}}>
-            <View style={{alignSelf: 'center'}}>
-              <Text style={{fontSize: 36, marginBottom: Platform.OS === 'ios' ? 10 : 0, fontWeight: '900', color: '#000'}}>
-                Settings
-              </Text>
-              <Icon />
-            </View>
-            <Text style={{fontSize: 20, color: '#000'}}>Notifications</Text>
-            {height < 666 && width < 374 ?
-           <View style={{left:'50%', flex: 1, flexDirection: 'column', top:'10%', zIndex: 1}}>
-           <TouchableOpacity
-             style={{
-               height: 60,
-               width: 100,
-               backgroundColor: '#041D5D',
-               justifyContent: 'center',
-               borderRadius: 7,
-               marginBottom: 10
-             }}
-             onPress={() => firebase.auth().signOut()}
-           >
-             <Text style={{color: '#fff', alignSelf: 'center', fontSize:18}}>Logout</Text>
-           </TouchableOpacity>
-           <TouchableOpacity
-             style={{
-               height: 60,
-               width: 100,
-               backgroundColor: '#041D5D',
-               justifyContent: 'center',
-               borderRadius: 7,
-             }}
-             onPress={()=>this.setState({modalVisible: true})}
-           >
-             <Text style={{color: '#fff', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}><Text style={{color: 'red', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}>Reset </Text>KickStart30</Text>
-           </TouchableOpacity>
-         </View> : null
-          }
+          onRequestClose={() => null}
+        >
+          <View
+            style={{
+              height: "100%",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
             <View
               style={{
-                borderTopWidth: 1,
-                borderTopColor: '#000',
-                width: '90%',
+                height: "20%",
+                width: "80%",
+                borderColor: "#041D5D",
+                borderWidth: 2,
+                borderRadius: 9,
+                backgroundColor: "#fff"
               }}
             >
-              <View style={{marginTop: 15}}>
-                <Text style={{fontSize: 20, color: '#000'}}>Exercise</Text>
-                <ToggleSwitch
-                  labelStyle={{color: '#000', fontWeight: '900'}}
-                  size="large"
-                  onColor={exerciseColor}
-                  offColor="#d5eac5"
-                  isOn={this.state.exerciseReminder}
-                  onToggle={this.toggleSwitch('exercise')}
-                />
-              </View>
-              <View>
-                <Text style={{fontSize: 20, color: '#000'}}>Mindfulness</Text>
-                <ToggleSwitch
-                  labelStyle={{color: '#000', fontWeight: '900'}}
-                  size="large"
-                  onColor={mindfulnessColor}
-                  offColor="#cef0fa"
-                  isOn={this.state.mindfulnessReminder}
-                  onToggle={this.toggleSwitch('mind')}
-                />
-              </View>
-              <View>
-                <Text style={{fontSize: 20, color: '#000'}}>Sleep</Text>
-                <ToggleSwitch
-                  labelStyle={{color: '#000', fontWeight: '900'}}
-                  size="large"
-                  onColor={sleepColor}
-                  offColor="#f1d5e9"
-                  isOn={this.state.sleepReminder}
-                  onToggle={this.toggleSwitch('sleep')}
-                />
-              </View>
-              <View>
-                <Text style={{fontSize: 20, color: '#000'}}>Social</Text>
-                <ToggleSwitch
-                  labelStyle={{color: '#000', fontWeight: '900'}}
-                  size="large"
-                  onColor={socialColor}
-                  offColor="#fbd6d3"
-                  isOn={this.state.socialReminder}
-                  onToggle={this.toggleSwitch('social')}
-                />
-              </View>
-              <View>
-                <Text style={{fontSize: 20, color: '#000'}}>Nutrition</Text>
-                <ToggleSwitch
-                  labelStyle={{color: '#000', fontWeight: '900'}}
-                  size="large"
-                  onColor={nutritionColor}
-                  offColor="#f4d9d2"
-                  isOn={this.state.nutritionReminder}
-                  onToggle={this.toggleSwitch('nutrition')}
-                />
-              </View>
+              {!this.state.deleteCompleted ? (
+                <>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      color: "#041D5D",
+                      textAlign: "center",
+                      marginTop: 15
+                    }}
+                  >
+                    Are you sure you want to delete your KickStart30 data?
+                  </Text>
+                  <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                    {this.state.loading ? (
+                      <ActivityIndicator size="small" color="#041D5D" />
+                    ) : this.state.error ? (
+                      <Text>{this.state.error}</Text>
+                    ) : null}
+                    <View style={{ flexDirection: "row" }}>
+                      <TouchableOpacity
+                        style={{
+                          height: 50,
+                          width: "50%",
+                          backgroundColor: "#041D5D",
+                          borderRightColor: "#fff",
+                          borderRightWidth: 1,
+                          justifyContent: "center"
+                        }}
+                        onPress={() => this.setState({ modalVisible: false })}
+                      >
+                        <Text
+                          style={{
+                            color: "#fff",
+                            alignSelf: "center",
+                            fontSize: 22
+                          }}
+                        >
+                          NO
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={{
+                          height: 50,
+                          width: "50%",
+                          backgroundColor: "#041D5D",
+                          borderLeftColor: "#fff",
+                          borderLeftWidth: 1,
+                          justifyContent: "center"
+                        }}
+                        onPress={() => this.deleteAllData()}
+                      >
+                        <Text
+                          style={{
+                            color: "#fff",
+                            alignSelf: "center",
+                            fontSize: 22
+                          }}
+                        >
+                          YES
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </>
+              ) : (
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      fontSize: 22,
+                      color: "#041D5D",
+                      textAlign: "center",
+                      marginTop: 20
+                    }}
+                  >
+                    Data Successfully Deleted!
+                  </Text>
+                  <View style={{ flex: 1, justifyContent: "flex-end" }}>
+                    <TouchableOpacity
+                      style={{
+                        height: 50,
+                        width: "100%",
+                        backgroundColor: "#041D5D",
+                        justifyContent: "center"
+                      }}
+                      onPress={() => this.setState({ modalVisible: false })}
+                    >
+                      <Text
+                        style={{
+                          color: "#fff",
+                          alignSelf: "center",
+                          fontSize: 22
+                        }}
+                      >
+                        Ok
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
             </View>
           </View>
-          
-          {/* <Text style={{ fontSize: 20, marginLeft: "5%", marginTop: 20 }}>
+        </Modal>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+          <View style={{ flex: 1 }}>
+            {this.state.showTimer && Platform.OS === "ios"
+              ? this.showTimePicker()
+              : null}
+            <View
+              style={{
+                marginTop: Platform.OS === "ios" ? "12%" : "5%",
+                marginLeft: "5%"
+              }}
+            >
+              <View style={{ alignSelf: "center" }}>
+                <Text
+                  style={{
+                    fontSize: 36,
+                    marginBottom: Platform.OS === "ios" ? 10 : 0,
+                    fontWeight: "900",
+                    color: "#000"
+                  }}
+                >
+                  Settings
+                </Text>
+                <Icon />
+              </View>
+              <Text style={{ fontSize: 20, color: "#000" }}>Notifications</Text>
+              {height < 666 && width < 374 ? (
+                <View
+                  style={{
+                    left: "50%",
+                    flex: 1,
+                    flexDirection: "column",
+                    top: "10%",
+                    zIndex: 1
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      height: 60,
+                      width: 100,
+                      backgroundColor: "#041D5D",
+                      justifyContent: "center",
+                      borderRadius: 7,
+                      marginBottom: 10
+                    }}
+                    onPress={() => firebase.auth().signOut()}
+                  >
+                    <Text
+                      style={{
+                        color: "#fff",
+                        alignSelf: "center",
+                        fontSize: 18
+                      }}
+                    >
+                      Logout
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      height: 60,
+                      width: 100,
+                      backgroundColor: "#041D5D",
+                      justifyContent: "center",
+                      borderRadius: 7
+                    }}
+                    onPress={() => this.setState({ modalVisible: true })}
+                  >
+                    <View>
+                      <Text
+                        style={{
+                          color: "#fff",
+                          alignSelf: "center",
+                          fontSize: 17,
+                          textAlign: "center",
+                          fontWeight: "700"
+                        }}
+                      >
+                        Reset
+                      </Text>
+                      <Text
+                        style={{
+                          color: "red",
+                          alignSelf: "center",
+                          fontSize: 10,
+                          textAlign: "center",
+                          fontWeight: "700"
+                        }}
+                      >
+                        KickStart30
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              ) : null}
+              <View
+                style={{
+                  borderTopWidth: 1,
+                  borderTopColor: "#000",
+                  width: "90%"
+                }}
+              >
+                <View style={{ marginTop: 15 }}>
+                  <Text style={{ fontSize: 20, color: "#000" }}>Exercise</Text>
+                  <ToggleSwitch
+                    labelStyle={{ color: "#000", fontWeight: "900" }}
+                    size="large"
+                    onColor={exerciseColor}
+                    offColor="#d5eac5"
+                    isOn={this.state.exerciseReminder}
+                    onToggle={this.toggleSwitch("exercise")}
+                  />
+                </View>
+                <View>
+                  <Text style={{ fontSize: 20, color: "#000" }}>
+                    Mindfulness
+                  </Text>
+                  <ToggleSwitch
+                    labelStyle={{ color: "#000", fontWeight: "900" }}
+                    size="large"
+                    onColor={mindfulnessColor}
+                    offColor="#cef0fa"
+                    isOn={this.state.mindfulnessReminder}
+                    onToggle={this.toggleSwitch("mind")}
+                  />
+                </View>
+                <View>
+                  <Text style={{ fontSize: 20, color: "#000" }}>Sleep</Text>
+                  <ToggleSwitch
+                    labelStyle={{ color: "#000", fontWeight: "900" }}
+                    size="large"
+                    onColor={sleepColor}
+                    offColor="#f1d5e9"
+                    isOn={this.state.sleepReminder}
+                    onToggle={this.toggleSwitch("sleep")}
+                  />
+                </View>
+                <View>
+                  <Text style={{ fontSize: 20, color: "#000" }}>Social</Text>
+                  <ToggleSwitch
+                    labelStyle={{ color: "#000", fontWeight: "900" }}
+                    size="large"
+                    onColor={socialColor}
+                    offColor="#fbd6d3"
+                    isOn={this.state.socialReminder}
+                    onToggle={this.toggleSwitch("social")}
+                  />
+                </View>
+                <View>
+                  <Text style={{ fontSize: 20, color: "#000" }}>Nutrition</Text>
+                  <ToggleSwitch
+                    labelStyle={{ color: "#000", fontWeight: "900" }}
+                    size="large"
+                    onColor={nutritionColor}
+                    offColor="#f4d9d2"
+                    isOn={this.state.nutritionReminder}
+                    onToggle={this.toggleSwitch("nutrition")}
+                  />
+                </View>
+              </View>
+            </View>
+
+            {/* <Text style={{ fontSize: 20, marginLeft: "5%", marginTop: 20 }}>
             Quests
           </Text> */}
-          {/* <View
+            {/* <View
             style={{
               borderTopWidth: 1,
               borderTopColor: "black",
@@ -444,7 +665,7 @@ class Settings extends Component<Props> {
               marginLeft: "5%"
             }}
           > */}
-          {/* <TouchableOpacity
+            {/* <TouchableOpacity
               style={{
                 marginTop: 15,
                 borderRadius: 20,
@@ -461,38 +682,71 @@ class Settings extends Component<Props> {
                 </Text>
               </View>
             </TouchableOpacity> */}
-          {height > 666 && width > 374 ?
-          <View style={{marginLeft: 15, marginTop: 20, flexDirection:'row', justifyContent:'space-evenly'}}>
-            <TouchableOpacity
-              style={{
-                height: 60,
-                width: 100,
-                backgroundColor: '#041D5D',
-                justifyContent: 'center',
-                borderRadius: 7,
-              }}
-              onPress={() => firebase.auth().signOut()}
-            >
-              <Text style={{color: '#fff', alignSelf: 'center', fontSize:18}}>Logout</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                height: 60,
-                width: 100,
-                backgroundColor: '#041D5D',
-                justifyContent: 'center',
-                borderRadius: 7,
-              }}
-              onPress={() => this.setState({modalVisible: true})}
-            >
-              <Text style={{color: '#fff', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}><Text style={{color: 'red', alignSelf: 'center', fontSize:17, textAlign:'center', fontWeight:"700"}}>Reset </Text>KickStart30</Text>
-            </TouchableOpacity>
-          </View> : null}
-          {/* </View> */}
+            {height > 666 && width > 374 ? (
+              <View
+                style={{
+                  marginLeft: 15,
+                  marginTop: 20,
+                  flexDirection: "row",
+                  justifyContent: "space-evenly"
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    height: 60,
+                    width: 100,
+                    backgroundColor: "#041D5D",
+                    justifyContent: "center",
+                    borderRadius: 7
+                  }}
+                  onPress={() => firebase.auth().signOut()}
+                >
+                  <Text
+                    style={{ color: "#fff", alignSelf: "center", fontSize: 18 }}
+                  >
+                    Logout
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    height: 60,
+                    width: 100,
+                    backgroundColor: "#041D5D",
+                    justifyContent: "center",
+                    borderRadius: 7
+                  }}
+                  onPress={() => this.setState({ modalVisible: true })}
+                >
+                  <Text
+                    style={{
+                      color: "#fff",
+                      alignSelf: "center",
+                      fontSize: 17,
+                      textAlign: "center",
+                      fontWeight: "700"
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "red",
+                        alignSelf: "center",
+                        fontSize: 17,
+                        textAlign: "center",
+                        fontWeight: "700"
+                      }}
+                    >
+                      Reset{" "}
+                    </Text>
+                    KickStart30
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ) : null}
+            {/* </View> */}
+          </View>
+          <Navbar settingsdisable />
         </View>
-        <Navbar settingsdisable/>
-        </View>
-        </>
+      </>
     );
   }
 }
