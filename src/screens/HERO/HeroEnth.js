@@ -111,10 +111,10 @@ const HeroEnth = () => {
           </Text>
         </View>
 
-        <View style={{height: 50}}>
+        <View style={{height: 60}}>
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -129,7 +129,9 @@ const HeroEnth = () => {
             alignItems: "stretch",
             marginLeft: "5%",
             marginRight: "5%",
-            marginTop: "10%"
+            marginTop: "10%",
+            borderColor: 'black',
+            borderWidth: 1
           }}
         >
           <Slider
@@ -143,8 +145,7 @@ const HeroEnth = () => {
             style={{
               fontSize: 25,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "10%"
+              textAlign: "center"
             }}
           >
             Value: {enthusiasmValue}

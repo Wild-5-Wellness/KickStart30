@@ -111,10 +111,10 @@ const [mentalWellValue, setMentalWellValue] = useState(0)
           </Text>
         </View>
 
-        <View style={{height: 50}}>
+        <View style={{height: 100}}>
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -126,11 +126,10 @@ const [mentalWellValue, setMentalWellValue] = useState(0)
 
         <View
           style={{
-            height: 70,
+            flex: 1,
             alignItems: "stretch",
             marginLeft: "5%",
-            marginRight: "5%",
-            marginTop: "10%"
+            marginRight: "5%"
           }}
         >
           <Slider

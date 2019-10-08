@@ -118,10 +118,10 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
           </Text>
         </View>
 
-        <View style={{height: 50}}>
+        <View style={{height: 60}}>
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -136,7 +136,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             alignItems: "stretch",
             marginLeft: "5%",
             marginRight: "5%",
-            marginTop: "7%"
+            marginTop: "10%"
           }}
         >
           <Slider
@@ -150,14 +150,14 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             style={{
               fontSize: 25,
               fontWeight: "600",
-              textAlign: "center",
-              marginTop: "7%"
+              textAlign: "center"
             }}
           >
             Value: {happyValue}
           </Text>
+          <View style={{height: 65}}>
           {feeling()}
-
+          </View>
           <View style={{ alignSelf: "center", marginTop: "10%" }}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
             <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Next</Text>
