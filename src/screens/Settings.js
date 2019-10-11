@@ -525,8 +525,7 @@ class Settings extends Component<Props> {
                     left: "50%",
                     flex: 1,
                     flexDirection: "column",
-                    top: "10%",
-                    zIndex: Platform.OS === "ios" ? 1 : null
+                    top: "10%"
                   }}
                 >
                   <TouchableOpacity
