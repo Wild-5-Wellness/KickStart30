@@ -7,7 +7,8 @@ import {
   TimePickerAndroid,
   Modal,
   ActivityIndicator,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from "react-native";
 import { Icon } from "native-base";
 import Navbar from "../components/Navbar";
@@ -496,6 +497,7 @@ class Settings extends Component<Props> {
         </Modal>
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View style={{ flex: 1 }}>
+          <ScrollView>
             {this.state.showTimer && Platform.OS === "ios"
               ? this.showTimePicker()
               : null}
@@ -519,14 +521,15 @@ class Settings extends Component<Props> {
                 <Icon />
               </View>
               <Text style={{ fontSize: 20, color: "#000" }}>Notifications</Text>
-              {height < 666 || width < 374 ? (
+              {/* {height < 666 || width < 374 ? (
                 <View
                   style={{
                     left: "50%",
                     flex: 1,
                     flexDirection: "column",
                     top: "10%",
-                    zIndex: Platform.OS === "ios" ? 1 : null
+                    borderColor:'black',
+                    borderWidth:1
                   }}
                 >
                   <TouchableOpacity
@@ -588,7 +591,7 @@ class Settings extends Component<Props> {
                     </View>
                   </TouchableOpacity>
                 </View>
-              ) : null}
+              ) : null} */}
               <View
                 style={{
                   borderTopWidth: 1,
@@ -684,7 +687,6 @@ class Settings extends Component<Props> {
                 </Text>
               </View>
             </TouchableOpacity> */}
-            {height > 666 && width > 374 ? (
               <View
                 style={{
                   marginLeft: 15,
@@ -746,14 +748,15 @@ class Settings extends Component<Props> {
                     </View>
                   </TouchableOpacity>
               </View>
-            ) : null}
             {/* </View> */}
+            </ScrollView>
           </View>
           <Navbar settingsdisable />
         </View>
       </>
-    );
-  }
-}
+    )
+  }}
+  
+
 
 export default Settings;
