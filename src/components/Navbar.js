@@ -14,13 +14,13 @@ const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = pr
                 onPress={()=> Actions.landing()}
                 >
                 <Icon name={"ios-home"} style={styles.icon}/>
-                <Text style={styles.buttons}>Track</Text>
+                <Text style={styles.buttons} >Track</Text>
                 </TouchableOpacity>
-            <TouchableOpacity disabled={feedbackdisable} style={[styles.touchable, {backgroundColor: feedbackdisable ? "#c7ccc4" : "#041D5D", borderRadius:feedbackdisable ? 6 : null}]}
+            <TouchableOpacity disabled={feedbackdisable} style={{flex: 1, justifyContent:'center', alignItems:'center',backgroundColor: feedbackdisable ? "#c7ccc4" : "#041D5D", borderRadius:feedbackdisable ? 6 : null}}
             onPress={() => Actions.feedback()}
             >
                 <Icon name={"clipboard"} style={styles.icon}/>
-                <Text style={styles.buttons}>Feedback</Text>
+                <Text style={styles.buttons} allowFontScaling={false}>Feedback</Text>
             </TouchableOpacity>
             <TouchableOpacity disabled={statsdisable} style={[styles.touchable, {backgroundColor: statsdisable ? "#c7ccc4" : "#041D5D", borderRadius:statsdisable ? 6 : null}]}
             onPress={() => Actions.statistics()}
