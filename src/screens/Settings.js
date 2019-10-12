@@ -692,7 +692,8 @@ class Settings extends Component<Props> {
                   marginLeft: 15,
                   marginTop: 20,
                   flexDirection: "row",
-                  justifyContent: "space-evenly"
+                  justifyContent: "space-evenly",
+                  marginBottom: 20
                 }}
               >
                 <TouchableOpacity

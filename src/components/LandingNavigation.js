@@ -85,7 +85,7 @@ export function Navigation(props) {
           ) : (
             <Icon name={item.icon} style={styles.icon} />
           )}
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title} allowFontScaling={false}>{item.title}</Text>
         </LinearGradient>
       </TouchableOpacity>
     );
