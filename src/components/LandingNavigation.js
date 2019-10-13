@@ -5,14 +5,21 @@ import {
   Text,
   View,
   Image,
-  Dimensions
+  Dimensions,
+  SafeAreaView
 } from "react-native";
 import { Icon } from "native-base";
 import { Actions } from "react-native-router-flux";
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize'
+import Navbar from '../components/Navbar'
 import LinearGradient from "react-native-linear-gradient";
 import chunk from "lodash/chunk";
 import { withAuthProvider } from "../context/authcontext";
 import HEROlogo from "../images/herologo.png";
+import wild5title from "../images/wild5_logo_resized4.png";
+import KS30title from "../images/KS30_578_113.png";
+
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -120,16 +127,62 @@ export function Navigation(props) {
            <View key={index} style={styles.row}>
              {items.map(renderItem)}
            </View>
-         ))}
+         ))} 
+         <View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'10%', borderColor:'#0aff27', borderWidth: 1}}>
+           <Text style={{fontSize:20, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+          </View>
+          <Image
+               source={wild5title}
+               style={{
+                 width: "80%",
+                 marginTop: "20%",
+                 resizeMode: "contain",
+                 marginBottom: "2%",
+                 alignSelf: "center"
+               }}
+             />
          </>
          : 
-         <>
+         <View style={{ flex: 1, backgroundColor:'#fff', borderColor:'#0aff27', borderWidth: 1 }}>
+           <SafeAreaView style={{flex: 1}}>
+         <View style={{flex: .8, margin: '2%'}}>
+         <Image
+               source={KS30title}
+               style={{
+                 flex: 1,
+                 resizeMode: "contain",
+                 alignSelf: "center",
+                 borderColor:'#0aff27', 
+                 borderWidth: 1
+               }}
+             />
+             </View>
+          <View style={{flex: 4}}>   
          {chunk(navigationItems, 2).map((items, index) => (
           <View key={index} style={styles.row}>
             {items.map(renderItem)}
           </View>
         ))}
-        </>
+        </View>
+        <View style={{flex: .5, flexDirection:'row', justifyContent:'center', alignItems:'center', borderColor:'#0aff27', borderWidth: 1}}>
+           <Text style={{fontSize:15, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+          </View>
+          <View style={{flex:1, borderColor:'#0aff27', borderWidth: 1, justifyContent: 'flex-end'}}>
+          <Image
+               source={wild5title}
+               style={{
+                 flex: .5,
+                 height: undefined,
+                 width: undefined,
+                 resizeMode: "contain",
+               }}
+             />
+          </View>
+          <View style={{justifyContent:'flex-end', borderColor:'#6d45a8', borderWidth: 1}}>
+          <Navbar homedisable />
+          </View>
+          </SafeAreaView>
+          </View>
          }
     </View>
   );
@@ -138,16 +191,21 @@ export function Navigation(props) {
 export default withAuthProvider(Navigation);
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginLeft:height < 666 || width < 374 ? 15 : null, marginBottom: height < 666 || width < 374 ? 15 : null },
+  container: { flex: 1},
   row: {
+    flex: .5,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    borderColor:'#0aff27', 
+    borderWidth: 1
   },
   touchable: {
     backgroundColor: "transparent",
-    marginBottom: 10,
-    width: height < 666 || width < 374 ? (1 / 2) * width - 35 : (1 / 2) * width - 20,
+    marginBottom: 8,
+    marginRight: 5,
+    marginLeft: 5,
+    flex: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -155,14 +213,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5
   },
   touchableHERO: {
     opacity: 0.50,
     backgroundColor: "transparent",
     marginBottom: 10,
-    width: height < 666 || width < 374 ? (1 / 2) * width - 35 : (1 / 2) * width - 20,
+    width: (1 / 2) * width - 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -174,20 +231,20 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   item: {
+    flex: 1,
     alignItems: "center",
     borderRadius: 5,
-    padding: height < 666 || width < 374 ? 2 : 10,
-    height: height < 666 || width < 374 ? 90 : 110
+    padding: 10,
   },
   itemHERO: {
     alignItems: "center",
     borderRadius: 5,
-    padding: height < 666 || width < 374 ? 2 : 10,
-    height: height < 666 || width < 374 ? 90 : 110,
+    padding: 10,
+    height: 110,
     width: 300
   },
-  icon: { color: "white", fontSize: 60 },
-  title: { color: "white", fontSize: height < 666 || width < 374 ? 12 : 16},
+  icon: { color: "white", fontSize: RFPercentage(10) },
+  title: { color: "white", fontSize: RFValue(18)},
   titleHERO: { color: "white", fontSize: 28, textAlign: "center" },
   titleHEROMain: {
     color: "#041D5D",

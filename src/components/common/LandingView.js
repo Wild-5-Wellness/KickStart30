@@ -14,9 +14,8 @@ export default LandingView = (props) => {
   },[])
 
     return (
-        <View style={{ flex: 1, backgroundColor:'#fff' }}>
-      <SafeAreaView style={{ flex: 1 }}>
-     {!props.hero && !props.hero2? 
+       
+     !props.hero && !props.hero2? 
      <ScrollView bounces={false}>
           <Image
             source={KS30title}
@@ -53,11 +52,8 @@ export default LandingView = (props) => {
             }}
           />
           <View style={{ flex: 1 }}>
-            <Navigation hero={props.hero} hero2={props.hero2} />
+            <Navigation hero={props.hero} hero2={props.hero2} day={props.day}/>
           </View>
-          {props.hero ?<View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:height < 666 && width < 374 ? '10%' : '10%'}}>
-           <Text style={{fontSize:height < 666 && width < 374 ? 15 : 20, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
-          </View>  : null}
           <Image
             source={wild5title}
             style={{
@@ -71,35 +67,7 @@ export default LandingView = (props) => {
           </ScrollView> 
            :
              <>
-             <Image
-               source={KS30title}
-               style={{
-                 width: "80%",
-                 resizeMode: "contain",
-                 marginTop: "3%",
-                 alignSelf: "center"
-               }}
-             />
-             <View style={{ flex: 1 }}>
-               <Navigation hero={props.hero} hero2={props.hero2} />
-             </View>
-             {props.hero ? <View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:height < 666 && width < 374 ? '32%' : '25%'}}>
-              <Text style={{fontSize:height < 666 && width < 374 ? 15 : 20, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
-             </View>  : null}
-             <Image
-               source={wild5title}
-               style={{
-                 width: "80%",
-                 marginTop: "20%",
-                 resizeMode: "contain",
-                 marginBottom: "2%",
-                 alignSelf: "center"
-               }}
-             />
-              </>
-          }
-      </SafeAreaView>
-      <Navbar homedisable />
-    </View>
+               <Navigation hero={props.hero} hero2={props.hero2} day={props.day}/>
+            </>
     )
 }

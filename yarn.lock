@@ -5534,7 +5534,7 @@ react-native-firebase@^5.5.6:
     opencollective-postinstall "^2.0.0"
     prop-types "^15.7.2"
 
-react-native-iphone-x-helper@^1.0.3:
+react-native-iphone-x-helper@^1.0.2, react-native-iphone-x-helper@^1.0.3:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
@@ -5593,6 +5593,13 @@ react-native-ratings@^6.3.0:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
+
+react-native-responsive-fontsize@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-fontsize/-/react-native-responsive-fontsize-0.2.3.tgz#59e3ec577dcff6126a43ced263abd7d2c4161162"
+  integrity sha512-jLfbQj8X21a8B9zU+MWuUp5ev9G+MwmeCnjz4F/4DNDNkoaPrAr8xdcGshiNgFMwDk3CeAZK3KO9dfzAUJJU/w==
+  dependencies:
+    react-native-iphone-x-helper "^1.0.2"
 
 react-native-router-flux@4.0.6:
   version "4.0.6"

@@ -9,7 +9,7 @@ const Navbar = (props) => {
  
 const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = props
     return (
-        <View style={{flex: .09, flexDirection: 'row', backgroundColor:'#041D5D'}}>
+        <View style={{height:50, width: '100%', flexDirection: 'row', backgroundColor:'#041D5D'}}>
                 <TouchableOpacity disabled={homedisable} style={[styles.touchable, {backgroundColor: homedisable ? "#c7ccc4" : "#041D5D", borderRadius:homedisable ? 6 : null}]}
                 onPress={()=> Actions.landing()}
                 >
