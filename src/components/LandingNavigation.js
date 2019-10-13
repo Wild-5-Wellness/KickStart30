@@ -6,11 +6,13 @@ import {
   View,
   Image,
   Dimensions,
-  SafeAreaView
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 import { Icon } from "native-base";
 import { Actions } from "react-native-router-flux";
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize'
+import FitImage from'react-native-fit-image'
 import Navbar from '../components/Navbar'
 import LinearGradient from "react-native-linear-gradient";
 import chunk from "lodash/chunk";
@@ -66,7 +68,7 @@ export function Navigation(props) {
   const [bothTrue, setBothTrue] = useState(false);
 
   useEffect(() => {
-    // console.log(Dimensions.get("window"))
+    console.log(Dimensions.get("window"))
     if (props.hero && props.hero2) {
       setBothTrue(true);
     }
@@ -101,8 +103,15 @@ export function Navigation(props) {
   return (
     <View style={styles.container}>
       { !props.hero && !props.hero2 || props.hero && props.hero2 ?
-      <>
-      {!props.hero && !props.hero2 ?<Text style={styles.heroText}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>}
+      <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1}}>
+     <ScrollView bounces={false}>
+         <Image
+               source={KS30title}
+               style={{height: 100, width:'90%', alignSelf:'center'}}
+               resizeMode="contain"             
+                />
+     {!props.hero && !props.hero2 ?<Text style={styles.heroText}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>} 
       <TouchableOpacity
       style={[styles.touchableHERO3]}
       onPress={() => Actions.herointro()}
@@ -123,27 +132,34 @@ export function Navigation(props) {
           <Text style={styles.titleHERO3}>Survey</Text>
       </LinearGradient>
     </TouchableOpacity>
+    <View style={{flex: 4}}>
          {chunk(navigationItems, 2).map((items, index) => (
            <View key={index} style={styles.row}>
              {items.map(renderItem)}
            </View>
          ))} 
-         <View style={{height: 100, width:'100%', flexDirection:'row', justifyContent:'center', alignItems:'center', top:'10%', borderColor:'#0aff27', borderWidth: 1}}>
-           <Text style={{fontSize:20, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+         </View>
+         <View style={{flex: 1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+           <Text style={{fontSize:RFValue(18), color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
           </View>
           <Image
-               source={wild5title}
+               source={require('../images/wild5_logo_resized4.png')}
                style={{
-                 width: "80%",
-                 marginTop: "20%",
-                 resizeMode: "contain",
-                 marginBottom: "2%",
-                 alignSelf: "center"
+                 height:50,
+                 width: '50%',
+                 alignSelf:'center',
+                 marginTop: '2%'
                }}
+               resizeMode="contain"
              />
-         </>
+          </ScrollView>
+          </View>
+          <View style={{justifyContent:'flex-end'}}>
+          <Navbar homedisable />
+          </View>
+          </SafeAreaView>
          : 
-         <View style={{ flex: 1, backgroundColor:'#fff', borderColor:'#0aff27', borderWidth: 1 }}>
+         <View style={{ flex: 1, backgroundColor:'#fff'}}>
            <SafeAreaView style={{flex: 1}}>
          <View style={{flex: .8, margin: '2%'}}>
          <Image
@@ -151,9 +167,7 @@ export function Navigation(props) {
                style={{
                  flex: 1,
                  resizeMode: "contain",
-                 alignSelf: "center",
-                 borderColor:'#0aff27', 
-                 borderWidth: 1
+                 alignSelf: "center"
                }}
              />
              </View>
@@ -164,10 +178,10 @@ export function Navigation(props) {
           </View>
         ))}
         </View>
-        <View style={{flex: .5, flexDirection:'row', justifyContent:'center', alignItems:'center', borderColor:'#0aff27', borderWidth: 1}}>
-           <Text style={{fontSize:15, color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+        <View style={{flex: .5, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+           <Text style={{fontSize:RFValue(15), color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
           </View>
-          <View style={{flex:1, borderColor:'#0aff27', borderWidth: 1, justifyContent: 'flex-end'}}>
+          <View style={{flex:1, justifyContent: 'flex-end'}}>
           <Image
                source={wild5title}
                style={{
@@ -178,7 +192,7 @@ export function Navigation(props) {
                }}
              />
           </View>
-          <View style={{justifyContent:'flex-end', borderColor:'#6d45a8', borderWidth: 1}}>
+          <View style={{justifyContent:'flex-end'}}>
           <Navbar homedisable />
           </View>
           </SafeAreaView>
@@ -192,13 +206,15 @@ export default withAuthProvider(Navigation);
 
 const styles = StyleSheet.create({
   container: { flex: 1},
+  fitImageWithSize: {
+    height: 75,
+    width: '100%'
+  },
   row: {
     flex: .5,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    borderColor:'#0aff27', 
-    borderWidth: 1
+    justifyContent: "space-evenly"
   },
   touchable: {
     backgroundColor: "transparent",
@@ -216,10 +232,11 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   touchableHERO: {
-    opacity: 0.50,
     backgroundColor: "transparent",
-    marginBottom: 10,
-    width: (1 / 2) * width - 20,
+    marginBottom: 8,
+    marginRight: 5,
+    marginLeft: 5,
+    flex: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -227,14 +244,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5
   },
   item: {
     flex: 1,
     alignItems: "center",
     borderRadius: 5,
-    padding: 10,
+    padding: 10
   },
   itemHERO: {
     alignItems: "center",

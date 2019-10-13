@@ -16,55 +16,14 @@ export default LandingView = (props) => {
     return (
        
      !props.hero && !props.hero2? 
-     <ScrollView bounces={false}>
-          <Image
-            source={KS30title}
-            style={{
-              width: "80%",
-              resizeMode: "contain",
-              marginTop: "3%",
-              alignSelf: "center"
-            }}
-          />
-          <View style={{ flex: 1 }}>
+     
+          
+          
             <Navigation hero={props.hero} hero2={props.hero2} />
-          </View>
-          <Image
-            source={wild5title}
-            style={{
-              width: "80%",
-              marginTop: "15%",
-              resizeMode: "contain",
-              marginBottom: "2%",
-              alignSelf: "center"
-            }}
-          />
-          </ScrollView> 
           : props.hero && props.hero2 ?
-          <ScrollView bounces={false}>
-          <Image
-            source={KS30title}
-            style={{
-              width: "80%",
-              resizeMode: "contain",
-              marginTop: "3%",
-              alignSelf: "center"
-            }}
-          />
-          <View style={{ flex: 1 }}>
+          
             <Navigation hero={props.hero} hero2={props.hero2} day={props.day}/>
-          </View>
-          <Image
-            source={wild5title}
-            style={{
-              width: "80%",
-              marginTop: "5%",
-              resizeMode: "contain",
-              marginBottom: "2%",
-              alignSelf: "center"
-            }}
-          />
-          </ScrollView> 
+       
            :
              <>
                <Navigation hero={props.hero} hero2={props.hero2} day={props.day}/>
