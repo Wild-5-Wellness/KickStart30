@@ -140,7 +140,7 @@ export function Navigation(props) {
          ))} 
          </View>
          <View style={{flex: 1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-           <Text style={{fontSize:RFValue(18), color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+           <Text style={{fontSize:RFValue(20), color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
           </View>
           <Image
                source={require('../images/wild5_logo_resized4.png')}
