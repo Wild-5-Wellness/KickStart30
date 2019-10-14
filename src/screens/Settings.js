@@ -8,7 +8,8 @@ import {
   Modal,
   ActivityIndicator,
   Dimensions,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from "react-native";
 import { Icon } from "native-base";
 import Navbar from "../components/Navbar";
@@ -495,6 +496,7 @@ class Settings extends Component<Props> {
             </View>
           </View>
         </Modal>
+        <SafeAreaView style={{flex: 1}}>
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View style={{ flex: 1 }}>
           <ScrollView>
@@ -754,6 +756,7 @@ class Settings extends Component<Props> {
           </View>
           <Navbar settingsdisable />
         </View>
+        </SafeAreaView>
       </>
     )
   }}

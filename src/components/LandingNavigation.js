@@ -79,7 +79,7 @@ export function Navigation(props) {
       <TouchableOpacity
         activeOpacity={1}
         key={index}
-        style={!props.hero ? styles.touchableHERO : styles.touchable}
+        style={index === index % 2 === 0 || index === 0 ? styles.touchable : styles.touchableHERO}
         onPress={!props.hero ? null : item.action}
       >
         <LinearGradient
@@ -94,7 +94,7 @@ export function Navigation(props) {
           ) : (
             <Icon name={item.icon} style={styles.icon} />
           )}
-          <Text style={styles.title} allowFontScaling={false}>{item.title}</Text>
+          <Text style={item.title === "HERO Exercises" ? styles.titleHERO : styles.title} allowFontScaling={false}>{item.title}</Text>
         </LinearGradient>
       </TouchableOpacity>
     );
@@ -211,16 +211,17 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   row: {
-    flex: .5,
+    flex: .47,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    alignItems:'center'
   },
   touchable: {
     backgroundColor: "transparent",
     marginBottom: 8,
     marginRight: 5,
-    marginLeft: 5,
+    marginLeft: 15,
     flex: 1,
     shadowColor: "#000",
     shadowOffset: {
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
   touchableHERO: {
     backgroundColor: "transparent",
     marginBottom: 8,
-    marginRight: 5,
+    marginRight: 15,
     marginLeft: 5,
     flex: 1,
     shadowColor: "#000",
@@ -260,8 +261,8 @@ const styles = StyleSheet.create({
     width: 300
   },
   icon: { color: "white", fontSize: RFPercentage(10) },
-  title: { color: "white", fontSize: RFValue(18)},
-  titleHERO: { color: "white", fontSize: 28, textAlign: "center" },
+  title: { color: "white", fontSize: RFPercentage(2)},
+  titleHERO: { color: "white", fontSize: RFPercentage(2), textAlign: "center", marginTop: '10%'},
   titleHEROMain: {
     color: "#041D5D",
     fontSize: 24,

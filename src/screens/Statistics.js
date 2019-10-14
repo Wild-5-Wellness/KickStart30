@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, Text, SafeAreaView} from 'react-native';
 import {withAuthProvider} from '../context/authcontext';
 import {Exercise} from './stats-at-a-glance/Exercise';
 import {Social} from './stats-at-a-glance/Social';
