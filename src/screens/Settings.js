@@ -92,8 +92,8 @@ class Settings extends Component<Props> {
               data[`${this.state.user}`].mind !== undefined
                 ? data[`${this.state.user}`].mind.notifOn
                 : false,
-            mindfulnessTime: data[`${this.state.user}`].mindfulness !== undefined ?
-            data[`${this.state.user}`].mindfulness.timeChosen : "",
+            mindfulnessTime: data[`${this.state.user}`].mind !== undefined ?
+            data[`${this.state.user}`].mind.timeChosen : "",
             sleepReminder:
               data[`${this.state.user}`].sleep !== undefined
                 ? data[`${this.state.user}`].sleep.notifOn
@@ -627,7 +627,7 @@ class Settings extends Component<Props> {
                   width: "90%"
                 }}
               >
-                <View style={{ marginTop: 15, flexDirection: 'row', borderColor: 'black', borderWidth: 1 }}>
+                <View style={{ marginTop: 15, flexDirection: 'row'}}>
                   <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Exercise</Text>
                   <ToggleSwitch
@@ -639,11 +639,11 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("exercise")}
                   />
                   </View>
-                  <View style={{flex: 1,borderColor: 'black', borderWidth: 1, justifyContent:'center'}}>
-                  <Text style={{alignSelf:'center', borderColor: 'black', borderWidth: 1}}>{this.state.exerciseTime === "" ? null : this.state.exerciseTime}</Text>
+                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.exerciseTime}</Text>
                   </View>
                 </View>
-                <View style={{ marginTop: 15, flexDirection: 'row', borderColor: 'black', borderWidth: 1 }}>
+                <View style={{ marginTop: 15, flexDirection: 'row'}}>
                   <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>
                     Mindfulness
@@ -657,11 +657,11 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("mind")}
                   />
                   </View>
-                  <View style={{flex: 1,borderColor: 'black', borderWidth: 1, justifyContent:'center'}}>
-                  <Text style={{alignSelf:'center', borderColor: 'black', borderWidth: 1}}>{this.state.mindfulnessTime}</Text>
+                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.mindfulnessTime}</Text>
                   </View>
                 </View>
-                <View style={{ marginTop: 15, flexDirection: 'row', borderColor: 'black', borderWidth: 1 }}>
+                <View style={{ marginTop: 15, flexDirection: 'row'}}>
                   <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Sleep</Text>
                   <ToggleSwitch
@@ -673,11 +673,11 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("sleep")}
                   />
                   </View>
-                  <View style={{flex: 1,borderColor: 'black', borderWidth: 1, justifyContent:'center'}}>
-                  <Text style={{alignSelf:'center', borderColor: 'black', borderWidth: 1}}>{this.state.sleepTime}</Text>
+                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.sleepTime}</Text>
                   </View>
                 </View>
-                <View style={{ marginTop: 15, flexDirection: 'row', borderColor: 'black', borderWidth: 1 }}>
+                <View style={{ marginTop: 15, flexDirection: 'row' }}>
                   <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Social</Text>
                   <ToggleSwitch
@@ -689,11 +689,11 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("social")}
                   />
                   </View>
-                  <View style={{flex: 1,borderColor: 'black', borderWidth: 1, justifyContent:'center'}}>
-                  <Text style={{alignSelf:'center', borderColor: 'black', borderWidth: 1}}>{this.state.socialTime}</Text>
+                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.socialTime}</Text>
                   </View>
                 </View>
-                <View style={{ marginTop: 15, flexDirection: 'row', borderColor: 'black', borderWidth: 1 }}>
+                <View style={{ marginTop: 15, flexDirection: 'row' }}>
                   <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Nutrition</Text>
                   <ToggleSwitch
@@ -705,8 +705,8 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("nutrition")}
                   />
                   </View>
-                  <View style={{flex: 1,borderColor: 'black', borderWidth: 1, justifyContent:'center'}}>
-                  <Text style={{alignSelf:'center', borderColor: 'black', borderWidth: 1}}>{this.state.nutritionTime}</Text>
+                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.nutritionTime}</Text>
                   </View>
                 </View>
               </View>
