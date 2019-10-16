@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   row: {
-    flex: .47,
+    flex: 2,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-evenly",
