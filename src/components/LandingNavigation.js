@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   },
   icon: { color: "white", fontSize: RFPercentage(10) },
   title: { color: "white", fontSize: RFPercentage(2)},
-  titleHERO: { color: "white", fontSize: RFPercentage(2), textAlign: "center", marginTop: '10%'},
+  titleHERO: { color: "white", fontSize: RFPercentage(2), textAlign: "center", marginTop: '3%'},
   titleHEROMain: {
     color: "#041D5D",
     fontSize: 24,
