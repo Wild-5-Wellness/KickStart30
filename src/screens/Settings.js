@@ -315,7 +315,7 @@ class Settings extends Component<Props> {
   // }
 
   submitTime = (date, pillar) => {
-    let date1 = format(date, 'h:m a');
+    let date1 = format(date, 'h:mm a');
     console.log(date1, typeof date1)
     ;
     this.PushNotificationIOS.scheduleNotif(pillar, date);
@@ -639,7 +639,7 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("exercise")}
                   />
                   </View>
-                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{alignSelf:'center'}}>{this.state.exerciseTime}</Text>
                   </View>
                 </View>
@@ -657,7 +657,7 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("mind")}
                   />
                   </View>
-                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{alignSelf:'center'}}>{this.state.mindfulnessTime}</Text>
                   </View>
                 </View>
@@ -673,7 +673,7 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("sleep")}
                   />
                   </View>
-                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{alignSelf:'center'}}>{this.state.sleepTime}</Text>
                   </View>
                 </View>
@@ -689,7 +689,7 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("social")}
                   />
                   </View>
-                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{alignSelf:'center'}}>{this.state.socialTime}</Text>
                   </View>
                 </View>
@@ -705,7 +705,7 @@ class Settings extends Component<Props> {
                     onToggle={this.toggleSwitch("nutrition")}
                   />
                   </View>
-                  <View style={{flex: 1, justifyContent:'center'}}>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
                   <Text style={{alignSelf:'center'}}>{this.state.nutritionTime}</Text>
                   </View>
                 </View>
