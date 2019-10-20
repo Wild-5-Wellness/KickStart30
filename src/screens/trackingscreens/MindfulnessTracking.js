@@ -20,13 +20,17 @@ const types = [
 
 const MindfulnessTracking = () => {
   const [type, setType] = React.useState('');
-  const [didMeditateToday, setDidMeditateToday] = React.useState(true);
+  const [didMeditateToday, setDidMeditateToday] = React.useState();
   const [showOther, setShowOther] = React.useState(false);
   const [otherType, setOtherType] = React.useState('');
+  const [error, setError] = React.useState("")
+
 
   const submitForm = React.useCallback(async () => {
     const mindfulnessRef = scopeRefByUserAndDate('Surveys', 'mindfulness');
-
+    if(didMeditateToday === undefined){
+      setError("Please Select an Option")
+    }else {
     await firebase
       .database()
       .ref(mindfulnessRef)
@@ -38,6 +42,7 @@ const MindfulnessTracking = () => {
     Alert.alert('Success!', 'Your mindfulness for today have been recorded.', [
       {text: 'OK', onPress: Actions.landing()},
     ]);
+  }
   }, [otherType, type, didMeditateToday]);
 
   React.useEffect(() => {
@@ -104,8 +109,11 @@ const MindfulnessTracking = () => {
               labelHorizontal={true}
               buttonColor={mindfulnessColor}
               animation={true}
-              onPress={value => setDidMeditateToday(value)}
+              onPress={value =>{ 
+                setError("")
+                setDidMeditateToday(value)}}
             />
+            <Text style={{color:'red'}}>{error}</Text>
           </View>
         </View>
 

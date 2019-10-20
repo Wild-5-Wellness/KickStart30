@@ -10,7 +10,7 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import { nutritionColor } from '../../components/common/colors'
 
 const NutritionTracking = () => {
-  const [loggedNutritionToday, setLoggedNutritionToday] = React.useState(true);
+  const [loggedNutritionToday, setLoggedNutritionToday] = React.useState();
 
   const [
     implementedMINDDietPrinciples,
@@ -18,6 +18,8 @@ const NutritionTracking = () => {
   ] = React.useState(true);
 
   const [mealMeditation, setMealMeditation] = React.useState("");
+  const [error, setError] = React.useState("")
+
   // const [lunchMeditation, setLunchMeditation] = React.useState(false);
   // const [dinnerMeditation, setDinnerMeditation] = React.useState(false);
 
@@ -33,7 +35,9 @@ const NutritionTracking = () => {
 
   const submitForm = React.useCallback(async () => {
     const nutritionRef = scopeRefByUserAndDate('Surveys', 'nutrition');
-
+    if(loggedNutritionToday === undefined){
+      setError("Please Select an Option")
+    }else {
     await firebase
       .database()
       .ref(nutritionRef)
@@ -46,6 +50,7 @@ const NutritionTracking = () => {
     Alert.alert('Success!', 'Your nutrition for today has been recorded.', [
       {text: 'OK', onPress: Actions.landing()},
     ]);
+  }
   }, [
     loggedNutritionToday,
     implementedMINDDietPrinciples,
@@ -109,8 +114,11 @@ const NutritionTracking = () => {
                 selectedButtonColor={nutritionColor}
                 labelStyle={{fontSize: 20, color: '#000'}}
                 animation={true}
-                onPress={value => setLoggedNutritionToday(value)}
+                onPress={value =>{ 
+                  setError("")
+                  setLoggedNutritionToday(value)}}
               />
+              <Text style={{color:'red'}}>{error}</Text>
             </View>
             <View
               style={{

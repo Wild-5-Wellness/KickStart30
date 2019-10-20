@@ -13,15 +13,18 @@ import {socialColor} from '../../components/common/colors'
 const SocialTracking = () => {
  
 
-  const [didSociallyConnect, setDidSociallyConnect] = useState(false)
+  const [didSociallyConnect, setDidSociallyConnect] = useState()
   const [type, setType] = useState("")
-
+  const [error, setError] = React.useState("")
  
   submitForm = async () => {
    
 
     const socialRef = scopeRefByUserAndDate('Surveys', 'social');
 
+    if(didSociallyConnect === undefined){
+      setError("Please Select an Option")
+    } else {
     await firebase
       .database()
       .ref(socialRef)
@@ -37,6 +40,7 @@ const SocialTracking = () => {
       "Your social interactions for today have been recorded.",
       [{text: "OK", onPress: Actions.landing()}]
     );
+    }
   };
 
     return (
@@ -91,9 +95,11 @@ const SocialTracking = () => {
             labelStyle={{fontSize: 20, color: "#000"}}
             animation={true}
             onPress={value => {
+              setError("")
               setDidSociallyConnect(Boolean(value));
             }}
           />
+          <Text style={{color:'red'}}>{error}</Text>
         </View>
         <Text style={styles.subtitle} numberOfLines={1}>
           What social contacts did you make?
