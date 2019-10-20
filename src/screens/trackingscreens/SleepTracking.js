@@ -13,9 +13,10 @@ const SleepTracking = () => {
   const [
     didImplementSleepPractices,
     setDidImplementSleepPractices,
-  ] = React.useState(true);
+  ] = React.useState();
 
   const [sleepHygiene, setSleepHygiene] = React.useState("")
+  const [error, setError] = React.useState("")
 
   // const [noElectronics, setNoElectronics] = React.useState(false);
   // const [sleepMask, setSleepMask] = React.useState(false);
@@ -44,7 +45,9 @@ const SleepTracking = () => {
 
   const submitForm = React.useCallback(async () => {
     const sleepRef = scopeRefByUserAndDate('Surveys', 'sleep');
-
+    if(didImplementSleepPractices === undefined){
+      setError("Please Select an Option")
+    }else {
     await firebase
       .database()
       .ref(sleepRef)
@@ -56,6 +59,7 @@ const SleepTracking = () => {
     Alert.alert('Success!', 'Your sleep for today has been recorded.', [
       {text: 'OK', onPress: Actions.landing()},
     ]);
+  }
   }, [
     didImplementSleepPractices
   ]);
@@ -115,8 +119,11 @@ const SleepTracking = () => {
             selectedButtonColor={sleepColor}
             labelStyle={{fontSize: 20, color: '#000'}}
             animation={true}
-            onPress={value => setDidImplementSleepPractices(value)}
+            onPress={value =>{ 
+              setError("")
+              setDidImplementSleepPractices(value)}}
           />
+          <Text style={{color:'red'}}>{error}</Text>
         </View>
         <Content>
           <Text
