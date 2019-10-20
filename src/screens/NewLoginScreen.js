@@ -55,7 +55,7 @@ const NewLoginScreen = props => {
       }
       </Modal>
       
-        <View style={{flex: 2, alignSelf: "center", marginTop: "5%", borderColor:'#6ff71e', borderWidth:1 }}>
+        <View style={{flex: 2, alignSelf: "center", marginTop: "5%" }}>
           <Image source={KS30} style={{alignSelf:'center', marginBottom:'5%' }} />
             <Image
               style={{ flex: .9, height: undefined, width: undefined }}
@@ -63,10 +63,10 @@ const NewLoginScreen = props => {
               resizeMode="contain"
             />
         </View>
-        <View style={{flex: .3, backgroundColor: "#52669c", alignSelf:'center', justifyContent:'center', borderColor:'#6ff71e', borderWidth:1}}>
+        <View style={{flex: .3, backgroundColor: "#52669c", alignSelf:'center', justifyContent:'center'}}>
           <Text style={{alignSelf:'center', fontSize:20, color: '#fff', paddingRight:5, paddingLeft: 5}}>Let's Get Started</Text>
           </View>
-          <View style={{flex: 1,flexDirection: 'row', display: 'flex', justifyContent: 'space-around',  borderColor:'#6ff71e', borderWidth:1, alignItems:'center'}}>
+          <View style={{flex: 1,flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems:'center'}}>
             <TouchableOpacity style={styles.buttons} onPress={()=>showModal("Register")}>
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
@@ -91,9 +91,7 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1.5,
     justifyContent: 'center',
-    alignItems:'center',
-    borderColor:'#6ff71e', 
-    borderWidth:1
+    alignItems:'center'
   },
   buttonText: {
     letterSpacing: 1,
