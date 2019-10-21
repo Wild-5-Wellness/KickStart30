@@ -43,7 +43,8 @@ target 'wild5' do
   pod 'Firebase/Auth', '~> 6.3.0'
   pod 'Firebase/Database', '~> 6.3.0'
 
-  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
+  pod 'ReactNativeAudioToolkit', :path => '../node_modules/@react-native-community/audio-toolkit'
 
   target 'wild5Tests' do
     inherit! :search_paths

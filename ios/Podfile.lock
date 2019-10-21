@@ -161,6 +161,8 @@ PODS:
   - React-RCTWebSocket (0.60.3):
     - React-Core (= 0.60.3)
     - React-fishhook (= 0.60.3)
+  - ReactNativeAudioToolkit (2.0.2):
+    - React
   - RNFirebase (5.5.6):
     - Firebase/Core
     - React
@@ -169,11 +171,6 @@ PODS:
     - Crashlytics
     - Fabric
     - Firebase/Core
-    - React
-  - RNSound (0.11.0):
-    - React
-    - RNSound/Core (= 0.11.0)
-  - RNSound/Core (0.11.0):
     - React
   - RNSVG (9.5.1):
     - React
@@ -208,8 +205,8 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
+  - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
-  - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -282,10 +279,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   React-RCTWebSocket:
     :path: "../node_modules/react-native/Libraries/WebSocket"
+  ReactNativeAudioToolkit:
+    :path: "../node_modules/@react-native-community/audio-toolkit"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
-  RNSound:
-    :path: "../node_modules/react-native-sound"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   yoga:
@@ -332,11 +329,11 @@ SPEC CHECKSUMS:
   React-RCTText: b026f8350c2cbe0daeb9880dd9c6e018fce0daf7
   React-RCTVibration: 5d9ed4a968e9d42880ddcc7c29bee3417c745408
   React-RCTWebSocket: 69d8565d66043f244b4129f3d7154c5689fb7d3e
+  ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
-  RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
-PODFILE CHECKSUM: b31b748f6626c11baab5fc40f81e1778c29f7efc
+PODFILE CHECKSUM: d75649a4e0cfad113f2178b4e52a30e1c85d9de4
 
 COCOAPODS: 1.8.3
