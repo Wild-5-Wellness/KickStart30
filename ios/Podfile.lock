@@ -170,6 +170,11 @@ PODS:
     - Fabric
     - Firebase/Core
     - React
+  - RNSound (0.11.0):
+    - React
+    - RNSound/Core (= 0.11.0)
+  - RNSound/Core (0.11.0):
+    - React
   - RNSVG (9.5.1):
     - React
   - yoga (0.60.3.React)
@@ -204,6 +209,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
+  - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -278,6 +284,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/WebSocket"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
+  RNSound:
+    :path: "../node_modules/react-native-sound"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   yoga:
@@ -325,9 +333,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: 5d9ed4a968e9d42880ddcc7c29bee3417c745408
   React-RCTWebSocket: 69d8565d66043f244b4129f3d7154c5689fb7d3e
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
+  RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
-PODFILE CHECKSUM: 47757bacc084e9feba6994a1e513dd06b777cd31
+PODFILE CHECKSUM: b31b748f6626c11baab5fc40f81e1778c29f7efc
 
 COCOAPODS: 1.8.3

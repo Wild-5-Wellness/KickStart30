@@ -50,9 +50,9 @@ const Navbar = (props) => {
         <Icon name={'md-help'} />
           <Text>Help</Text>
         </Button> */}
-              <Button disabled={props.faqdisable} onPress={() => Actions.about()}>
-                <Icon name={"chatbubbles"} style={styles.icon}/>
-                <Text style={styles.buttons}>About</Text>
+              <Button disabled={props.tools} onPress={() => Actions.tools()}>
+                <Icon name={"build"} style={styles.icon}/>
+                <Text style={styles.buttons}>Tools</Text>
               </Button>
               <Button disabled={props.settingsdisable} onPress={() => Actions.settings()}>
                 <Icon name={"ios-settings"} style={styles.icon}/>

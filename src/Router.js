@@ -32,6 +32,8 @@ import SleepStats from './screens/statsscreens/SleepStats';
 import SocialStats from './screens/statsscreens/SocialStats';
 import NutriStats from './screens/statsscreens/NutrStats';
 import Feedback from './screens/accountmenu/Feedback'
+import MindfulnessAudio from './screens/tools/MindfulnessAudio'
+import Tools from './screens/tools/ToolsMenu'
 
 const Routercomponent = () => {
   return (
@@ -168,6 +170,8 @@ const Routercomponent = () => {
         />
         <Scene key="heroscore" component={HeroScore} header={null} />
         <Scene key="feedback" component={Feedback} header={null} />
+        <Scene key="mindfulnessaudio" component={MindfulnessAudio} header={null} />
+        <Scene key="tools" component={Tools} header={null} />
       </Scene>
     </Router>
   );
