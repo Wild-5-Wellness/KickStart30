@@ -1,7 +1,7 @@
 package com.wild5wellness.kickstart30;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
-import com.zmxv.RNSound.RNSoundPackage;
+import com.reactnativecommunity.rctaudiotoolkit.AudioPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
