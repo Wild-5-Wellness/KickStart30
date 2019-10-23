@@ -264,9 +264,9 @@ PODS:
     - React-cxxreact (= 0.61.0)
     - React-jsi (= 0.61.0)
   - React-jsinspector (0.61.0)
-  - react-native-netinfo (4.2.2):
+  - react-native-netinfo (4.4.0):
     - React
-  - react-native-slider (2.0.0):
+  - react-native-slider (2.0.2):
     - React
   - React-RCTActionSheet (0.61.0):
     - React-Core/RCTActionSheetHeaders (= 0.61.0)
@@ -305,6 +305,8 @@ PODS:
     - React-cxxreact (= 0.61.0)
     - React-jsi (= 0.61.0)
     - ReactCommon/jscallinvoker (= 0.61.0)
+  - ReactNativeAudioToolkit (2.0.2):
+    - React
   - RNFirebase (5.5.6):
     - Firebase/Core
     - React
@@ -351,9 +353,9 @@ DEPENDENCIES:
   - React-RCTSettings (from `../node_modules/react-native/Libraries/Settings`)
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
-  - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -431,10 +433,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Text"
   React-RCTVibration:
     :path: "../node_modules/react-native/Libraries/Vibration"
-  ReactNativeAudioToolkit:
-    :path: "../node_modules/@react-native-community/audio-toolkit"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeAudioToolkit:
+    :path: "../node_modules/@react-native-community/audio-toolkit"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
   RNSVG:
@@ -473,9 +475,8 @@ SPEC CHECKSUMS:
   React-jsi: 4b5e521350c455b5eb4be50ea98c02de25b44fad
   React-jsiexecutor: 5532ab4389aabbbf1b87904de04c8ddd7dda7036
   React-jsinspector: 99b82aeb51d67d9025ab4eb8ccb8132f8dcebf69
-  react-native-netinfo: 2bb2e5094edcfecfb340a85053608526cb20f185
-  react-native-slider: 40bdbfc1af0393922ac331bc1d95a6c5d5174fb6
-  ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
+  react-native-netinfo: 6bb847e64f45a2d69c6173741111cfd95c669301
+  react-native-slider: 5d61590f26a51cf0a858bfd1543f6d6ec8b78a6e
   React-RCTActionSheet: 5f9a1733ec8e380aae8a97877f1166cb058733ae
   React-RCTAnimation: 3e0a55305b70b1eb5a5e34230ed8198d4a782da9
   React-RCTBlob: a6ff2220ed7ef4b06e559ec61a0b0f4e80a3716a
@@ -487,10 +488,11 @@ SPEC CHECKSUMS:
   React-RCTText: beb19a6c50072a1a2f617490ea967237c98d1dfc
   React-RCTVibration: c8e67f140a83a14a1ad9042950cca08ab29423fd
   ReactCommon: 584ef683c340894c1c82be43ce760390493ae8bf
+  ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   Yoga: 3f70bbd9aa01e04eefec36e2a085b2fc0ff1dd98
-  
-PODFILE CHECKSUM: b78305ce684c9920cb2652757763388c6a0f1b43
+
+PODFILE CHECKSUM: d6081581eccdce90d5bd6b14c3cbae0d758e2073
 
 COCOAPODS: 1.8.3

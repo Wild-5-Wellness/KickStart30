@@ -61,6 +61,10 @@ const MindfulnessAudio = () => {
       return (
         <View style={{ flex: 1, backgroundColor: "#fff", alignItems:'center' }}>
         <SafeAreaView style={{flex: 1}}>
+          <View style={{height: 50, width: '100%',alignItems: 'center',alignSelf:'center', borderColor:'black', borderWidth: 1}}>
+            <Text style={{fontSize: 24, color:'#0AB2E8', alignSelf:'center'}}>Meditation Tracks</Text>
+          </View>
+          <View style={{flex: 1}}>
             {players.map(({ player, name, duration }) => {
             // const duration = Math.round(player.getDuration() / 60)
                 // console.log(player)
@@ -160,6 +164,7 @@ const MindfulnessAudio = () => {
                 </View>
               </TouchableOpacity>
             )})}
+            </View>
         </SafeAreaView>
         </View>
       )

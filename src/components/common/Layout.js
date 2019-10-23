@@ -11,8 +11,8 @@ export function Layout(props) {
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
-      </SafeAreaView>
       <Navbar statsdisable/>
+      </SafeAreaView>
     </View>
   );
 }

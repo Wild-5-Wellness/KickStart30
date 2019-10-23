@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity} from "react-native";
 import {Icon} from 'native-base'
 import { Actions } from "react-native-router-flux";
 
@@ -9,7 +9,7 @@ const Navbar = (props) => {
  
 const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = props
     return (
-        <View style={{flex: .09, flexDirection: 'row', backgroundColor:'#041D5D'}}>
+        <View style={{height: 50, width:'100%', flexDirection: 'row', backgroundColor:'#041D5D'}}>
                 <TouchableOpacity disabled={homedisable} style={[styles.touchable, {backgroundColor: homedisable ? "#c7ccc4" : "#041D5D", borderRadius:homedisable ? 6 : null}]}
                 onPress={()=> Actions.landing()}
                 >
@@ -29,10 +29,10 @@ const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = pr
                 <Text style={styles.buttons}>Stats</Text>
             </TouchableOpacity>
           <TouchableOpacity disabled={faqdisable} style={[styles.touchable, {backgroundColor: faqdisable ? "#c7ccc4" : "#041D5D", borderRadius:faqdisable ? 6 : null}]}
-          onPress={() => Actions.about()}
+          onPress={() => Actions.tools()}
           >
-                <Icon name={"chatbubbles"} style={styles.icon}/>
-                <Text style={styles.buttons}>About</Text>
+                <Icon name={"build"} style={styles.icon}/>
+                <Text style={styles.buttons}>Tools</Text>
           </TouchableOpacity>
             <TouchableOpacity disabled={settingsdisable} style={[styles.touchable, {backgroundColor: settingsdisable ? "#c7ccc4" : "#041D5D", borderRadius:settingsdisable ? 6 : null}]}
             onPress={() => Actions.settings()}
