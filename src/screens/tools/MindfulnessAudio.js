@@ -38,9 +38,7 @@ const players = [
     },
     { path: "https://s3-us-west-1.amazonaws.com/wild5wellness.kickstart30/pain_meditation.mp3", name: "Pain Meditation", duration: 13 }
   ].map(track => ({
-      player: new Player(track.path, {
-        continuesToPlayInBackground: true
-    }),
+      player: new Player(track.path, {continuesToPlayInBackground: true}).prepare(),
       name: track.name,
       duration: track.duration
   }))
@@ -65,16 +63,26 @@ const MindfulnessAudio = () => {
         <SafeAreaView style={{flex: 1}}>
             {players.map(({ player, name, duration }) => {
             // const duration = Math.round(player.getDuration() / 60)
-                console.log(player)
+                // console.log(player)
+              if(player.isPlaying && player._playerId !== state.activePlayerId){
+                player.stop(()=> console.log(`${player._playerId} stopped`))
+              }
+
+              const progress = () => {
+                while(player.isPlaying){
+                  return Math.round(player.currentTime/player.duration * 100)
+                }
+              }
+
                 player.on("ended", ()=>{
-                    setState(prevState=>({
-                        ...prevState,
-                        playerDuration: player._duration,
-                        activePlayerId: NO_PLAYER,
-                        isPlaying: player.isPlaying,
-                        completedTracks: [...state.completedTracks, player._playerId]
-                    }))
-                })
+                  setState(prevState=>({
+                      ...prevState,
+                      duration: player.duration,
+                      activePlayerId: NO_PLAYER,
+                      isPlaying: player.isPlaying,
+                      completedTracks: [...state.completedTracks, player._playerId]
+                  }))
+              })
             return (
               <TouchableOpacity
                 key={player._playerId + Math.random()}
@@ -86,26 +94,36 @@ const MindfulnessAudio = () => {
                   marginTop: "2%"
                 }}
                 onPress={() => {
-                    if(player.isPlaying){
-                        player.pause(()=>
-                        setState(prevState=>({
-                            ...prevState,
-                            activePlayerId: NO_PLAYER,
-                            isPlaying: player.isPlaying
-                        }))
-                        )
-                    } else {
-                        player.play(()=> {
-                        setState(prevState=>({
-                            ...prevState,
-                            activePlayerId: player._playerId,
-                            isPlaying: player.isPlaying
-                        }))
-                    }
-                        )
-                    }
-                    
-                }}
+                  if(player.isPlaying){
+                      if(player._playerId === state.activePlayerId){
+                    player.pause(()=> {
+                    console.log(player)
+                    console.log(Math.round(player.currentTime))
+                    console.log(Math.round(player.duration))
+                    console.log(Math.round(player.currentTime/player.duration * 100))
+                    setState(prevState=>({
+                        ...prevState,
+                        activePlayerId: NO_PLAYER,
+                        isPlaying: player.isPlaying
+                    }))
+                  }
+                    )
+                  } else player.stop()
+                } else {
+                    player.play(()=> {
+                      console.log(player)
+                    setState(prevState=>({
+                        ...prevState,
+                        activePlayerId: player._playerId,
+                        isPlaying: player.isPlaying,
+                        duration: Math.round(player.duration)
+                    }))
+                }
+                    )
+                }
+                
+            }
+                }
               >
             <View style={{flex: 1}}>
                 <View
@@ -133,6 +151,11 @@ const MindfulnessAudio = () => {
                     }}
                     name={state.activePlayerId !== player._playerId ? "play" : "pause"}
                   />
+                </View>
+                <View style={{height: 10,width: '80%',borderColor:'red', borderWidth: 1, marginLeft:10}}>
+                  <View style={{flex: 1, backgroundColor: 'blue', width: `${progress()}%`}}>
+
+                  </View>
                 </View>
                 </View>
               </TouchableOpacity>
