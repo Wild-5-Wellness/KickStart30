@@ -1,66 +1,46 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import {
-  Container,
-  Footer,
-  FooterTab,
-  Button,
-  Text,
-  Header,
-  Icon,
-  Badge
-} from "native-base";
+import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from "react-native";
+import {Icon} from 'native-base'
 import { Actions } from "react-native-router-flux";
 
 const {width, height} = Dimensions.get('window')
 
 const Navbar = (props) => {
  
-
+const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = props
     return (
-      <View>
-          <Footer>
-            <FooterTab style={{backgroundColor: "#041D5D"}}>
-              <Button disabled={props.homedisable} onPress={()=> Actions.landing()}>
+        <View style={{flex: .09, flexDirection: 'row', backgroundColor:'#041D5D'}}>
+                <TouchableOpacity disabled={homedisable} style={[styles.touchable, {backgroundColor: homedisable ? "#c7ccc4" : "#041D5D", borderRadius:homedisable ? 6 : null}]}
+                onPress={()=> Actions.landing()}
+                >
                 <Icon name={"ios-home"} style={styles.icon}/>
-                <Text style={styles.buttons}>Track</Text>
-              </Button>
-              {/* <Button disabled={this.props.learndisable} onPress={() => Actions.edroadmap()}>
-                <Icon name={"ribbon"} />
-                <Text>Learn</Text>
-              </Button> */}
-              {/* <Button onPress={() => Actions.kickstart()}>
-            <Icon name={"rocket"} />
-              <Text>Kickstart</Text>
-            </Button> */}
-            <Button disabled={props.feedbackdisable} onPress={() => Actions.feedback()}>
+                <Text style={styles.buttons} >Track</Text>
+                </TouchableOpacity>
+            <TouchableOpacity disabled={feedbackdisable} style={{flex: 1, justifyContent:'center', alignItems:'center',backgroundColor: feedbackdisable ? "#c7ccc4" : "#041D5D", borderRadius:feedbackdisable ? 6 : null}}
+            onPress={() => Actions.feedback()}
+            >
                 <Icon name={"clipboard"} style={styles.icon}/>
-                
-                <Text style={styles.feedback}>Feedback</Text>
-              </Button>
-            {/* <Button disabled={this.props.questdisable} onPress={() => Actions.quests()}>
-                <Icon name={"flame"} />
-                <Text>Quest</Text>
-              </Button> */}
-              <Button disabled={props.statsdisable} onPress={() => Actions.statistics()}>
+                <Text style={styles.buttons} allowFontScaling={false}>Feedback</Text>
+            </TouchableOpacity>
+            <TouchableOpacity disabled={statsdisable} style={[styles.touchable, {backgroundColor: statsdisable ? "#c7ccc4" : "#041D5D", borderRadius:statsdisable ? 6 : null}]}
+            onPress={() => Actions.statistics()}
+            >
                 <Icon name={"stats"} style={styles.icon}/>
                 <Text style={styles.buttons}>Stats</Text>
-              </Button>
-              {/* <Button onPress={() => Actions.help()}>
-        <Icon name={'md-help'} />
-          <Text>Help</Text>
-        </Button> */}
-              <Button disabled={props.tools} onPress={() => Actions.tools()}>
-                <Icon name={"build"} style={styles.icon}/>
-                <Text style={styles.buttons}>Tools</Text>
-              </Button>
-              <Button disabled={props.settingsdisable} onPress={() => Actions.settings()}>
-                <Icon name={"ios-settings"} style={styles.icon}/>
-                <Text style={styles.settings}>Settings</Text>
-              </Button>
-            </FooterTab>
-          </Footer>
-      </View>
+            </TouchableOpacity>
+          <TouchableOpacity disabled={faqdisable} style={[styles.touchable, {backgroundColor: faqdisable ? "#c7ccc4" : "#041D5D", borderRadius:faqdisable ? 6 : null}]}
+          onPress={() => Actions.about()}
+          >
+                <Icon name={"chatbubbles"} style={styles.icon}/>
+                <Text style={styles.buttons}>About</Text>
+          </TouchableOpacity>
+            <TouchableOpacity disabled={settingsdisable} style={[styles.touchable, {backgroundColor: settingsdisable ? "#c7ccc4" : "#041D5D", borderRadius:settingsdisable ? 6 : null}]}
+            onPress={() => Actions.settings()}
+            >
+            <Icon name={"ios-settings"} style={styles.icon}/>
+                <Text style={styles.buttons}>Settings</Text>
+            </TouchableOpacity>
+        </View>
     );
   }
 
@@ -70,18 +50,12 @@ export default Navbar;
 const styles = StyleSheet.create({
   icon:{
     color: "#fff",
-    fontSize: height < 666 && width < 374 ? 18 : 20
+    fontSize:  20
   },
   buttons: {
     color: "#fff",
-    fontSize: 10 },
-settings: {
-  color: "#fff",
-fontSize: height < 666 || width < 374 ? 7 : 10
-},
-feedback: {
-    color: "#fff",
-  fontSize: height < 666 && width < 374 ? 6 : 9
-  
+    fontSize: 11 },
+touchable:{
+  flex: 1, justifyContent:'center', alignItems:'center'
 }
 })

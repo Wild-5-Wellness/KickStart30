@@ -17,18 +17,18 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 // import java.util.Arrays;
 import java.util.List;
-import android.util.Log;
+import android.content.Context;
 import com.facebook.react.PackageList;
-import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
-import com.facebook.react.bridge.JavaScriptExecutorFactory;
+import java.lang.reflect.InvocationTargetException;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
+ private final ReactNativeHost mReactNativeHost =
+      new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+          return BuildConfig.DEBUG;
+        }
 
     @Override
     protected List<ReactPackage> getPackages() {
