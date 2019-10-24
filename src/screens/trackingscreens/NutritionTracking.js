@@ -120,50 +120,7 @@ const NutritionTracking = () => {
               />
               <Text style={{color:'red'}}>{error}</Text>
             </View>
-            <View
-              style={{
-                alignSelf: 'center',
-                marginTop: '10%',
-                alignItems: 'center',
-                height:40
-              }}
-            >
-              <Text
-                style={{
-                  color: '#000',
-                  textAlign: 'center',
-                  fontWeight: '600',
-                }}
-              >
-                Did I implement MIND diet principles?
-              </Text>
-              {/* <RadioForm
-                radio_props={[
-                  {label: 'Yes', value: true},
-                  {label: 'No', value: false},
-                ]}
-                initial={false}
-                formHorizontal={false}
-                labelHorizontal={true}
-                buttonColor={nutritionColor}
-                selectedButtonColor={nutritionColor}
-                animation={true}
-                labelStyle={{fontSize: 20, color: '#000'}}
-                onPress={value => setImplementedMINDDietPrinciples(value)}
-              /> */}
-            </View>
-
             <View>
-              <Text
-                style={{
-                  color: '#000',
-                  marginBottom: '5%',
-                  textAlign: 'center',
-                  fontWeight: '600',
-                }}
-              >
-                Did I practice mindful Meal Meditation?
-              </Text>
               <Picker
                 selectedValue={mealMeditation}
                 style={{height: 50, width: '100%'}}
@@ -171,7 +128,7 @@ const NutritionTracking = () => {
                   setMealMeditation(itemValue)
                 }
                 mode="dropdown"
-                placeholder="Meal"
+                placeholder="Nutrition"
                 placeholderStyle={{color: '#000'}}
                 placeholderIconColor="#000"
                 iosIcon={
@@ -181,9 +138,8 @@ const NutritionTracking = () => {
                   />
                 }
                 >
-                <Picker.Item label="Breakfast" value="breakfast" />
-                <Picker.Item label="Lunch" value="lunch" />
-                <Picker.Item label="Dinner" value="dinner" />
+                <Picker.Item label="Did I Implement MIND diet principles?" value="Did I Implement MIND diet principles?" />
+                <Picker.Item label="Did I practice mindful meal meditation?" value="Did I practice mindful meal meditation?" />
               </Picker>
             </View>
           </ScrollView>
