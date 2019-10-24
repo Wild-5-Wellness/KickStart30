@@ -10,6 +10,7 @@ import {Nutrition} from './stats-at-a-glance/Nutrition';
 import {Layout} from '../components/common/Layout';
 import {Hero} from './stats-at-a-glance/HERO'
 import LinesChart from '../components/charts/LinesChart'
+import Navbar from '../components/Navbar'
 
 export function Statistics(props) {
   const [loading, setLoading] = React.useState(false);

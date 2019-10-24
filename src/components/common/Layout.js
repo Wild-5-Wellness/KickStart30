@@ -11,10 +11,8 @@ export function Layout(props) {
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
-      </SafeAreaView>
-      <View style={{justifyContent:'flex-end'}}>
       <Navbar statsdisable/>
-      </View>
+      </SafeAreaView>
     </View>
   );
 }

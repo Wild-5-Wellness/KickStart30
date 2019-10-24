@@ -18,7 +18,8 @@ const Disclaimer = () => {
         </Text>
         {expanded
           ? <Icon style={{ fontSize: 18, color:'#fff' }} name="remove-circle" />
-          : <Icon style={{ fontSize: 18, color:'#fff' }} name="add-circle" />}
+          : <Icon style={{ fontSize: 18, color:'#fff' }} name="add-circle" />
+          }
       </View>
     );
   }

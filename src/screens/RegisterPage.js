@@ -285,7 +285,7 @@ const RegisterPage = (props) => {
             </Text>
 
             {loading && !error ? (
-              <View style={{ alignSelf: "center" }}>
+              <View style={{alignSelf: "center"}}>
                 <ActivityIndicator size="large" color="#041D5D"/>
               </View>
             ) : null}
@@ -307,11 +307,11 @@ const RegisterPage = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <Disclaimer />
       {loading && !error ? (
-        <View style={{ alignSelf: "center", backgroundColor: '#fff' }}>
+        <View style={{ width:'100%',alignSelf: "center", backgroundColor: '#fff' }}>
         <ActivityIndicator size="large" color="#041D5D"/>
         </View>
       ) : error ? (
-        <View style={{ alignSelf: "center", backgroundColor: '#fff' }}>
+        <View style={{ width:'100%',alignSelf: "center", backgroundColor: '#fff' }}>
           <Text style={{ fontSize: 20, color: "red", alignSelf: "center", textAlign:'center' }}>
             {error}
           </Text>

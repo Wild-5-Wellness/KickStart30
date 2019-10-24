@@ -18,9 +18,14 @@ const radio_props = [{label: "Yes", value: 1}, {label: "No", value: 0}];
 
 const HeroTracking = () => {
   const [heroDaily, setHeroDaily] = React.useState("");
+  const [error, setError] = React.useState("")
+
 
   const submitForm = React.useCallback(async () => {
     const heroRef = scopeRefByUserAndDate("Surveys", "heroDaily");
+    if(heroDaily === ""){
+      setError("Please Select an Option")
+    } else {
     firebase
       .database()
       .ref(heroRef)
@@ -40,8 +45,9 @@ const HeroTracking = () => {
           ]
         )
       );
-  });
-
+        }
+  })
+  
   return (
     <TrackingScreen
       backgroundImage={heroBackground}
@@ -91,8 +97,11 @@ const HeroTracking = () => {
             buttonColor={"#DD3121"}
             labelStyle={{fontSize: 20, color: "#000"}}
             animation={true}
-            onPress={value => setHeroDaily(value)}
+            onPress={value =>{ 
+              setError("")
+              setHeroDaily(value)}}
           />
+        <Text style={{color:'red'}}>{error}</Text>
         </View>
       </SafeAreaView>
     </TrackingScreen>

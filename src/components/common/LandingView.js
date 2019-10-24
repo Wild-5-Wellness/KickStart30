@@ -98,8 +98,8 @@ export default LandingView = (props) => {
              />
               </>
           }
-      </SafeAreaView>
       <Navbar homedisable />
+      </SafeAreaView>
     </View>
     )
 }
