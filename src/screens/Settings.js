@@ -8,7 +8,8 @@ import {
   Modal,
   ActivityIndicator,
   Dimensions,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from "react-native";
 import { Icon } from "native-base";
 import Navbar from "../components/Navbar";
@@ -523,19 +524,19 @@ class Settings extends Component<Props> {
             </View>
           </View>
         </Modal>
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
-          <View style={{ flex: 1 }}>
-          <ScrollView>
+        <View style={{ flex: 1, backgroundColor: "#fff"}}>
+          <SafeAreaView style={{flex: 1}}>
+          <View style={{ flex: 1}}>
+          <ScrollView style={{flex: 1}}>
             {this.state.showTimer && Platform.OS === "ios"
               ? this.showTimePicker()
               : null}
             <View
               style={{
-                marginTop: Platform.OS === "ios" ? "12%" : "5%",
                 marginLeft: "5%"
               }}
             >
-              <View style={{ alignSelf: "center" }}>
+              <View style={{ alignSelf: "center"}}>
                 <Text
                   style={{
                     fontSize: 36,
@@ -801,11 +802,29 @@ class Settings extends Component<Props> {
                       </Text>
                     </View>
                   </TouchableOpacity>
+                  <TouchableOpacity 
+                  style={{
+                    height: 60,
+                    width: 100,
+                    backgroundColor: "#041D5D",
+                    justifyContent: "center",
+                    borderRadius: 7,
+                    zIndex: 1
+                  }}
+                  onPress={()=> Actions.about()}
+                  >
+                       <Text
+                    style={{ color: "#fff", alignSelf: "center", fontSize: 18 }}
+                  >
+                    About
+                  </Text>
+                  </TouchableOpacity>
               </View>
             {/* </View> */}
             </ScrollView>
           </View>
           <Navbar settingsdisable />
+          </SafeAreaView>
         </View>
       </>
     )
