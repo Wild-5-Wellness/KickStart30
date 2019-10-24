@@ -134,8 +134,6 @@ const MindfulnessAudio = () => {
                     backgroundColor:
                       state.activePlayerId === player._playerId
                         ? '#32CD32'
-                        : state.completedTracks.includes(player._playerId)
-                        ? '#333'
                         : '#0AB2E8',
                     marginBottom: '2%',
                     marginTop: '2%',
