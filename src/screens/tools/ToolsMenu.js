@@ -8,9 +8,9 @@ const ToolsMenu = () => {
     return (
 
         <View style={{flex: 1, backgroundColor:'#fff'}}>
-        <SafeAreaView style={{flex: 1, alignItems:'center'}}>
-            <TouchableOpacity style={{height: 45, width: '85%', borderRadius: 10, justifyContent:'center', backgroundColor:'blue'}} onPress={()=>Actions.mindfulnessaudio()}>
-                <Text style={{alignSelf:'center', color:'#fff'}}>Mindfulness Tracks</Text>
+        <SafeAreaView style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
+            <TouchableOpacity style={{height: 65, width: '85%', borderRadius: 10, justifyContent:'center', backgroundColor:'#0AB2E8'}} onPress={()=>Actions.mindfulnessaudio()}>
+                <Text style={{alignSelf:'center', color:'#fff', fontSize:24}}>Mindfulness Tracks</Text>
             </TouchableOpacity>
             <View style={{flex: 1,justifyContent: 'flex-end'}}>
             <Navbar />

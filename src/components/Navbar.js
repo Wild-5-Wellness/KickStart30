@@ -7,7 +7,7 @@ const {width, height} = Dimensions.get('window')
 
 const Navbar = (props) => {
  
-const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = props
+const {homedisable,feedbackdisable,statsdisable,toolsdisabled,settingsdisable} = props
     return (
         <View style={{height: 50, width:'100%', flexDirection: 'row', backgroundColor:'#041D5D'}}>
                 <TouchableOpacity disabled={homedisable} style={[styles.touchable, {backgroundColor: homedisable ? "#c7ccc4" : "#041D5D", borderRadius:homedisable ? 6 : null}]}
@@ -28,8 +28,8 @@ const {homedisable,feedbackdisable,statsdisable,faqdisable,settingsdisable} = pr
                 <Icon name={"stats"} style={styles.icon}/>
                 <Text style={styles.buttons}>Stats</Text>
             </TouchableOpacity>
-          <TouchableOpacity disabled={faqdisable} style={[styles.touchable, {backgroundColor: faqdisable ? "#c7ccc4" : "#041D5D", borderRadius:faqdisable ? 6 : null}]}
-          onPress={() => Actions.tools()}
+          <TouchableOpacity disabled={toolsdisabled} style={[styles.touchable, {backgroundColor: toolsdisabled ? "#c7ccc4" : "#041D5D", borderRadius:toolsdisabled ? 6 : null}]}
+          onPress={() => Actions.mindfulnessaudio()}
           >
                 <Icon name={"build"} style={styles.icon}/>
                 <Text style={styles.buttons}>Tools</Text>
