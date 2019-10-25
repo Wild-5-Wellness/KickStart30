@@ -163,7 +163,7 @@ const MindfulnessAudio = () => {
                         })),
                       );
                     } else {
-                      player.play(() => {
+                      player.prepare().play(() => {
                           console.log('just playing...', player.isPlaying);
                           setState(() => ({
                             ...state,
