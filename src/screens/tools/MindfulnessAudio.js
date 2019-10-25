@@ -107,7 +107,7 @@ const MindfulnessAudio = () => {
             {players.map(({player, name, duration}) => {
               // const duration = Math.round(player.getDuration() / 60)
 
-              console.log(player);
+              // console.log(player);
               if (
                 state.isPlaying &&
                 player._playerId !== state.activePlayerId
@@ -155,15 +155,17 @@ const MindfulnessAudio = () => {
                       state.isPaused &&
                       player._playerId === state.activePlayerId
                     ) {
-                      player.playPause((err, status) =>
+                      player.playPause((err, status) => {
+                        console.log(err)
                         setState(prevState => ({
                           ...prevState,
                           isPaused: status,
                           isPlaying: player.isPlaying,
-                        })),
+                        }))
+                      }
                       );
                     } else {
-                      player.prepare().play(() => {
+                      player.prepare((err)=>console.log("ERROR",err)).play(() => {
                           console.log('just playing...', player.isPlaying);
                           setState(() => ({
                             ...state,
