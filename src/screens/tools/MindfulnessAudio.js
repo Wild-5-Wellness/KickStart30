@@ -138,7 +138,7 @@ const MindfulnessAudio = () => {
                     marginBottom: '2%',
                     marginTop: '2%',
                   }}
-                  onPress={async () => {
+                  onPress={() => {
                     if (
                       state.isPlaying &&
                       player._playerId === state.activePlayerId
