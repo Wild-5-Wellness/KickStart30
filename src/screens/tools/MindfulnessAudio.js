@@ -138,7 +138,7 @@ const MindfulnessAudio = () => {
                     marginBottom: '2%',
                     marginTop: '2%',
                   }}
-                  onPress={() => {
+                  onPress={async () => {
                     if (
                       state.isPlaying &&
                       player._playerId === state.activePlayerId
@@ -165,7 +165,8 @@ const MindfulnessAudio = () => {
                       }
                       );
                     } else {
-                      player.prepare((err)=>console.log("ERROR",err)).play(() => {
+                     const preparedAudio = await player.prepare((err)=>console.log("ERROR",err))
+                      if(preparedAudio){player.play(() => {
                           console.log('just playing...', player.isPlaying);
                           setState(() => ({
                             ...state,
@@ -177,6 +178,7 @@ const MindfulnessAudio = () => {
                           }));
                         });
                     }
+                  }
                   }}>
                   <View style={{height: 60}}>
                     <View
