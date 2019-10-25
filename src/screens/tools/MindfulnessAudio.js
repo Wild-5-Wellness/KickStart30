@@ -165,8 +165,20 @@ const MindfulnessAudio = () => {
                       }
                       );
                     } else {
-                     const preparedAudio = await player.prepare((err)=>console.log("ERROR",err))
-                      if(preparedAudio){player.play(() => {
+                      function getAudio(){
+                        return new Promise((resolve, reject)=>{
+                          player.prepare((err)=>{
+                            if(err){
+                               reject(err)
+                            } else{
+                              resolve()
+                            }
+                            
+                          })
+                        })
+                      }
+                      getAudio().then(
+                        player.play(() => {
                           console.log('just playing...', player.isPlaying);
                           setState(() => ({
                             ...state,
@@ -176,8 +188,9 @@ const MindfulnessAudio = () => {
                             isPaused: player.isPaused,
                             duration: Math.round(player.duration),
                           }));
-                        });
-                    }
+                        })
+                      )
+                    
                   }
                   }}>
                   <View style={{height: 60}}>
