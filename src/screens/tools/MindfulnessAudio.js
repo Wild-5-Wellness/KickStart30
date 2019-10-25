@@ -177,7 +177,7 @@ const MindfulnessAudio = () => {
                           })
                         })
                       }
-                      getAudio().then(
+                      getAudio().then(()=>
                         player.play(() => {
                           console.log('just playing...', player.isPlaying);
                           setState(() => ({
