@@ -34,6 +34,7 @@ import NutriStats from './screens/statsscreens/NutrStats';
 import Feedback from './screens/accountmenu/Feedback'
 import MindfulnessAudio from './screens/tools/MindfulnessAudio'
 import Tools from './screens/tools/ToolsMenu'
+import NewSurveyScreen from './screens/NewSurveyScreen'
 
 const Routercomponent = () => {
   return (
@@ -172,6 +173,7 @@ const Routercomponent = () => {
         <Scene key="feedback" component={Feedback} header={null} />
         <Scene key="mindfulnessaudio" component={MindfulnessAudio} header={null} />
         <Scene key="tools" component={Tools} header={null} />
+        <Scene key="newsurveyscreen" component={NewSurveyScreen} header={null} initial/>
       </Scene>
     </Router>
   );

@@ -15,24 +15,24 @@ export default class AuthProvider extends Component {
 
   unsubscribe;
 
-  componentDidMount() {
-    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({authenticated: true});
-        if (Actions.currentScene !== 'landing') {
-          Actions.replace('landing');
-        }
-      } else {
-        this.setState({authenticated: false});
-        Actions.replace('newlogin');
-      }
-    });
+  // componentDidMount() {
+  //   this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+  //     if (user) {
+  //       this.setState({authenticated: true});
+  //       if (Actions.currentScene !== 'landing') {
+  //         Actions.replace('landing');
+  //       }
+  //     } else {
+  //       this.setState({authenticated: false});
+  //       Actions.replace('newlogin');
+  //     }
+  //   });
 
-    NetInfo.fetch().then(state => {
-      this.setState({isConnected: true})
-    })
+  //   NetInfo.fetch().then(state => {
+  //     this.setState({isConnected: true})
+  //   })
 
-  }
+  // }
 
   componentWillUnmount() {
     // console.log("unmounting")
