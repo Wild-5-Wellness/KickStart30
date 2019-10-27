@@ -49,7 +49,7 @@ function Landing(props) {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
           // console.log(data.length)
-          console.log(dateDiff);
+          // console.log(dateDiff);
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);

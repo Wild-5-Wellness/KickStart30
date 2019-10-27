@@ -3,6 +3,7 @@ import NetInfo from "@react-native-community/netinfo";
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
 import {getScopedUser} from '../utils/firebase';
+import { setState } from 'expect/build/jestMatchersObject';
 const {Consumer, Provider} = React.createContext();
 
 export default class AuthProvider extends Component {
@@ -10,29 +11,31 @@ export default class AuthProvider extends Component {
     user: '',
     ready: false,
     authenticated: false,
-    isConnected: false
+    isConnected: false,
+    initialSignUpDate: "",
   };
 
   unsubscribe;
 
-  // componentDidMount() {
-  //   this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       this.setState({authenticated: true});
-  //       if (Actions.currentScene !== 'landing') {
-  //         Actions.replace('landing');
-  //       }
-  //     } else {
-  //       this.setState({authenticated: false});
-  //       Actions.replace('newlogin');
-  //     }
-  //   });
+  componentDidMount() {
+    this.dateDifference()
+    this.unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({authenticated: true});
+        if (Actions.currentScene !== 'landing') {
+          Actions.replace('landing');
+        }
+      } else {
+        this.setState({authenticated: false});
+        Actions.replace('newlogin');
+      }
+    });
 
-  //   NetInfo.fetch().then(state => {
-  //     this.setState({isConnected: true})
-  //   })
+    NetInfo.fetch().then(state => {
+      this.setState({isConnected: true})
+    })
 
-  // }
+  }
 
   componentWillUnmount() {
     // console.log("unmounting")
@@ -45,6 +48,16 @@ export default class AuthProvider extends Component {
     })
   }
 
+  dateDifference = () => {
+    return firebase
+      .database()
+      .ref(`UserInfo/${getScopedUser()}`)
+      .once("value", snap => {
+      return setState(()=>({...this.state, initialSignUpDate: snap.val().date}),()=> console.log(this.state.initialSignUpDate))
+        
+  }).then(()=> console.log(this.state))
+
+  }
   // getUser = () => {
   //   var user = firebase.auth().currentUser;
   //   if (user) {
