@@ -41,6 +41,8 @@
 	<string>This app requires access to your microphone</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>MaterialIcons.ttf</string>
+		<string>FontAwesome.ttf</string>
 		<string>Roboto_medium.ttf</string>
 		<string>Roboto.ttf</string>
 		<string>rubicon-icon-font.ttf</string>

@@ -318,6 +318,8 @@ PODS:
     - React
   - RNSVG (9.5.1):
     - React
+  - RNVectorIcons (6.6.0):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -358,6 +360,7 @@ DEPENDENCIES:
   - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -441,6 +444,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-firebase/ios"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -491,8 +496,9 @@ SPEC CHECKSUMS:
   ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
+  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Yoga: 3f70bbd9aa01e04eefec36e2a085b2fc0ff1dd98
 
-PODFILE CHECKSUM: d6081581eccdce90d5bd6b14c3cbae0d758e2073
+PODFILE CHECKSUM: b2500b7a8e0b26db6c93a6014343693dd207ee84
 
 COCOAPODS: 1.8.3

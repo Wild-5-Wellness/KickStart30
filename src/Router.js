@@ -173,7 +173,7 @@ const Routercomponent = () => {
         <Scene key="feedback" component={Feedback} header={null} />
         <Scene key="mindfulnessaudio" component={MindfulnessAudio} header={null} />
         <Scene key="tools" component={Tools} header={null} />
-        <Scene key="newsurveyscreen" component={NewSurveyScreen} header={null} initial/>
+        <Scene key="newsurveyscreen" component={NewSurveyScreen} header={null} />
       </Scene>
     </Router>
   );
