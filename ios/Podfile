@@ -43,6 +43,7 @@ target 'wild5' do
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   # Required by RNFirebase
   pod 'Firebase/Core', '~> 6.3.0'
