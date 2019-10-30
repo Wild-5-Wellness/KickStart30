@@ -10,8 +10,6 @@ import {
   TextInput,
   Keyboard,
 } from 'react-native';
-import RadioForm from 'react-native-simple-radio-button';
-import {CheckBox} from 'react-native-elements';
 import {Slider} from 'react-native-elements';
 import {getScopedUser} from '../utils/firebase';
 import firebase from 'react-native-firebase';
@@ -83,8 +81,6 @@ const NewSurveyScreen = () => {
           <View
             style={{
               width: '90%',
-              borderColor: 'black',
-              borderWidth: 1,
               alignSelf: 'center',
             }}>
             <View style={{marginTop: 10, marginBottom: 10}}>
@@ -104,14 +100,17 @@ const NewSurveyScreen = () => {
                 style={{alignSelf: 'center', color: '#041D5D', fontSize: 20}}>
                 {question2}
               </Text>
+              <View style={{width:'90%', alignSelf:'center'}}>
               <Slider
                 thumbTintColor="#041D5D"
                 value={question2}
                 step={1}
-                minimumValue={0}
+                minimumValue={1}
                 maximumValue={10}
                 onValueChange={value => setQuestion2(value)}
+                style={{alignSelf:'stretch'}}
               />
+              </View>
             </View>
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
@@ -130,14 +129,17 @@ const NewSurveyScreen = () => {
                 style={{alignSelf: 'center', color: '#041D5D', fontSize: 20}}>
                 {question4}
               </Text>
+              <View style={{width:'90%', alignSelf:'center'}}>
               <Slider
                 thumbTintColor="#041D5D"
                 value={question4}
                 step={1}
-                minimumValue={0}
+                minimumValue={1}
                 maximumValue={10}
                 onValueChange={value => setQuestion4(value)}
+                style={{alignSelf:'stretch'}}
               />
+              </View>
             </View>
             <View>
               <Text style={styles.questionText}>
@@ -194,7 +196,7 @@ const NewSurveyScreen = () => {
             </View>
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
-                What would you like to see anything added to the app?
+                What would you like to see added to the app?
               </Text>
               <CustomRadioBtn value={state.question8} onPress={()=> setState({...state,question8: '1'})} onPress2={()=> setState({...state,question8: '0'})}/>
               {state.question8 === '1' ? (
