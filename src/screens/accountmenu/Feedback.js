@@ -51,6 +51,7 @@ const Feedback = () => {
   };
 
   return (
+    <SafeAreaView style={{flex: 1}}>
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{flex: 1, backgroundColor: "#fff"}}>
       <SafeAreaView style={{flex: 1}}>
@@ -176,6 +177,7 @@ const Feedback = () => {
         </SafeAreaView>
       </View>
     </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 

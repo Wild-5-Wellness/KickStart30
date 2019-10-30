@@ -5,14 +5,23 @@ import {
   Text,
   View,
   Image,
-  Dimensions
+  Dimensions,
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 import { Icon } from "native-base";
 import { Actions } from "react-native-router-flux";
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize'
+import FitImage from'react-native-fit-image'
+import Navbar from '../components/Navbar'
 import LinearGradient from "react-native-linear-gradient";
 import chunk from "lodash/chunk";
 import { withAuthProvider } from "../context/authcontext";
 import HEROlogo from "../images/herologo.png";
+import wild5title from "../images/wild5_logo_resized4.png";
+import KS30title from "../images/KS30_578_113.png";
+
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -59,7 +68,7 @@ export function Navigation(props) {
   const [bothTrue, setBothTrue] = useState(false);
 
   useEffect(() => {
-    // console.log(Dimensions.get("window"))
+    console.log(Dimensions.get("window"))
     if (props.hero && props.hero2) {
       setBothTrue(true);
     }
@@ -70,7 +79,7 @@ export function Navigation(props) {
       <TouchableOpacity
         activeOpacity={1}
         key={index}
-        style={!props.hero ? styles.touchableHERO : styles.touchable}
+        style={index === index % 2 === 0 || index === 0 ? styles.touchable : styles.touchableHERO}
         onPress={!props.hero ? null : item.action}
       >
         <LinearGradient
@@ -85,7 +94,7 @@ export function Navigation(props) {
           ) : (
             <Icon name={item.icon} style={styles.icon} />
           )}
-          <Text style={styles.title} allowFontScaling={false}>{item.title}</Text>
+          <Text style={item.title === "HERO Exercises" ? styles.titleHERO : styles.title} allowFontScaling={false}>{item.title}</Text>
         </LinearGradient>
       </TouchableOpacity>
     );
@@ -94,8 +103,15 @@ export function Navigation(props) {
   return (
     <View style={styles.container}>
       { !props.hero && !props.hero2 || props.hero && props.hero2 ?
-      <>
-      {!props.hero && !props.hero2 ?<Text style={styles.heroText}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>}
+      <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1}}>
+     <ScrollView bounces={false}>
+         <Image
+               source={KS30title}
+               style={{height: 100, width:'90%', alignSelf:'center'}}
+               resizeMode="contain"             
+                />
+     {!props.hero && !props.hero2 ?<Text style={styles.heroText}>Take The Hero Wellness Survey to START</Text> : <Text style={{alignSelf:'center', color: '#041D5D', fontWeight:'700', fontSize:20, marginBottom:10}}>Take The Hero Wellness Survey</Text>} 
       <TouchableOpacity
       style={[styles.touchableHERO3]}
       onPress={() => Actions.herointro()}
@@ -116,20 +132,71 @@ export function Navigation(props) {
           <Text style={styles.titleHERO3}>Survey</Text>
       </LinearGradient>
     </TouchableOpacity>
+    <View style={{flex: 4}}>
          {chunk(navigationItems, 2).map((items, index) => (
            <View key={index} style={styles.row}>
              {items.map(renderItem)}
            </View>
-         ))}
-         </>
+         ))} 
+         </View>
+         <View style={{flex: 1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+           <Text style={{fontSize:RFValue(20), color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+          </View>
+          <Image
+               source={require('../images/wild5_logo_resized4.png')}
+               style={{
+                 height:50,
+                 width: '50%',
+                 alignSelf:'center',
+                 marginTop: '2%'
+               }}
+               resizeMode="contain"
+             />
+          </ScrollView>
+          </View>
+          <View style={{justifyContent:'flex-end'}}>
+          <Navbar homedisable />
+          </View>
+          </SafeAreaView>
          : 
-         <>
+         <View style={{ flex: 1, backgroundColor:'#fff'}}>
+           <SafeAreaView style={{flex: 1}}>
+         <View style={{flex: .8, margin: '2%'}}>
+         <Image
+               source={KS30title}
+               style={{
+                 flex: 1,
+                 resizeMode: "contain",
+                 alignSelf: "center"
+               }}
+             />
+             </View>
+          <View style={{flex: 5}}>   
          {chunk(navigationItems, 2).map((items, index) => (
           <View key={index} style={styles.row}>
             {items.map(renderItem)}
           </View>
         ))}
-        </>
+        </View>
+        <View style={{flex: 1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+           <Text style={{fontSize:RFValue(20), color: '#041D5D', fontWeight: '800', textAlign:'center'}}>Day {props.day} of the KickStart30</Text>
+          </View>
+          <View style={{flex:1, justifyContent: 'flex-end'}}>
+          <Image
+               source={wild5title}
+               style={{
+                 flex: .5,
+                 height: undefined,
+                 width: undefined,
+                 resizeMode: "contain",
+               }}
+             />
+          </View>
+          <View style={{justifyContent:'flex-end'}}>
+          <Navbar homedisable />
+          </View>
+          </SafeAreaView>
+          </View>
          }
     </View>
   );
@@ -138,16 +205,24 @@ export function Navigation(props) {
 export default withAuthProvider(Navigation);
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginLeft:height < 666 || width < 374 ? 15 : null, marginBottom: height < 666 || width < 374 ? 15 : null },
+  container: { flex: 1},
+  fitImageWithSize: {
+    height: 75,
+    width: '100%'
+  },
   row: {
+    flex: 2,
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    alignItems:'center'
   },
   touchable: {
     backgroundColor: "transparent",
-    marginBottom: 10,
-    width: height < 666 || width < 374 ? (1 / 2) * width - 35 : (1 / 2) * width - 20,
+    marginBottom: 8,
+    marginRight: 5,
+    marginLeft: 15,
+    flex: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -155,14 +230,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5
   },
   touchableHERO: {
-    opacity: 0.50,
     backgroundColor: "transparent",
-    marginBottom: 10,
-    width: height < 666 || width < 374 ? (1 / 2) * width - 35 : (1 / 2) * width - 20,
+    marginBottom: 8,
+    marginRight: 15,
+    marginLeft: 5,
+    flex: 1,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -170,25 +245,24 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5
   },
   item: {
+    flex: 1,
     alignItems: "center",
     borderRadius: 5,
-    padding: height < 666 || width < 374 ? 2 : 10,
-    height: height < 666 || width < 374 ? 90 : 110
+    padding: 10
   },
   itemHERO: {
     alignItems: "center",
     borderRadius: 5,
-    padding: height < 666 || width < 374 ? 2 : 10,
-    height: height < 666 || width < 374 ? 90 : 110,
+    padding: 10,
+    height: 110,
     width: 300
   },
-  icon: { color: "white", fontSize: 60 },
-  title: { color: "white", fontSize: height < 666 || width < 374 ? 12 : 16},
-  titleHERO: { color: "white", fontSize: 28, textAlign: "center" },
+  icon: { color: "white", fontSize: RFPercentage(10) },
+  title: { color: "white", fontSize: RFPercentage(2)},
+  titleHERO: { color: "white", fontSize: RFPercentage(2), textAlign: "center", marginTop: '3%'},
   titleHEROMain: {
     color: "#041D5D",
     fontSize: 24,

@@ -826,6 +826,7 @@ class Settings extends Component<Props> {
           <Navbar settingsdisable />
           </SafeAreaView>
         </View>
+        </SafeAreaView>
       </>
     )
   }}
