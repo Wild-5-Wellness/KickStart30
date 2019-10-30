@@ -54,12 +54,12 @@ const Feedback = () => {
     <SafeAreaView style={{flex: 1}}>
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{flex: 1, backgroundColor: "#fff"}}>
+      <SafeAreaView style={{flex: 1}}>
         <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.OS === "ios" ? "padding" : null}
           enabled
         >
-          <SafeAreaView style={{flex: 1}}>
             <View
               style={{
                 height: "10%",
@@ -172,9 +172,9 @@ const Feedback = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </SafeAreaView>
         </KeyboardAvoidingView>
         <Navbar feedbackdisable />
+        </SafeAreaView>
       </View>
     </TouchableWithoutFeedback>
     </SafeAreaView>

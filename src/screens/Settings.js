@@ -28,6 +28,7 @@ import {
 } from "../components/common/colors";
 import { scopeRefByUser } from "../utils/registration";
 import { scopeRefByUserHero } from "../utils/heroRef";
+import { format } from 'date-fns'
 
 const { width, height } = Dimensions.get("window");
 
@@ -50,7 +51,12 @@ class Settings extends Component<Props> {
       modalVisible: false,
       loading: false,
       error: "",
-      deleteCompleted: false
+      deleteCompleted: false,
+      exerciseTime: "",
+      mindfulnessTime: "",
+      sleepTime: "",
+      socialTime: "",
+      nutritionTime: ""
     };
     this.PushNotificationIOS = new PushNotificationIOS(this.onNotif);
   }
@@ -81,22 +87,32 @@ class Settings extends Component<Props> {
               data[`${this.state.user}`].exercise !== undefined
                 ? data[`${this.state.user}`].exercise.notifOn
                 : false,
+              exerciseTime: data[`${this.state.user}`].exercise !== undefined ?
+              data[`${this.state.user}`].exercise.timeChosen : "",
             mindfulnessReminder:
               data[`${this.state.user}`].mind !== undefined
                 ? data[`${this.state.user}`].mind.notifOn
                 : false,
+            mindfulnessTime: data[`${this.state.user}`].mind !== undefined ?
+            data[`${this.state.user}`].mind.timeChosen : "",
             sleepReminder:
               data[`${this.state.user}`].sleep !== undefined
                 ? data[`${this.state.user}`].sleep.notifOn
                 : false,
+            sleepTime: data[`${this.state.user}`].sleep !== undefined ?
+            data[`${this.state.user}`].sleep.timeChosen : "",
             socialReminder:
               data[`${this.state.user}`].social !== undefined
                 ? data[`${this.state.user}`].social.notifOn
                 : false,
+            socialTime: data[`${this.state.user}`].social !== undefined ?
+            data[`${this.state.user}`].social.timeChosen : "",
             nutritionReminder:
               data[`${this.state.user}`].nutrition !== undefined
                 ? data[`${this.state.user}`].nutrition.notifOn
-                : false
+                : false,
+            nutritionTime: data[`${this.state.user}`].nutrition !== undefined ?
+            data[`${this.state.user}`].nutrition.timeChosen : ""
           });
         }
       })
@@ -188,7 +204,8 @@ class Settings extends Component<Props> {
         this.state.exerciseReminder
           ? this.setState(
               {
-                exerciseReminder: false
+                exerciseReminder: false,
+                exerciseTime: ""
               },
               () => this.deleteTime(pillar),
               this.PushNotificationIOS.cancel("0")
@@ -206,7 +223,8 @@ class Settings extends Component<Props> {
         this.state.mindfulnessReminder
           ? this.setState(
               {
-                mindfulnessReminder: false
+                mindfulnessReminder: false,
+                mindfulnessTime: ""
               },
               () => this.deleteTime(pillar),
               this.PushNotificationIOS.cancel("1")
@@ -224,7 +242,8 @@ class Settings extends Component<Props> {
         this.state.sleepReminder
           ? this.setState(
               {
-                sleepReminder: false
+                sleepReminder: false,
+                sleepTime: ""
               },
               () => this.deleteTime(pillar),
               this.PushNotificationIOS.cancel("2")
@@ -242,7 +261,8 @@ class Settings extends Component<Props> {
         this.state.socialReminder
           ? this.setState(
               {
-                socialReminder: false
+                socialReminder: false,
+                socialTime: ""
               },
               () => this.deleteTime(pillar),
               this.PushNotificationIOS.cancel("3")
@@ -260,7 +280,8 @@ class Settings extends Component<Props> {
         this.state.nutritionReminder
           ? this.setState(
               {
-                nutritionReminder: false
+                nutritionReminder: false,
+                nutritionTime: ""
               },
               () => this.deleteTime(pillar),
               this.PushNotificationIOS.cancel("4")
@@ -295,22 +316,29 @@ class Settings extends Component<Props> {
   // }
 
   submitTime = (date, pillar) => {
-    console.log(pillar, date);
+    let date1 = format(date, 'h:mm a');
+    console.log(date1, typeof date1)
+    ;
     this.PushNotificationIOS.scheduleNotif(pillar, date);
-    let date1 = date;
+    
     const data = {
       notifOn: "",
-      timeChosen: date
+      timeChosen: date1
     };
     if (pillar === "exercise") {
+      this.setState({exerciseTime: date1})
       data.notifOn = this.state.exerciseReminder;
     } else if (pillar === "mind") {
+      this.setState({mindfulnessTime: date1})
       data.notifOn = this.state.mindfulnessReminder;
     } else if (pillar === "sleep") {
+      this.setState({sleepTime: date1})
       data.notifOn = this.state.sleepReminder;
     } else if (pillar === "social") {
+      this.setState({socialTime: date1})
       data.notifOn = this.state.socialReminder;
     } else if (pillar === "nutrition") {
+      this.setState({nutritionTime: date1})
       data.notifOn = this.state.nutritionReminder;
     }
     firebase
@@ -496,20 +524,19 @@ class Settings extends Component<Props> {
             </View>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1}}>
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
-          <View style={{ flex: 1 }}>
-          <ScrollView>
+        <View style={{ flex: 1, backgroundColor: "#fff"}}>
+          <SafeAreaView style={{flex: 1}}>
+          <View style={{ flex: 1}}>
+          <ScrollView style={{flex: 1}}>
             {this.state.showTimer && Platform.OS === "ios"
               ? this.showTimePicker()
               : null}
             <View
               style={{
-                marginTop: Platform.OS === "ios" ? "12%" : "5%",
                 marginLeft: "5%"
               }}
             >
-              <View style={{ alignSelf: "center" }}>
+              <View style={{ alignSelf: "center"}}>
                 <Text
                   style={{
                     fontSize: 36,
@@ -601,7 +628,8 @@ class Settings extends Component<Props> {
                   width: "90%"
                 }}
               >
-                <View style={{ marginTop: 15 }}>
+                <View style={{ marginTop: 15, flexDirection: 'row'}}>
+                  <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Exercise</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
@@ -611,8 +639,13 @@ class Settings extends Component<Props> {
                     isOn={this.state.exerciseReminder}
                     onToggle={this.toggleSwitch("exercise")}
                   />
+                  </View>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.exerciseTime}</Text>
+                  </View>
                 </View>
-                <View>
+                <View style={{ marginTop: 15, flexDirection: 'row'}}>
+                  <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>
                     Mindfulness
                   </Text>
@@ -624,8 +657,13 @@ class Settings extends Component<Props> {
                     isOn={this.state.mindfulnessReminder}
                     onToggle={this.toggleSwitch("mind")}
                   />
+                  </View>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.mindfulnessTime}</Text>
+                  </View>
                 </View>
-                <View>
+                <View style={{ marginTop: 15, flexDirection: 'row'}}>
+                  <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Sleep</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
@@ -635,8 +673,13 @@ class Settings extends Component<Props> {
                     isOn={this.state.sleepReminder}
                     onToggle={this.toggleSwitch("sleep")}
                   />
+                  </View>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.sleepTime}</Text>
+                  </View>
                 </View>
-                <View>
+                <View style={{ marginTop: 15, flexDirection: 'row' }}>
+                  <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Social</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
@@ -646,8 +689,13 @@ class Settings extends Component<Props> {
                     isOn={this.state.socialReminder}
                     onToggle={this.toggleSwitch("social")}
                   />
+                  </View>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.socialTime}</Text>
+                  </View>
                 </View>
-                <View>
+                <View style={{ marginTop: 15, flexDirection: 'row' }}>
+                  <View>
                   <Text style={{ fontSize: 20, color: "#000" }}>Nutrition</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
@@ -657,6 +705,10 @@ class Settings extends Component<Props> {
                     isOn={this.state.nutritionReminder}
                     onToggle={this.toggleSwitch("nutrition")}
                   />
+                  </View>
+                  <View style={{flex: 1, justifyContent:'flex-end'}}>
+                  <Text style={{alignSelf:'center'}}>{this.state.nutritionTime}</Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -750,11 +802,29 @@ class Settings extends Component<Props> {
                       </Text>
                     </View>
                   </TouchableOpacity>
+                  <TouchableOpacity 
+                  style={{
+                    height: 60,
+                    width: 100,
+                    backgroundColor: "#041D5D",
+                    justifyContent: "center",
+                    borderRadius: 7,
+                    zIndex: 1
+                  }}
+                  onPress={()=> Actions.about()}
+                  >
+                       <Text
+                    style={{ color: "#fff", alignSelf: "center", fontSize: 18 }}
+                  >
+                    About
+                  </Text>
+                  </TouchableOpacity>
               </View>
             {/* </View> */}
             </ScrollView>
           </View>
           <Navbar settingsdisable />
+          </SafeAreaView>
         </View>
         </SafeAreaView>
       </>

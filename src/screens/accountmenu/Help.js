@@ -30,12 +30,11 @@ const Help = () => {
   return (
     <SafeAreaView style={{flex:1}}>
     <View style={{flex: 1, backgroundColor:'#fff'}}>
-    
-    
-      <Accordion dataArray={aboutData} expanded={3} renderHeader={this._renderHeader}
+    <SafeAreaView style={{flex:1}}>
+      <Accordion dataArray={aboutData} expanded={3} renderHeader={_renderHeader}
             contentStyle={{ backgroundColor: "#fff", color: "#000", lineHeight: Platform.OS === 'ios' ? 23 : null, margin:0 }}/>
-    
         <Navbar faqdisable/>
+        </SafeAreaView>
     </View>
     </SafeAreaView>
   );

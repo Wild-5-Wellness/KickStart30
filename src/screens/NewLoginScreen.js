@@ -55,20 +55,18 @@ const NewLoginScreen = props => {
       }
       </Modal>
       
-        <View style={{ alignSelf: "center", marginTop: "5%", marginBottom:'10%' }}>
-          <Image source={KS30} style={{alignSelf:'center' }} />
-          <View style={{ height: 200, width: 400, display: 'flex', justifyContent:'center', alignSelf:'center', marginTop: '10%'}}>
+        <View style={{flex: 2, alignSelf: "center", marginTop: "5%" }}>
+          <Image source={KS30} style={{alignSelf:'center', marginBottom:'5%' }} />
             <Image
-              style={{ flex: 1, height: undefined, width: undefined }}
+              style={{ flex: .9, height: undefined, width: undefined }}
               source={require("../images/water_rocks.jpg")}
               resizeMode="contain"
             />
-          </View>
         </View>
-        <View style={{width: '50%', backgroundColor: "#52669c", alignSelf:'center', height: 50, justifyContent:'center'}}>
+        <View style={{flex: .3, backgroundColor: "#52669c", alignSelf:'center', justifyContent:'center'}}>
           <Text style={{alignSelf:'center', fontSize:20, color: '#fff', paddingRight:5, paddingLeft: 5}}>Let's Get Started</Text>
           </View>
-          <View style={{flexDirection: 'row', display: 'flex', justifyContent: 'space-around', marginTop:height < 666 ? '10%' : '20%'}}>
+          <View style={{flex: 1,flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems:'center'}}>
             <TouchableOpacity style={styles.buttons} onPress={()=>showModal("Register")}>
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
@@ -91,16 +89,15 @@ export default withAuthProvider(NewLoginScreen);
 
 const styles = StyleSheet.create({
   buttons: {
-    height: '60%',
-    width: '25%',
+    flex: 1.5,
     justifyContent: 'center',
+    alignItems:'center'
   },
   buttonText: {
     letterSpacing: 1,
     fontWeight: '900',
     color: '#52669c', 
-    fontSize: height < 666 || width < 374 ? 16 : 18, 
-    alignSelf: 'center'
+    fontSize:  18
   },
   imageView:{
     height: 60,
