@@ -5,16 +5,19 @@ import Navbar from '../Navbar';
 
 export function Layout(props) {
   return (
+    <>
     <SafeAreaView style={{flex: 1}}>
     <View style={styles.flex}>
         <ScrollView contentContainerStyle={{flexGrow: 1}} style={styles.scrollView}>
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
+        <SafeAreaView>
       <Navbar statsdisable/>
       </SafeAreaView>
     </View>
     </SafeAreaView>
+    </>
   );
 }
 
