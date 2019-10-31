@@ -86,8 +86,9 @@ export function Navigation(props) {
         <LinearGradient style={styles.item} colors={item.background}>
           {item.title === 'HERO Exercises' ? (
             <Image
-              source={item.icon}
-              style={{width: '100%', height: 65, resizeMode: 'contain'}}
+              source={require('../images/herologo.png')}
+              style={{width: '100%', height: 50}}
+              resizeMode="contain"
             />
           ) : (
             <Icon name={item.icon} style={styles.icon} />
@@ -112,7 +113,7 @@ export function Navigation(props) {
             <ScrollView bounces={false}>
               <Image
                 source={KS30title}
-                style={{height: 100, width: '90%', alignSelf: 'center'}}
+                style={{height: 80, width: '90%', alignSelf: 'center'}}
                 resizeMode="contain"
               />
               {!props.hero && !props.hero2 ? (
@@ -128,8 +129,9 @@ export function Navigation(props) {
                 style={[styles.touchableHERO3]}
                 onPress={() => Actions.herointro()}>
                 <LinearGradient
-                  style={styles.itemHERO3}
+                  style={[styles.itemHERO3, {borderColor:'red', borderWidth: 1}]}
                   colors={['#041D5D', '#082774']}>
+                  <View style={{flex: .8}}>
                   <Image
                     source={HEROlogo}
                     style={{
@@ -139,6 +141,7 @@ export function Navigation(props) {
                       resizeMode: 'contain',
                     }}
                   />
+                  </View>
                   <Text style={styles.titleHERO3}>Survey</Text>
                 </LinearGradient>
               </TouchableOpacity>
@@ -224,20 +227,18 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   row: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
-    alignItems: 'center',
-    borderColor: 'red',
-    borderWidth: 1,
+    alignItems: 'center'
   },
   touchable: {
     backgroundColor: 'transparent',
     marginBottom: 8,
     marginRight: 5,
     marginLeft: 15,
-    flex: 0.5,
+    flex: 1,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginRight: 15,
     marginLeft: 5,
-    flex: 0.5,
+    flex: 1,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -263,7 +264,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   item: {
-    flex: 0.5,
+    flex: 1,
     alignItems: 'center',
     borderRadius: 5,
     padding: 10,
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
   },
   titleHERO3: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center',
     fontWeight: '700',
   },

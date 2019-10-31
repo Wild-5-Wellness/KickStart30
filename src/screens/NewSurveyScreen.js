@@ -31,6 +31,7 @@ const NewSurveyScreen = () => {
     question7: '',
     question8: '',
     question8Text: '',
+    error: ""
   });
 
   const handleSubmit = () => {
@@ -56,11 +57,11 @@ const NewSurveyScreen = () => {
         setState({})
         Alert.alert(
           'Success!',
-          'Your exercises for today have been recorded.',
-          [{text: 'OK', onPress: Actions.landing()}],
+          'Thank you for your feedback.',
+          [{text: 'OK', onPress: ()=> Actions.landing()}],
         )
       }
-      );
+      ).catch((err)=> setState({...state, error: err}));
   };
 
   return (
@@ -225,6 +226,8 @@ const NewSurveyScreen = () => {
             </View>
           </View>
           <View>
+            <Text style={{color: 'red', alignSelf:'center'}}>{state.error}</Text>
+          </View>
             <TouchableOpacity
               style={styles.submitBtn}
               onPress={() => handleSubmit()}>
@@ -232,7 +235,6 @@ const NewSurveyScreen = () => {
                 Submit
               </Text>
             </TouchableOpacity>
-          </View>
         </ScrollView>
       </SafeAreaView>
     </View>
