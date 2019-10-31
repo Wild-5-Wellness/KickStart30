@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Dimensions, Image, StyleSheet, ImageBackground } from "react-native";
+import { View, Dimensions, Image, StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { Text, Spinner } from "native-base";
 import { Actions } from "react-native-router-flux";
 import firebase from "react-native-firebase";
@@ -126,6 +126,7 @@ const HeroScore = () => {
       <View
         style={styles.containerView}
       >
+        <SafeAreaView style={{flex: 1}}>
         <View style={{ width: "80%", alignSelf: "center", marginTop: "15%" }}>
           <Image
             source={HEROlogo}
@@ -160,10 +161,10 @@ const HeroScore = () => {
         </View>
 
         <View>{totalScore ? totalReview() : <Spinner />}</View>
-
-        <View>
+          <View style={{flex: 1, justifyContent:'flex-end'}}>
           <Navbar />
-        </View>
+          </View>
+          </SafeAreaView>
       </View>
     );
   }

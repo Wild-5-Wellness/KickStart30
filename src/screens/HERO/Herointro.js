@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Dimensions, Image, TouchableOpacity  } from "react-native";
+import { View, Dimensions, Image, TouchableOpacity, SafeAreaView  } from "react-native";
 import { Text, Button, Icon } from "native-base";
 import { Actions } from "react-native-router-flux";
 import HEROlogo from "../../images/herologo.png";
@@ -10,6 +10,7 @@ const screenheight = Dimensions.get("window").height;
 const HeroIntro = () => {
   return (
     <View style={{ backgroundColor: "white", flex:1 }}>
+      <SafeAreaView style={{flex: 1}}>
         <View style={{ width: "80%", alignSelf: "center", marginTop: "10%" }}>
           <Image
             source={HEROlogo}
@@ -49,6 +50,7 @@ const HeroIntro = () => {
         <View style={{flex:1, justifyContent:'flex-end'}}>
           <Navbar herodisable/>
         </View>
+        </SafeAreaView>
     </View>
   );
 };
