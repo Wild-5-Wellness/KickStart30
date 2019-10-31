@@ -197,7 +197,7 @@ const NewSurveyScreen = () => {
             </View>
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
-                What would you like to see added to the app?
+                What would you like to see anything added to the app?
               </Text>
               <CustomRadioBtn value={state.question8} onPress={()=> setState({...state,question8: '1'})} onPress2={()=> setState({...state,question8: '0'})}/>
               {state.question8 === '1' ? (
