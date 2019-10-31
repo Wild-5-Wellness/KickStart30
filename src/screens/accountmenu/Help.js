@@ -28,6 +28,7 @@ const Help = () => {
   }
 
   return (
+    <SafeAreaView style={{flex:1}}>
     <View style={{flex: 1, backgroundColor:'#fff'}}>
     <SafeAreaView style={{flex:1}}>
       <Accordion dataArray={aboutData} expanded={3} renderHeader={_renderHeader}
@@ -35,6 +36,7 @@ const Help = () => {
         <Navbar faqdisable/>
         </SafeAreaView>
     </View>
+    </SafeAreaView>
   );
 };
 
