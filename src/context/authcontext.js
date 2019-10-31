@@ -20,25 +20,23 @@ export default class AuthProvider extends Component {
   unsubscribe;
 
    componentDidMount() {
-    this.unsubscribe =  firebase.auth().onAuthStateChanged(async user => {
+    this.unsubscribe =  firebase.auth().onAuthStateChanged(user => {
       if (user) {
       
       this.dateDifference().then(()=> {
         if (Actions.currentScene !== 'landing') {
-          console.log("Look at this", this.state.isSurveyComplete)
           if (
             this.state.daysSinceSignUp >= 10 &&
             this.state.isSurveyComplete === false
           ) {
             Actions.replace('newsurveyscreen');
           } else {
-            console.log("checkthis",this.state.daysSinceSignUp, this.state.isSurveyComplete)
             Actions.replace('landing');
           }
         }
       })
       } else {
-        Actions.replace('newlogin');
+        Actions.reset('newlogin');
       }
     });
 
@@ -58,8 +56,7 @@ export default class AuthProvider extends Component {
     });
   };
 
-  dateDifference =  () => {
-   return new Promise(async (resolve)=>{
+  dateDifference =  async () => {
     const checkDate = await
       firebase
       .database()
@@ -88,10 +85,11 @@ export default class AuthProvider extends Component {
         }
       })
     
-      Promise.all([checkDate, checkSurveyComplete]).then(()=> resolve())
-  });
-      
+      return Promise.all([checkDate, checkSurveyComplete]);
+  
   };
+
+
 
   isSurveyComplete = () => {
     firebase
