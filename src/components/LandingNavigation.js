@@ -129,7 +129,7 @@ export function Navigation(props) {
                 style={[styles.touchableHERO3]}
                 onPress={() => Actions.herointro()}>
                 <LinearGradient
-                  style={[styles.itemHERO3, {borderColor:'red', borderWidth: 1}]}
+                  style={[styles.itemHERO3]}
                   colors={['#041D5D', '#082774']}>
                   <View style={{flex: .8}}>
                   <Image
