@@ -35,12 +35,13 @@ import Feedback from './screens/accountmenu/Feedback'
 import MindfulnessAudio from './screens/tools/MindfulnessAudio'
 import Tools from './screens/tools/ToolsMenu'
 import NewSurveyScreen from './screens/NewSurveyScreen'
+import Loading from './components/common/Loading'
 
 const Routercomponent = () => {
   return (
     <Router>
       <Scene key="root">
-        <Scene key="newlogin" component={NewLogin} header={null} drawerLockMode='locked-closed' gesturesEnabled={false}/>
+        <Scene key="newlogin" component={NewLogin} header={null} duration={0} drawerLockMode='locked-closed' gesturesEnabled={false}/>
         <Scene
           key="registerpage"
           component={RegisterPage}
@@ -174,6 +175,7 @@ const Routercomponent = () => {
         <Scene key="mindfulnessaudio" component={MindfulnessAudio} header={null} />
         <Scene key="tools" component={Tools} header={null} />
         <Scene key="newsurveyscreen" component={NewSurveyScreen} header={null} />
+        <Scene key="loading" component={Loading} header={null} />
       </Scene>
     </Router>
   );

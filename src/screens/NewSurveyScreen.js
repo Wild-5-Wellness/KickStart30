@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {
+import ReactNative,{
   View,
   Text,
   SafeAreaView,
@@ -9,12 +9,15 @@ import {
   Alert,
   TextInput,
   Keyboard,
+  Platform,
+  KeyboardAvoidingView
 } from 'react-native';
 import {Slider} from 'react-native-elements';
 import {getScopedUser} from '../utils/firebase';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
 import CustomRadioBtn from '../components/common/CustomRadioBtn'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const radio_props = [{label: 'Yes', value: '1'}, {label: 'No', value: '0'}];
 
@@ -64,10 +67,13 @@ const NewSurveyScreen = () => {
       ).catch((err)=> setState({...state, error: err}));
   };
 
+  const scrollToInput = (node) =>{
+    return scroll.props.scrollToFocusedInput(node)
+  }
   return (
+    
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
           <View
             style={{
               height: 75,
@@ -79,6 +85,12 @@ const NewSurveyScreen = () => {
               Please Give Us Some Feedback
             </Text>
           </View>
+          
+          <ScrollView style={{flex: 1}}>
+          <KeyboardAwareScrollView
+              contentContainerStyle={{flex: 1}}
+              innerRef={ref=> scroll = ref}
+              >
           <View
             style={{
               width: '90%',
@@ -148,7 +160,11 @@ const NewSurveyScreen = () => {
               </Text>
               <CustomRadioBtn value={state.question5} onPress={()=> setState({...state,question5: '1'})} onPress2={()=> setState({...state,question5: '0'})}/>
               {state.question5 === "0" ?
+              
               <TextInput
+              onFocus={(e)=>{
+                scrollToInput(ReactNative.findNodeHandle(e.target))
+              }}
                 style={styles.textInput}
                 multiline={true}
                 numberOfLines={4}
@@ -167,6 +183,9 @@ const NewSurveyScreen = () => {
               <CustomRadioBtn value={state.question6} onPress={()=> setState({...state,question6: '1'})} onPress2={()=> setState({...state,question6: '0'})}/>
               <View>
                 <TextInput
+                onFocus={(e)=>{
+                  scrollToInput(ReactNative.findNodeHandle(e.target))
+                }}
                   style={{
                     textAlignVertical: 'top',
                     height: 200,
@@ -197,12 +216,14 @@ const NewSurveyScreen = () => {
             </View>
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
-                What would you like to see anything added to the app?
+                Would you like to see anything added to the tracking app?
               </Text>
               <CustomRadioBtn value={state.question8} onPress={()=> setState({...state,question8: '1'})} onPress2={()=> setState({...state,question8: '0'})}/>
               {state.question8 === '1' ? (
-                <View>
                   <TextInput
+                  onFocus={(e)=>{
+                    scrollToInput(ReactNative.findNodeHandle(e.target))
+                  }}
                     style={{
                       textAlignVertical: 'top',
                       height: 200,
@@ -221,10 +242,11 @@ const NewSurveyScreen = () => {
                     onChangeText={value => setState({...state, question8Text: value})}
                     onSubmitEditing={Keyboard.dismiss}
                   />
-                </View>
               ) : null}
             </View>
           </View>
+          </KeyboardAwareScrollView>
+          </ScrollView>
           <View>
             <Text style={{color: 'red', alignSelf:'center'}}>{state.error}</Text>
           </View>
@@ -234,10 +256,10 @@ const NewSurveyScreen = () => {
               <Text style={{fontSize: 24, color: '#fff', alignSelf: 'center'}}>
                 Submit
               </Text>
-            </TouchableOpacity>
-        </ScrollView>
-      </SafeAreaView>
+            </TouchableOpacity> 
+      </SafeAreaView> 
     </View>
+    
   );
 };
 

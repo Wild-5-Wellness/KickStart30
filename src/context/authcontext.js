@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {View, ActivityIndicator} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
@@ -15,31 +16,35 @@ export default class AuthProvider extends Component {
     isConnected: false,
     daysSinceSignUp: '',
     isSurveyComplete: false,
+    loading: false
   };
 
   unsubscribe;
 
    componentDidMount() {
     this.unsubscribe =  firebase.auth().onAuthStateChanged(user => {
+      Actions.reset('loading')
       if (user) {
-      
       this.dateDifference().then(()=> {
-        if (Actions.currentScene !== 'landing') {
           if (
             this.state.daysSinceSignUp >= 10 &&
             this.state.isSurveyComplete === false
           ) {
-            Actions.replace('newsurveyscreen');
-          } else {
-            Actions.replace('landing');
+            console.log(Actions.currentScene)
+            Actions.reset('newsurveyscreen');
+          } else if(Actions.currentScene !== 'landing') {
+            Actions.reset('landing');
           }
-        }
+        
       })
       } else {
+        console.log(user,"user is not")
+        this.setState({loading: false})
         Actions.reset('newlogin');
       }
+    
     });
-
+  
     // NetInfo.fetch().then(state => {
     //   this.setState({isConnected: true})
     // })
@@ -89,7 +94,14 @@ export default class AuthProvider extends Component {
   
   };
 
-
+  LoadingIndicator = () => {
+    console.log("loading is running 87")
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ActivityIndicator size="small" color="#041D5D" />
+      </View>
+    );
+  }
 
   isSurveyComplete = () => {
     firebase
