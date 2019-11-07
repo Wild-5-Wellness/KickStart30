@@ -4,8 +4,9 @@ import NetInfo from '@react-native-community/netinfo';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
 import {getScopedUser} from '../utils/firebase';
-import {setState} from 'expect/build/jestMatchersObject';
 import moment from 'moment';
+// import rollbar from 'rollbar-react-native'
+
 const {Consumer, Provider} = React.createContext();
 
 export default class AuthProvider extends Component {

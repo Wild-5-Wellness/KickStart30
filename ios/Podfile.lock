@@ -264,6 +264,8 @@ PODS:
     - React-cxxreact (= 0.61.0)
     - React-jsi (= 0.61.0)
   - React-jsinspector (0.61.0)
+  - react-native-config (0.11.7):
+    - React
   - react-native-netinfo (4.4.0):
     - React
   - react-native-slider (2.0.2):
@@ -307,6 +309,8 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.0)
   - ReactNativeAudioToolkit (2.0.2):
     - React
+  - ReactNativeExceptionHandler (2.10.8):
+    - React
   - RNFirebase (5.5.6):
     - Firebase/Core
     - React
@@ -320,6 +324,10 @@ PODS:
     - React
   - RNVectorIcons (6.6.0):
     - React
+  - Rollbar (1.5.2)
+  - RollbarReactNative (0.7.0):
+    - React
+    - Rollbar (~> 1.5.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -343,6 +351,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-config (from `../node_modules/react-native-config`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - "react-native-slider (from `../node_modules/@react-native-community/slider/react-native-slider.podspec`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -358,9 +367,11 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
+  - ReactNativeExceptionHandler (from `../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RollbarReactNative (from `../node_modules/rollbar-react-native/`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -380,6 +391,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - Rollbar
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -412,6 +424,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-config:
+    :path: "../node_modules/react-native-config"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-slider:
@@ -440,12 +454,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeAudioToolkit:
     :path: "../node_modules/@react-native-community/audio-toolkit"
+  ReactNativeExceptionHandler:
+    :podspec: "../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  RollbarReactNative:
+    :path: "../node_modules/rollbar-react-native/"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -480,6 +498,7 @@ SPEC CHECKSUMS:
   React-jsi: 4b5e521350c455b5eb4be50ea98c02de25b44fad
   React-jsiexecutor: 5532ab4389aabbbf1b87904de04c8ddd7dda7036
   React-jsinspector: 99b82aeb51d67d9025ab4eb8ccb8132f8dcebf69
+  react-native-config: 55548054279d92e0e4566ea15a8b9b81028ec342
   react-native-netinfo: 6bb847e64f45a2d69c6173741111cfd95c669301
   react-native-slider: 5d61590f26a51cf0a858bfd1543f6d6ec8b78a6e
   React-RCTActionSheet: 5f9a1733ec8e380aae8a97877f1166cb058733ae
@@ -494,11 +513,14 @@ SPEC CHECKSUMS:
   React-RCTVibration: c8e67f140a83a14a1ad9042950cca08ab29423fd
   ReactCommon: 584ef683c340894c1c82be43ce760390493ae8bf
   ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
+  ReactNativeExceptionHandler: 8025d98049c25f186835a3af732dd7c9974d6dce
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  Rollbar: 5060e3fc9fa28ae75e70c61e95b1b31b2b22710c
+  RollbarReactNative: 25ee22263928c9c7f3ba89ecc9af03e71a5c1ec8
   Yoga: 3f70bbd9aa01e04eefec36e2a085b2fc0ff1dd98
 
-PODFILE CHECKSUM: b2500b7a8e0b26db6c93a6014343693dd207ee84
+PODFILE CHECKSUM: f0b5c8d124b6c70499ec827c2a4c8a617d8876e4
 
 COCOAPODS: 1.8.3

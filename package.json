@@ -22,8 +22,10 @@
     "react-native": "0.61.0",
     "react-native-animate-number": "0.1.2",
     "react-native-chart-kit": "3.2.1",
+    "react-native-config": "^0.11.7",
     "react-native-datepicker": "1.7.2",
     "react-native-elements": "1.2.6",
+    "react-native-exception-handler": "^2.10.8",
     "react-native-firebase": "5.5.6",
     "react-native-fit-image": "^1.5.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
@@ -40,6 +42,7 @@
     "react-native-svg-charts": "5.2.0",
     "react-native-typography": "1.4.1",
     "react-native-vector-icons": "6.6.0",
+    "rollbar-react-native": "0.7.0",
     "toggle-switch-react-native": "2.0.2",
     "victory": "32.2.3",
     "victory-native": "32.0.2"
