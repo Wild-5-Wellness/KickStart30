@@ -1,7 +1,6 @@
-import { AppRegistry } from "react-native";
+import { AppRegistry, Alert } from "react-native";
 import App from "./src/App";
 import {setJSExceptionHandler} from 'react-native-exception-handler';
-import Rollbar from 'rollbar-react-native'
 import {rollbar} from './src/utils/rollbar'
 
 rollbar.rollbar.configure({

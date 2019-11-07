@@ -17,7 +17,6 @@ function Landing(props) {
   console.log('rerendered');
 
   useEffect(() => {
-    // rollbar.log('Hello world!');
     checkHeroData();
   }, []);
 
