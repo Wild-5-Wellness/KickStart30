@@ -8,9 +8,7 @@ import ReactNative,{
   TouchableOpacity,
   Alert,
   TextInput,
-  Keyboard,
-  Platform,
-  KeyboardAvoidingView
+  Keyboard
 } from 'react-native';
 import {Slider} from 'react-native-elements';
 import {getScopedUser} from '../utils/firebase';
@@ -18,8 +16,6 @@ import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
 import CustomRadioBtn from '../components/common/CustomRadioBtn'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-const radio_props = [{label: 'Yes', value: '1'}, {label: 'No', value: '0'}];
 
 const NewSurveyScreen = () => {
   const [question2, setQuestion2] = useState(null);
@@ -98,7 +94,7 @@ const NewSurveyScreen = () => {
             }}>
             <View style={{marginTop: 10, marginBottom: 10}}>
               <Text style={styles.questionText}>
-                Are you currently actively following the KickStart30 using the
+                Are you currently actively following KickStart30 using the
                 workbook?
               </Text>
               <CustomRadioBtn value={state.question1} onPress={()=> setState({...state,question1: '1'})} onPress2={()=> setState({...state,question1: '0'})}/>
@@ -106,7 +102,7 @@ const NewSurveyScreen = () => {
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
                 On a Scale of 1-10 (1 not motivated, 10 highly motivated),
-                please rate how motivated you are to participate in the
+                please rate how motivated you are to participate in
                 KickStart30
               </Text>
               <Text
@@ -127,7 +123,7 @@ const NewSurveyScreen = () => {
             </View>
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
-                Did having the app on your phone serve as a useful reminder to
+                Did having the tracking app on your phone serve as a useful reminder to
                 continue your KickStart30 practices?
               </Text>
               <CustomRadioBtn value={state.question3} onPress={()=> setState({...state,question3: '1'})} onPress2={()=> setState({...state,question3: '0'})}/>
@@ -135,7 +131,7 @@ const NewSurveyScreen = () => {
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
                 On a scale of 1-10 (1 not at all helpful, 10 very help), was the
-                app helpful in tracking your daily wellness-enhancing
+                tracking app helpful in tracking your daily wellness-enhancing
                 activities?
               </Text>
               <Text
@@ -156,7 +152,7 @@ const NewSurveyScreen = () => {
             </View>
             <View>
               <Text style={styles.questionText}>
-                Did the app work as you expected?
+                Did the tracking app work as you expected?
               </Text>
               <CustomRadioBtn value={state.question5} onPress={()=> setState({...state,question5: '1'})} onPress2={()=> setState({...state,question5: '0'})}/>
               {state.question5 === "0" ?
@@ -177,7 +173,7 @@ const NewSurveyScreen = () => {
             </View>
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
-                Did the app improve your experience of doing the KickStart30
+                Did the tracking app improve your experience of doing the KickStart30
                 practices?
               </Text>
               <CustomRadioBtn value={state.question6} onPress={()=> setState({...state,question6: '1'})} onPress2={()=> setState({...state,question6: '0'})}/>
@@ -209,7 +205,7 @@ const NewSurveyScreen = () => {
             <View style={styles.questionView}>
               <Text style={styles.questionText}>
                 The HERO Exercises are currently only available in the workbook.
-                Would you prefer to have the HERO Excercises as part of the
+                Would you prefer to have the HERO Exercises as part of the
                 tracking app?
               </Text>
               <CustomRadioBtn value={state.question7} onPress={()=> setState({...state,question7: '1'})} onPress2={()=> setState({...state,question7: '0'})}/>
@@ -246,7 +242,6 @@ const NewSurveyScreen = () => {
             </View>
           </View>
           </KeyboardAwareScrollView>
-          </ScrollView>
           <View>
             <Text style={{color: 'red', alignSelf:'center'}}>{state.error}</Text>
           </View>
@@ -257,6 +252,7 @@ const NewSurveyScreen = () => {
                 Submit
               </Text>
             </TouchableOpacity> 
+            </ScrollView>
       </SafeAreaView> 
     </View>
     

@@ -1,6 +1,7 @@
 package com.wild5wellness.kickstart30;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
+import com.rollbar.RollbarReactNative;
 import com.reactnativecommunity.rctaudiotoolkit.AudioPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import io.invertase.firebase.RNFirebasePackage;
@@ -20,6 +21,7 @@ import java.util.List;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import java.lang.reflect.InvocationTargetException;
+import com.rollbar.RollbarReactNative;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -58,4 +60,10 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
   }
 
+  @Override
+public void onCreate() {
+  super.onCreate();
+  RollbarReactNative.init(this, "60070a6defd04f68b747dded2d99875c", "production");
+  ...
+}
 }

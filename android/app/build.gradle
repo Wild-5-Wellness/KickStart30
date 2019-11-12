@@ -117,8 +117,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 19
-        versionName "1.0.19"
+        versionCode 20
+        versionName "1.0.20"
     }
     splits {
         abi {
@@ -156,6 +156,7 @@ android {
 
 }
 dependencies {
+    implementation project(':rollbar-react-native')
     implementation project(':@react-native-community_audio-toolkit')
     implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-firebase')
