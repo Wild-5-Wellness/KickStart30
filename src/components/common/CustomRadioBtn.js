@@ -12,8 +12,8 @@ return (
                 onPress={()=> props.onPress2()}
                 >
                 <View style={{
-                  height: 20,
-                  width: 20,
+                  height: 25,
+                  width: 25,
                   borderColor: '#041D5D',
                   borderWidth: 3,
                   borderRadius: 12,
@@ -23,8 +23,8 @@ return (
                 >{props.value === '0' ?
                   <View 
                   style={{
-                    height: 10,
-                    width: 10,
+                    height: 15,
+                    width: 15,
                     borderRadius: 12,
                     backgroundColor: '#041D5D'
                   }}
@@ -40,8 +40,8 @@ return (
                 onPress={()=> props.onPress()}
                 >
                 <View style={{
-                  height: 20,
-                  width: 20,
+                  height: 25,
+                  width: 25,
                   borderColor: '#041D5D',
                   borderWidth: 3,
                   borderRadius: 12,
@@ -51,8 +51,8 @@ return (
                 >{props.value === '1' ?
                   <View 
                   style={{
-                    height: 10,
-                    width: 10,
+                    height: 15,
+                    width: 15,
                     borderRadius: 12,
                     backgroundColor: '#041D5D'
                   }}
