@@ -5,7 +5,6 @@ import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
 import {getScopedUser} from '../utils/firebase';
 import moment from 'moment';
-// import rollbar from 'rollbar-react-native'
 
 const {Consumer, Provider} = React.createContext();
 

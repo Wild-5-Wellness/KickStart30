@@ -14,6 +14,7 @@ rollbar.rollbar.configure({
       },
     },
   });
+
   
   setJSExceptionHandler((error, isFatal) => {
     if (isFatal) {
