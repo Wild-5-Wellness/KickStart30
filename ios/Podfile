@@ -44,6 +44,9 @@ target 'wild5' do
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RollbarReactNative', path: '../node_modules/rollbar-react-native/'
+  pod 'ReactNativeExceptionHandler', :podspec => '../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec'
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
 
   # Required by RNFirebase
   pod 'Firebase/Core', '~> 6.3.0'
@@ -53,6 +56,20 @@ target 'wild5' do
 
   pod 'ReactNativeAudioToolkit', :path => '../node_modules/@react-native-community/audio-toolkit'
 
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == 'react-native-config'
+        phase = target.project.new(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
+        phase.shell_script = "cd ../../"\
+        " && RNC_ROOT=./node_modules/react-native-config/"\
+        " && export SYMROOT=$RNC_ROOT/ios/ReactNativeConfig"\
+        " && ruby $RNC_ROOT/ios/ReactNativeConfig/BuildDotenvConfig.ruby"
+        
+        target.build_phases << phase
+        target.build_phases.move(phase,0)
+      end
+    end
+  end
   target 'wild5Tests' do
     inherit! :search_paths
     # Pods for testing

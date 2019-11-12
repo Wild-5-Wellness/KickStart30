@@ -3,6 +3,7 @@ import { LineChart } from "react-native-chart-kit";
 import { withAuthProvider } from "../../context/authcontext";
 import { View, Text, Dimensions } from "react-native";
 import firebase from "react-native-firebase";
+import moment from 'moment'
 
 //https://github.com/JesperLekland/react-native-svg-charts
 
@@ -36,7 +37,7 @@ const LinesChart = props => {
       );
         const totalsArrDates = []
         for(num in totals){
-          totalsArrDates.push(num)
+          totalsArrDates.push(moment(num).format('MMM-DD-YY '))
         }
   
         console.log(totals)
