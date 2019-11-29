@@ -101,8 +101,12 @@ class PushNotificationsIOS {
   };
 
   cancel = id => {
-    // console.log(id)
+    try{
     PushNotification.cancelLocalNotifications({id: id})
+    }
+    catch(e){
+      rollbar.error(e)
+    }
   }
 
   render() {
