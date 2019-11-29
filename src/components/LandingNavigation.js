@@ -19,7 +19,6 @@ import {withAuthProvider} from '../context/authcontext';
 import HEROlogo from '../images/herologo.png';
 import wild5title from '../images/wild5_logo_resized4.png';
 import KS30title from '../images/KS30_578_113.png';
-import {rollbar} from '../utils/rollbar'
 
 const {width, height} = Dimensions.get('window');
 
@@ -66,7 +65,6 @@ export function Navigation(props) {
   const [bothTrue, setBothTrue] = useState(false);
 
   useEffect(() => {
-    rollbar.error("hello1")
     console.log(Dimensions.get('window'));
     if (props.hero && props.hero2) {
       setBothTrue(true);
