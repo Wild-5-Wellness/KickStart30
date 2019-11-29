@@ -1,6 +1,8 @@
 // import React, { Component } from 'react'
 import { Text, View, Platform } from "react-native";
 import PushNotification from "react-native-push-notification";
+import {rollbar} from '../../utils/rollbar'
+
 
 
 class PushNotificationsIOS {
@@ -89,13 +91,22 @@ class PushNotificationsIOS {
       config.date = new Date(Date.now() + 5 * 1000)
       config.message = "Fill out your HERO Wellness Survey"
     }
-    PushNotification.localNotificationSchedule(config);
+    try{
+    PushNotification.localNotificationSchedule(config)
+    }
+    catch(e){
+      rollbar.error(e)
+    }
     // console.log(config)
   };
 
   cancel = id => {
-    // console.log(id)
+    try{
     PushNotification.cancelLocalNotifications({id: id})
+    }
+    catch(e){
+      rollbar.error(e)
+    }
   }
 
   render() {
