@@ -167,6 +167,8 @@ const MindfulnessAudio = () => {
                     } else {
                       function getAudio(){
                         return new Promise((resolve, reject)=>{
+                          console.log("player in promise",player)
+                          setState({...state, activePlayerId: player._playerId, loading: true})
                           player.prepare((err)=>{
                             if(err){
                                reject(err)
@@ -179,11 +181,11 @@ const MindfulnessAudio = () => {
                       }
                       getAudio().then(()=>
                         player.play(() => {
+                          console.log(state)
                           console.log('just playing...', player.isPlaying);
-                          setState(() => ({
-                            ...state,
+                          setState((prevState) => ({
+                            ...prevState,
                             loading: false,
-                            activePlayerId: player._playerId,
                             isPlaying: player.isPlaying,
                             isPaused: player.isPaused,
                             duration: Math.round(player.duration),
@@ -240,7 +242,7 @@ const MindfulnessAudio = () => {
                           {state.isPaused &&
                           state.activePlayerId === player._playerId
                             ? 'Paused'
-                            : null}
+                            : (state.loading && state.activePlayerId === player._playerId) ? "Loading" : null}
                         </Text>
                       </View>
                     </View>
