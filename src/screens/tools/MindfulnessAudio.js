@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import {Icon} from 'native-base';
 import {Player} from '@react-native-community/audio-toolkit';
-import Navbar from '../../components/Navbar'
+import Navbar from '../../components/Navbar';
+import {rollbar} from '../../utils/rollbar';
 
 const players = [
   {
@@ -98,7 +99,13 @@ const MindfulnessAudio = () => {
             alignItems: 'center',
             alignSelf: 'center',
           }}>
-          <Text style={{fontSize: 34, color: '#0AB2E8', alignSelf: 'center', fontWeight:'700'}}>
+          <Text
+            style={{
+              fontSize: 34,
+              color: '#0AB2E8',
+              alignSelf: 'center',
+              fontWeight: '700',
+            }}>
             Meditation Tracks
           </Text>
         </View>
@@ -155,43 +162,54 @@ const MindfulnessAudio = () => {
                       state.isPaused &&
                       player._playerId === state.activePlayerId
                     ) {
-                      player.playPause((err, status) => {
-                        console.log(err)
-                        setState(prevState => ({
-                          ...prevState,
-                          isPaused: status,
-                          isPlaying: player.isPlaying,
-                        }))
-                      }
-                      );
-                    } else {
-                      function getAudio(){
-                        return new Promise((resolve, reject)=>{
-                          player.prepare((err)=>{
-                            if(err){
-                               reject(err)
-                            } else{
-                              resolve()
-                            }
-                            
-                          })
-                        })
-                      }
-                      getAudio().then(()=>
-                        player.play(() => {
-                          console.log('just playing...', player.isPlaying);
-                          setState(() => ({
-                            ...state,
-                            loading: false,
-                            activePlayerId: player._playerId,
+                      try {
+                        player.playPause((err, status) => {
+                          console.log(err);
+                          setState(prevState => ({
+                            ...prevState,
+                            isPaused: status,
                             isPlaying: player.isPlaying,
-                            isPaused: player.isPaused,
-                            duration: Math.round(player.duration),
                           }));
-                        })
-                      )
-                    
-                  }
+                        });
+                      } catch (e) {
+                        rollbar.error(e);
+                      }
+                    } else {
+                      function getAudio() {
+                        return new Promise((resolve, reject) => {
+                          console.log('player in promise', player);
+                          setState({
+                            ...state,
+                            activePlayerId: player._playerId,
+                            loading: true,
+                          });
+                          player.prepare(err => {
+                            if (err) {
+                              reject(err);
+                            } else {
+                              resolve();
+                            }
+                          });
+                        });
+                      }
+                      getAudio().then(() => {
+                        try {
+                          player.play(() => {
+                            console.log(state);
+                            console.log('just playing...', player.isPlaying);
+                            setState(prevState => ({
+                              ...prevState,
+                              loading: false,
+                              isPlaying: player.isPlaying,
+                              isPaused: player.isPaused,
+                              duration: Math.round(player.duration),
+                            }));
+                          });
+                        } catch (e) {
+                          rollbar.error(e);
+                        }
+                      });
+                    }
                   }}>
                   <View style={{height: 60}}>
                     <View
@@ -204,7 +222,7 @@ const MindfulnessAudio = () => {
                         style={{
                           height: '100%',
                           width: '87%',
-                          justifyContent:'center'
+                          justifyContent: 'center',
                         }}>
                         <Text
                           style={{
@@ -240,6 +258,9 @@ const MindfulnessAudio = () => {
                           {state.isPaused &&
                           state.activePlayerId === player._playerId
                             ? 'Paused'
+                            : state.loading &&
+                              state.activePlayerId === player._playerId
+                            ? 'Loading'
                             : null}
                         </Text>
                       </View>
@@ -250,7 +271,7 @@ const MindfulnessAudio = () => {
             })}
           </ScrollView>
         </View>
-        <Navbar toolsdisabled/>
+        <Navbar toolsdisabled />
       </SafeAreaView>
     </View>
   );

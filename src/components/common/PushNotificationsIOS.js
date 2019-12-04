@@ -97,7 +97,7 @@ class PushNotificationsIOS {
     catch(e){
       rollbar.error(e)
     }
-    // console.log(config)
+    console.log(config)
   };
 
   cancel = id => {
