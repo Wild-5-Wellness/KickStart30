@@ -151,9 +151,9 @@ export function Navigation(props) {
               ))}
               <View
                 style={styles.KS30DayTextContainer}>
-                <Text style={styles.KS30DayText}>
+                {!props.hero ? null : <Text style={styles.KS30DayText}>
                   Day {props.day} of the KickStart30
-                </Text>
+                </Text>}
               </View>
               <Image
                 source={require('../images/wild5_logo_resized4.png')}
