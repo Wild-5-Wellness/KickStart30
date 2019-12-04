@@ -58,12 +58,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+     RollbarReactNative.init(this, "60070a6defd04f68b747dded2d99875c", "production");
   }
 
-  @Override
-public void onCreate() {
-  super.onCreate();
-  RollbarReactNative.init(this, "60070a6defd04f68b747dded2d99875c", "production");
-  ...
-}
 }
