@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    marginTop: 20,
+    marginTop: 0,
   },
 });

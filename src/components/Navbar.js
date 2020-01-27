@@ -16,24 +16,12 @@ const {homedisable,feedbackdisable,statsdisable,toolsdisabled,settingsdisable} =
                 <Icon name={"ios-home"} style={styles.icon}/>
                 <Text style={styles.buttons} >Track</Text>
                 </TouchableOpacity>
-            <TouchableOpacity disabled={feedbackdisable} style={{flex: 1, justifyContent:'center', alignItems:'center',backgroundColor: feedbackdisable ? "#c7ccc4" : "#041D5D", borderRadius:feedbackdisable ? 6 : null}}
-            onPress={() => Actions.feedback()}
-            >
-                <Icon name={"clipboard"} style={styles.icon}/>
-                <Text style={styles.buttons} allowFontScaling={false}>Feedback</Text>
-            </TouchableOpacity>
             <TouchableOpacity disabled={statsdisable} style={[styles.touchable, {backgroundColor: statsdisable ? "#c7ccc4" : "#041D5D", borderRadius:statsdisable ? 6 : null}]}
             onPress={() => Actions.statistics()}
             >
                 <Icon name={"stats"} style={styles.icon}/>
                 <Text style={styles.buttons}>Stats</Text>
             </TouchableOpacity>
-          <TouchableOpacity disabled={toolsdisabled} style={[styles.touchable, {backgroundColor: toolsdisabled ? "#c7ccc4" : "#041D5D", borderRadius:toolsdisabled ? 6 : null}]}
-          onPress={() => Actions.mindfulnessaudio()}
-          >
-                <Icon name={"build"} style={styles.icon}/>
-                <Text style={styles.buttons}>Tools</Text>
-          </TouchableOpacity>
             <TouchableOpacity disabled={settingsdisable} style={[styles.touchable, {backgroundColor: settingsdisable ? "#c7ccc4" : "#041D5D", borderRadius:settingsdisable ? 6 : null}]}
             onPress={() => Actions.settings()}
             >

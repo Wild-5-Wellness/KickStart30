@@ -152,7 +152,7 @@ export function Navigation(props) {
               <View
                 style={styles.KS30DayTextContainer}>
                 {!props.hero ? null : <Text style={styles.KS30DayText}>
-                  Day {props.day} of the KickStart30
+                  Day {props.day} of KickStart30
                 </Text>}
               </View>
               <Image
@@ -193,7 +193,7 @@ export function Navigation(props) {
             </View>
             <View style={styles.KS30DayTextContainer}>
               <Text style={styles.KS30DayText}>
-                Day {props.day} of the KickStart30
+                Day {props.day} of KickStart30
               </Text>
             </View>
             <View style={{flex: 1, justifyContent: 'flex-end'}}>

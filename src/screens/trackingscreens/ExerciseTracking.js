@@ -1,8 +1,6 @@
-import React from "react";
-import {Alert, View, KeyboardAvoidingView} from "react-native";
+import React,{useState} from "react";
+import {Alert, View, Text, Modal, SafeAreaView, TouchableOpacity} from "react-native";
 import RadioForm from "react-native-simple-radio-button";
-import {Text, Item, Label, Input, Picker, Form, Icon} from "native-base";
-import Slider from "@react-native-community/slider";
 import firebase from "react-native-firebase";
 import {Actions} from "react-native-router-flux";
 import exbackground from "../../images/exercise-background.jpg";
@@ -10,6 +8,8 @@ import {TrackingScreen} from "./TrackingScreen";
 import {withAuthProvider} from "../../context/authcontext";
 import {scopeRefByUserAndDate} from "../../utils/firebase";
 import {exerciseColor} from "../../components/common/colors";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format, compareAsc} from 'date-fns';
 
 const exerciseTypes = [
   "Walking",
@@ -23,22 +23,15 @@ const exerciseTypes = [
   "Other",
 ];
 
-export const EXERCISE_INTENSITY = {
-  LOW: "low",
-  MODERATE: "moderate",
-  HIGH: "high",
-};
 
 function ExerciseTracking() {
-  const [type, setType] = React.useState("");
-  const [otherType, setOtherType] = React.useState("");
-  const [duration, setDuration] = React.useState(0);
-  const [intensity, setIntensity] = React.useState("");
   const [didFollowFID, setDidFollowFID] = React.useState();
   const [error, setError] = React.useState("")
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const submitForm = React.useCallback(async () => {
-    const exerciseRef = scopeRefByUserAndDate("Surveys", "exercise");
+    const exerciseRef = scopeRefByUserAndDate("Surveys", "exercise", date);
     console.log(typeof didFollowFID)
      if(didFollowFID === undefined){
       setError("Please Select an Option")
@@ -47,23 +40,56 @@ function ExerciseTracking() {
       .database()
       .ref(exerciseRef)
       .update({
-        type: otherType || type,
-        duration,
-        intensity,
-        didFollowFID,
+        didFollowFID
       });
 
-      Alert.alert("Success!", "Your exercises for today have been recorded.", [
+      Alert.alert("Success!", "Your exercise has been recorded.", [
         {text: "OK", onPress: Actions.landing()},
       ]);
     }
    
 
     
-  }, [type, duration, intensity, didFollowFID]);
+  }, [didFollowFID]);
+
+  onDateChange = (e, date) => {
+    setDate(date);
+  };
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}} behavior="padding" enabled>
+    <>
+    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+    <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+      <View
+        style={{
+          height: 210,
+          backgroundColor: '#fff',
+          borderColor: 'red',
+          borderWidth: 1,
+        }}>
+        <DateTimePicker
+          value={date}
+          mode={'date'}
+          is24Hour={false}
+          display="default"
+          onChange={onDateChange}
+        />
+      </View>
+      <TouchableOpacity
+        onPress={()=> setModalVisible(false)}
+        style={{
+          height: 50,
+          width: '100%',
+          backgroundColor: '#041D5D',
+          borderColor: 'lime',
+          borderWidth: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{color: '#fff'}}>Close</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+</Modal>
       <TrackingScreen
         backgroundImage={exbackground}
         color={exerciseColor}
@@ -93,7 +119,22 @@ function ExerciseTracking() {
             intensity.
           </Text>
         </View>
-        <View style={{alignItems: "center", marginVertical: 10}}>
+        <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{
+              height: 50,
+              width: '80%',
+              backgroundColor: exerciseColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+            </Text>
+          </TouchableOpacity>
+        <View style={{alignItems: "center", marginTop: 10}}>
           <Text
             style={{
               textAlign: "center",
@@ -102,7 +143,7 @@ function ExerciseTracking() {
               marginBottom: 10,
             }}
           >
-            Did I Exercise Today Following the FID Practices?
+            Did I exercise today following the FID principles?
           </Text>
           <RadioForm
             radio_props={[
@@ -110,94 +151,19 @@ function ExerciseTracking() {
               {label: "No", value: false},
             ]}
             initial={false}
-            formHorizontal={true}
+            formHorizontal={false}
             buttonColor={exerciseColor}
             selectedButtonColor={exerciseColor}
             animation={true}
             onPress={value =>{ 
               setError("")
               setDidFollowFID(value)}}
-            radioStyle={{marginRight: 20}}
+            radioStyle={{marginRight: 10}}
           />
           <Text style={{color:'red'}}>{error}</Text>
         </View>
-
-        <Text
-          style={{
-            textAlign: "center",
-            marginTop: "10%",
-            fontWeight: "600",
-          }}
-        >
-          Type of Exercise?
-        </Text>
-        <Form style={{marginBottom: "10%"}}>
-          <Picker
-            note={false}
-            selectedValue={type}
-            onValueChange={setType}
-            mode="dropdown"
-            style={{width: undefined}}
-            placeholder="Exercises..."
-            iosHeader="Exercises"
-          >
-            {exerciseTypes.map(type => (
-              <Picker.Item key={type} label={type} value={type} />
-            ))}
-          </Picker>
-
-          {type === "Other" && (
-            <Item style={{marginBottom: 20}} floatingLabel>
-              <Label>Enter other exercise...</Label>
-              <Input autoCorrect={false} onChangeText={setOtherType} />
-            </Item>
-          )}
-        </Form>
-
-        <Text
-          style={{
-            fontWeight: "600",
-            textAlign: "center",
-          }}
-        >
-          Exercise Duration?
-        </Text>
-      
-        <Text
-          style={{
-            marginTop: "5%",
-            marginBottom: 10,
-            fontWeight: "600",
-            textAlign: "center",
-          }}
-        >
-          Intensity of Exercise?
-        </Text>
-        <Picker
-              style={{
-                width:(Platform.OS === 'ios') ? undefined : '90%',
-                marginLeft: 5, marginRight: 5}}
-              selectedValue={intensity}
-              onValueChange={type => setIntensity(type)}
-              mode="dropdown"
-              placeholder="Intensity"
-              placeholderStyle={{color: '#000'}}
-              placeholderIconColor="#000"
-              iosIcon={
-                <Icon
-                  name="ios-arrow-dropdown"
-                  style={{color: '#000', fontSize: 25}}
-                />
-              }
-              textStyle={{color: '#000'}}
-            >
-         
-                <Picker.Item label="Low" value="low" />
-                <Picker.Item label="Moderate" value="moderate" />
-                <Picker.Item label="High" value="high" />
-            </Picker>
       </TrackingScreen>
-    </KeyboardAvoidingView>
+    </>
   );
 }
 export default withAuthProvider(ExerciseTracking);

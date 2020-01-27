@@ -7,11 +7,11 @@ import {format} from 'date-fns';
  * Example: scopeRefByUserAndDate('Surveys') -> Surveys/fake@email/2019-01-01
  * @param {String} ref
  */
-export function scopeRefByUserAndDate(ref, subType) {
+export function scopeRefByUserAndDate(ref,subType, date) {
   const user = getScopedUser();
-  const date = format(new Date(), 'YYYY-MM-DD');
+  const dateRef = date ? format(new Date(date), 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD');
 
-  const segments = [ref, user, date];
+  const segments = [ref, user, dateRef];
 
   if (subType) {
     segments.push(subType);

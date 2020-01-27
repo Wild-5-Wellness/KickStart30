@@ -1,6 +1,5 @@
-import React from 'react';
-import {View, Alert} from 'react-native';
-import {Text, Content, Container, Picker, Icon} from 'native-base';
+import React,{useState} from 'react';
+import {View, Alert, Modal, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
 import {Actions} from 'react-native-router-flux';
@@ -8,6 +7,8 @@ import sleepTrackingImage from '../../images/sleeptracking.jpg';
 import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {sleepColor} from '../../components/common/colors'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format, compareAsc} from 'date-fns';
 
 const SleepTracking = () => {
   const [
@@ -17,34 +18,12 @@ const SleepTracking = () => {
 
   const [sleepHygiene, setSleepHygiene] = React.useState("")
   const [error, setError] = React.useState("")
-
-  // const [noElectronics, setNoElectronics] = React.useState(false);
-  // const [sleepMask, setSleepMask] = React.useState(false);
-  // const [regularTime, setRegularTime] = React.useState(false);
-  // const [noNapping, setNoNapping] = React.useState(false);
-  // const [warmBath, setWarmBath] = React.useState(false);
-  // const [noCaffeine, setNoCaffeine] = React.useState(false);
-
-  // const [
-  //   toggleNoElectronics,
-  //   toggleSleepMask,
-  //   toggleRegularTime,
-  //   toggleNoNapping,
-  //   toggleWarmBath,
-  //   toggleNoCaffeine,
-  // ] = [
-  //   [noElectronics, setNoElectronics],
-  //   [sleepMask, setSleepMask],
-  //   [regularTime, setRegularTime],
-  //   [noNapping, setNoNapping],
-  //   [warmBath, setWarmBath],
-  //   [noCaffeine, setNoCaffeine],
-  // ].map(([value, updater]) => () => updater(!value));
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
 
 
   const submitForm = React.useCallback(async () => {
-    const sleepRef = scopeRefByUserAndDate('Surveys', 'sleep');
+    const sleepRef = scopeRefByUserAndDate('Surveys', 'sleep', date);
     if(didImplementSleepPractices === undefined){
       setError("Please Select an Option")
     }else {
@@ -53,10 +32,9 @@ const SleepTracking = () => {
       .ref(sleepRef)
       .update({
         didImplementSleepPractices
-       
       });
 
-    Alert.alert('Success!', 'Your sleep for today has been recorded.', [
+    Alert.alert('Success!', 'Your sleep hygiene practices have been recorded.', [
       {text: 'OK', onPress: Actions.landing()},
     ]);
   }
@@ -64,8 +42,44 @@ const SleepTracking = () => {
     didImplementSleepPractices
   ]);
 
+  onDateChange = (e, date) => {
+    setDate(date);
+  };
+
   return (
-    <Container>
+    <>
+         <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+            <View
+              style={{
+                height: 210,
+                backgroundColor: '#fff',
+                borderColor: 'red',
+                borderWidth: 1,
+              }}>
+              <DateTimePicker
+                value={date}
+                mode={'date'}
+                is24Hour={false}
+                display="default"
+                onChange={onDateChange}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={()=> setModalVisible(false)}
+              style={{
+                height: 50,
+                width: '100%',
+                backgroundColor: '#041D5D',
+                borderColor: 'lime',
+                borderWidth: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#fff'}}>Close</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+      </Modal>
       <TrackingScreen
         backgroundImage={sleepTrackingImage}
         color={sleepColor}
@@ -78,7 +92,7 @@ const SleepTracking = () => {
             width: '85%',
             alignSelf: 'center',
             height: 90,
-            marginTop: 10
+            marginVertical: 10
           }}
         >
           <Text
@@ -96,6 +110,21 @@ const SleepTracking = () => {
             days
           </Text>
         </View>
+        <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{
+              height: 50,
+              width: '80%',
+              backgroundColor: sleepColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+            </Text>
+          </TouchableOpacity>
         <View style={{alignItems: 'center', marginTop: 10}}>
           <Text
             style={{
@@ -105,7 +134,7 @@ const SleepTracking = () => {
               fontWeight: '600',
             }}
           >
-            Did I Implement 4 or More of the 6 Sleep Hygiene Practices?
+            Did I implement 4 or more of the 6 sleep hygiene practices?
           </Text>
           <RadioForm
             radio_props={[
@@ -125,43 +154,8 @@ const SleepTracking = () => {
           />
           <Text style={{color:'red'}}>{error}</Text>
         </View>
-        <Content>
-          <Text
-            style={{
-              fontSize: 20,
-              textAlign: 'center',
-              fontWeight: '600',
-            }}
-          >
-            Which sleep hygiene practices did you implement today?
-          </Text>
-          <Picker
-                selectedValue={sleepHygiene}
-                style={{height: 50, width: '100%'}}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSleepHygiene(itemValue)
-                }
-                mode="dropdown"
-                placeholder="Sleep Hygiene Practice"
-                placeholderStyle={{color: '#000'}}
-                placeholderIconColor="#000"
-                iosIcon={
-                  <Icon
-                    name="ios-arrow-dropdown"
-                    style={{color: '#000', fontSize: 25}}
-                  />
-                }
-                >
-                <Picker.Item label="No Electronics 90 minutes before bed" value="No Electronics 90 minutes before bed" />
-                <Picker.Item label="Sleep mask or blackout shades" value="Sleep mask or blackout shades" />
-                <Picker.Item label="Regular bedtime" value="Regular bedtime" />
-                <Picker.Item label="No Napping" value="No Napping" />
-                <Picker.Item label="Warm bath/shower prior to bed" value="Warm bath/shower prior to bed" />
-                <Picker.Item label="Avoid caffeine 10 hours before bed" value="Avoid caffeine 10 hours before bed" />
-              </Picker>
-        </Content>
       </TrackingScreen>
-    </Container>
+      </>
   );
 };
 export default SleepTracking;

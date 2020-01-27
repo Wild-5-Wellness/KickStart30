@@ -1,6 +1,5 @@
-import React from 'react';
-import {View, KeyboardAvoidingView, Alert} from 'react-native';
-import {Input, Item, Label, Text, Picker, Icon} from 'native-base';
+import React,{useState} from 'react';
+import {View, Alert, Modal, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
 import {TrackingScreen} from './TrackingScreen';
@@ -8,6 +7,8 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {Actions} from 'react-native-router-flux';
 import mindTrackingImage from '../../images/mindfultracking1.jpg';
 import {mindfulnessColor} from '../../components/common/colors'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format, compareAsc} from 'date-fns';
 
 const types = [
   'Mindfulness',
@@ -19,15 +20,14 @@ const types = [
 ];
 
 const MindfulnessTracking = () => {
-  const [type, setType] = React.useState('');
-  const [didMeditateToday, setDidMeditateToday] = React.useState();
-  const [showOther, setShowOther] = React.useState(false);
-  const [otherType, setOtherType] = React.useState('');
-  const [error, setError] = React.useState("")
+  const [didMeditateToday, setDidMeditateToday] = useState();
+  const [error, setError] = useState("")
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
 
 
   const submitForm = React.useCallback(async () => {
-    const mindfulnessRef = scopeRefByUserAndDate('Surveys', 'mindfulness');
+    const mindfulnessRef = scopeRefByUserAndDate('Surveys', 'mindfulness', date);
     if(didMeditateToday === undefined){
       setError("Please Select an Option")
     }else {
@@ -35,22 +35,54 @@ const MindfulnessTracking = () => {
       .database()
       .ref(mindfulnessRef)
       .update({
-        type: otherType || type,
         didMeditateToday,
       });
 
-    Alert.alert('Success!', 'Your mindfulness for today have been recorded.', [
+    Alert.alert('Success!', 'Your mindfulness for today has been recorded.', [
       {text: 'OK', onPress: Actions.landing()},
     ]);
   }
-  }, [otherType, type, didMeditateToday]);
+  }, [didMeditateToday]);
 
-  React.useEffect(() => {
-    setShowOther(type === 'Other');
-  }, [type]);
+ 
+  onDateChange = (e, date) => {
+    setDate(date);
+  };
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === "ios" ? "padding" : null} enabled>
+    <>
+    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+    <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+      <View
+        style={{
+          height: 210,
+          backgroundColor: '#fff',
+          borderColor: 'red',
+          borderWidth: 1,
+        }}>
+        <DateTimePicker
+          value={date}
+          mode={'date'}
+          is24Hour={false}
+          display="default"
+          onChange={onDateChange}
+        />
+      </View>
+      <TouchableOpacity
+        onPress={()=> setModalVisible(false)}
+        style={{
+          height: 50,
+          width: '100%',
+          backgroundColor: '#041D5D',
+          borderColor: 'lime',
+          borderWidth: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text style={{color: '#fff'}}>Close</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+</Modal>
       <TrackingScreen
         backgroundImage={mindTrackingImage}
         color={mindfulnessColor}
@@ -59,7 +91,7 @@ const MindfulnessTracking = () => {
       >
         <View
           style={{
-            marginTop: 10,
+            marginVertical: 10,
             backgroundColor: mindfulnessColor,
             width: '85%',
             alignSelf: 'center',
@@ -80,7 +112,21 @@ const MindfulnessTracking = () => {
             Practice mindfulness for at least 10 minutes each day for 30 days.
           </Text>
         </View>
-        <View>
+        <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{
+              height: 50,
+              width: '80%',
+              backgroundColor: mindfulnessColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+            </Text>
+          </TouchableOpacity>
           <View
             style={{
               alignSelf: 'center',
@@ -96,9 +142,8 @@ const MindfulnessTracking = () => {
                 fontWeight: '600',
               }}
             >
-              Did I Mindfully Meditate at Least 10 Mintues Today?
+              Did I mindfully meditate at least 10 mintues today?
             </Text>
-
             <RadioForm
               radio_props={[
                 {label: 'Yes', value: true},
@@ -115,48 +160,8 @@ const MindfulnessTracking = () => {
             />
             <Text style={{color:'red'}}>{error}</Text>
           </View>
-        </View>
-
-        <View style={{height: 100}}>
-          <View style={{alignItems: 'center', marginTop: 10}}>
-            <Picker
-              style={{
-                width:(Platform.OS === 'ios') ? undefined : '90%',
-                marginLeft: 5, marginRight: 5}}
-              selectedValue={type}
-              onValueChange={type => setType(type)}
-              mode="dropdown"
-              placeholder="Select Type of Meditation"
-              placeholderStyle={{color: '#000'}}
-              placeholderIconColor="#000"
-              iosHeader="Exercises"
-              iosIcon={
-                <Icon
-                  name="ios-arrow-dropdown"
-                  style={{color: '#000', fontSize: 25}}
-                />
-              }
-              textStyle={{color: '#000'}}
-            >
-              {types.map(type => (
-                <Picker.Item key={type} label={type} value={type} />
-              ))}
-            </Picker>
-          </View>
-          {showOther ? (
-            <View style={{marginBottom: 10, height: 30}}>
-              <Item floatingLabel>
-                <Label>Type of meditation</Label>
-                <Input
-                  style={{marginTop: 5}}
-                  onChangeText={text => setOtherType(text)}
-                />
-              </Item>
-            </View>
-          ) : null}
-        </View>
       </TrackingScreen>
-    </KeyboardAvoidingView>
+    </>
   );
 };
 export default MindfulnessTracking;

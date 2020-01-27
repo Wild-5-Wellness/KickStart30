@@ -1,6 +1,5 @@
-import React from 'react';
-import {ScrollView, View, SafeAreaView, Alert} from 'react-native';
-import {Text, Picker, Icon} from 'native-base';
+import React,{useState} from 'react';
+import {ScrollView, View, SafeAreaView, Alert, Modal, Text, TouchableOpacity} from 'react-native';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
 import {Actions} from 'react-native-router-flux';
@@ -8,30 +7,14 @@ import nutriTrackingImage from '../../images/nutritracking.jpg';
 import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
 import { nutritionColor } from '../../components/common/colors'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format, compareAsc} from 'date-fns';
 
 const NutritionTracking = () => {
-  const [loggedNutritionToday, setLoggedNutritionToday] = React.useState();
-
-  const [
-    implementedMINDDietPrinciples,
-    setImplementedMINDDietPrinciples,
-  ] = React.useState(true);
-
-  const [mealMeditation, setMealMeditation] = React.useState("");
-  const [error, setError] = React.useState("")
-
-  // const [lunchMeditation, setLunchMeditation] = React.useState(false);
-  // const [dinnerMeditation, setDinnerMeditation] = React.useState(false);
-
-  // const [
-  //   toggleBreakfastMeditation,
-  //   toggleLunchMeditation,
-  //   toggleDinnerMeditation,
-  // ] = [
-  //   [breakfastMeditation, setBreakfastMeditation],
-  //   [lunchMeditation, setLunchMeditation],
-  //   [dinnerMeditation, setDinnerMeditation],
-  // ].map(([value, updater]) => () => updater(!value));
+  const [loggedNutritionToday, setLoggedNutritionToday] = useState();
+  const [error, setError] = useState("")
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const submitForm = React.useCallback(async () => {
     const nutritionRef = scopeRefByUserAndDate('Surveys', 'nutrition');
@@ -42,9 +25,7 @@ const NutritionTracking = () => {
       .database()
       .ref(nutritionRef)
       .update({
-        loggedNutritionToday,
-        implementedMINDDietPrinciples,
-        mealMeditation
+        loggedNutritionToday
       });
 
     Alert.alert('Success!', 'Your nutrition for today has been recorded.', [
@@ -52,14 +33,47 @@ const NutritionTracking = () => {
     ]);
   }
   }, [
-    loggedNutritionToday,
-    implementedMINDDietPrinciples,
-    mealMeditation
+    loggedNutritionToday
   ]);
 
+  onDateChange = (e, date) => {
+    setDate(date);
+  };
+
   return (
-    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
-      <View style={{flex: 1}}>
+    <>
+         <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+            <View
+              style={{
+                height: 210,
+                backgroundColor: '#fff',
+                borderColor: 'red',
+                borderWidth: 1,
+              }}>
+              <DateTimePicker
+                value={date}
+                mode={'date'}
+                is24Hour={false}
+                display="default"
+                onChange={onDateChange}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={()=> setModalVisible(false)}
+              style={{
+                height: 50,
+                width: '100%',
+                backgroundColor: '#041D5D',
+                borderColor: 'lime',
+                borderWidth: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#fff'}}>Close</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+      </Modal>
         <TrackingScreen
           backgroundImage={nutriTrackingImage}
           color={nutritionColor}
@@ -72,7 +86,7 @@ const NutritionTracking = () => {
                 backgroundColor: nutritionColor,
                 width: '100%',
                 alignSelf: 'center',
-                marginTop: 10
+                marginVertical: 10
               }}
             >
               <Text
@@ -85,11 +99,26 @@ const NutritionTracking = () => {
               >
                 Practices
               </Text>
-              <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>
+              <Text style={{fontSize: 16, color: 'white', textAlign: 'center', paddingBottom:5}}>
                 Log your daily meals/snacks/beverages/alcohol each day for 30
                 days, follow the MIND diet principles as closely as you can
               </Text>
             </View>
+            <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{
+              height: 50,
+              width: '80%',
+              backgroundColor: nutritionColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+            </Text>
+          </TouchableOpacity>
             <View style={{alignItems: 'center', marginTop: 10}}>
               <Text
                 style={{
@@ -99,8 +128,8 @@ const NutritionTracking = () => {
                   fontWeight: '600',
                 }}
               >
-                Did I Log My Meals, Snacks, and Beverages, Including Alcohol
-                Today?
+                Did I log my meals, snacks, and beverages, including alcohol
+                today?
               </Text>
               <RadioForm
                 radio_props={[
@@ -121,31 +150,10 @@ const NutritionTracking = () => {
               <Text style={{color:'red'}}>{error}</Text>
             </View>
             <View>
-              <Picker
-                selectedValue={mealMeditation}
-                style={{height: 50, width: '100%'}}
-                onValueChange={(itemValue, itemIndex) =>
-                  setMealMeditation(itemValue)
-                }
-                mode="dropdown"
-                placeholder="Nutrition"
-                placeholderStyle={{color: '#000'}}
-                placeholderIconColor="#000"
-                iosIcon={
-                  <Icon
-                    name="ios-arrow-dropdown"
-                    style={{color: '#000', fontSize: 25}}
-                  />
-                }
-                >
-                <Picker.Item label="Did I Implement MIND diet principles?" value="Did I Implement MIND diet principles?" />
-                <Picker.Item label="Did I practice mindful meal meditation?" value="Did I practice mindful meal meditation?" />
-              </Picker>
             </View>
           </ScrollView>
         </TrackingScreen>
-      </View>
-    </SafeAreaView>
-  );
+        </>
+   );
 };
 export default NutritionTracking;

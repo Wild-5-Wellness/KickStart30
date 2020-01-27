@@ -311,6 +311,8 @@ PODS:
     - React
   - ReactNativeExceptionHandler (2.10.8):
     - React
+  - RNDateTimePicker (2.1.0):
+    - React
   - RNFirebase (5.5.6):
     - Firebase/Core
     - React
@@ -368,6 +370,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
   - ReactNativeExceptionHandler (from `../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec`)
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec`)"
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -456,6 +459,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/audio-toolkit"
   ReactNativeExceptionHandler:
     :podspec: "../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
   RNSVG:
@@ -514,6 +519,7 @@ SPEC CHECKSUMS:
   ReactCommon: 584ef683c340894c1c82be43ce760390493ae8bf
   ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
   ReactNativeExceptionHandler: 8025d98049c25f186835a3af732dd7c9974d6dce
+  RNDateTimePicker: 9db00606d689f5653f08aa601c81b9d3266a0a19
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
@@ -521,6 +527,6 @@ SPEC CHECKSUMS:
   RollbarReactNative: 25ee22263928c9c7f3ba89ecc9af03e71a5c1ec8
   Yoga: 3f70bbd9aa01e04eefec36e2a085b2fc0ff1dd98
 
-PODFILE CHECKSUM: f0b5c8d124b6c70499ec827c2a4c8a617d8876e4
+PODFILE CHECKSUM: 6aacfa74d07d4293a11f1da224c0991967228aa7
 
 COCOAPODS: 1.8.3

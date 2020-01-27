@@ -47,6 +47,7 @@ target 'wild5' do
   pod 'RollbarReactNative', path: '../node_modules/rollbar-react-native/'
   pod 'ReactNativeExceptionHandler', :podspec => '../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec'
   pod 'react-native-config', :path => '../node_modules/react-native-config'
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec'
 
   # Required by RNFirebase
   pod 'Firebase/Core', '~> 6.3.0'

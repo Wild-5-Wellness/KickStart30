@@ -64,14 +64,8 @@ function Landing(props) {
             return;
           } else {
             if (
-              ([8, 9, 10, 11, 12, 13].includes(dateDiff) &&
-                data.length === 1) ||
-              ([15, 16, 17, 18, 19, 20].includes(dateDiff) &&
-                [1, 2].includes(data.length)) ||
-              ([22, 23, 24, 25, 26, 27].includes(dateDiff) &&
-                [1, 2, 3].includes(data.length)) ||
-              ([29, 31].includes(dateDiff) &&
-                [1, 2, 3, 4].includes(data.length))
+              ([31].includes(dateDiff) &&
+                [1,].includes(data.length))
             ) {
               setLoading(false);
               setHero2(true);

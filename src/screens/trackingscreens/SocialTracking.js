@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native'
-import {Text, Picker, Icon} from 'native-base';
+import {View, Modal, Text, TouchableOpacity, SafeAreaView} from 'react-native'
 import {Alert, StyleSheet} from 'react-native';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
@@ -8,7 +7,8 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {TrackingScreen} from './TrackingScreen';
 import RadioForm from "react-native-simple-radio-button";
 import {socialColor} from '../../components/common/colors'
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format, compareAsc} from 'date-fns';
 
 const SocialTracking = () => {
  
@@ -16,6 +16,8 @@ const SocialTracking = () => {
   const [didSociallyConnect, setDidSociallyConnect] = useState()
   const [type, setType] = useState("")
   const [error, setError] = React.useState("")
+  const [modalVisible, setModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
  
   submitForm = async () => {
    
@@ -43,7 +45,44 @@ const SocialTracking = () => {
     }
   };
 
+  onDateChange = (e, date) => {
+    setDate(date);
+  };
+
     return (
+      <>
+           <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+            <View
+              style={{
+                height: 210,
+                backgroundColor: '#fff',
+                borderColor: 'red',
+                borderWidth: 1,
+              }}>
+              <DateTimePicker
+                value={date}
+                mode={'date'}
+                is24Hour={false}
+                display="default"
+                onChange={onDateChange}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={()=> setModalVisible(false)}
+              style={{
+                height: 50,
+                width: '100%',
+                backgroundColor: '#041D5D',
+                borderColor: 'lime',
+                borderWidth: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#fff'}}>Close</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+      </Modal>
       <TrackingScreen
         backgroundImage={{uri: "social-tracking-bg"}}
         color={socialColor}
@@ -56,7 +95,7 @@ const SocialTracking = () => {
             width: "85%",
             alignSelf: "center",
             height: 90,
-            marginTop: 10,
+            marginVertical: 10,
           }}
         >
           <Text
@@ -74,6 +113,21 @@ const SocialTracking = () => {
             days.
           </Text>
         </View>
+        <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{
+              height: 50,
+              width: '80%',
+              backgroundColor: socialColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+            </Text>
+          </TouchableOpacity>
         <View style={{alignItems: "center", marginTop: 10}}>
           <Text
             style={{
@@ -83,7 +137,7 @@ const SocialTracking = () => {
               fontWeight: "600",
             }}
           >
-            Did I Socially Connect With at Least 2 People Today
+            Did I socially connect with at least 2 people today?
           </Text>
           <RadioForm
             radio_props={[{label: "Yes", value: 1}, {label: "No", value: 0}]}
@@ -101,34 +155,8 @@ const SocialTracking = () => {
           />
           <Text style={{color:'red'}}>{error}</Text>
         </View>
-        <Text style={styles.subtitle} numberOfLines={1}>
-          What social contacts did you make?
-        </Text>
-        <Picker
-              style={{
-                width:(Platform.OS === 'ios') ? undefined : '90%',
-                marginLeft: 5, marginRight: 5}}
-              selectedValue={type}
-              onValueChange={type => setType(type)}
-              mode="dropdown"
-              placeholder="Type of SocialConnectedness"
-              placeholderStyle={{color: '#000'}}
-              placeholderIconColor="#000"
-              iosIcon={
-                <Icon
-                  name="ios-arrow-dropdown"
-                  style={{color: '#000', fontSize: 25}}
-                />
-              }
-              textStyle={{color: '#000'}}
-            >
-         
-                <Picker.Item label="Called Friend" value="called friend" />
-                <Picker.Item label="Met Friend in Person" value="met friend in person" />
-                <Picker.Item label="Called Family" value="called family" />
-                <Picker.Item label="Met Family in Person" value="met family in person" />
-            </Picker>
       </TrackingScreen>
+      </>
     );
   }
 

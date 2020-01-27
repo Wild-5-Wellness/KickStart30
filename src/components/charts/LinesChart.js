@@ -52,16 +52,11 @@ useEffect(()=>{
     console.log(heroData)
 },[heroData])
 
-useEffect(()=>{
-  console.log(typeof heroDates)
-  console.log(heroDates)
-  console.log(heroDates.length)
-}, [heroDates])
 
   return (
     heroDates.length !== 0 && heroData.length !== 0 ?
      <>
-      <View style={{alignSelf:'center'}}><Text style={{fontSize: 20, color: '#041D5D'}}>Hero Survey Scores</Text></View>
+      <View style={{alignSelf:'center'}}><Text style={{fontSize: 20, color: '#041D5D'}}>HERO Wellness Scores</Text></View>
     <View style={{flex: 1, height: 200, alignItems:'center' }}>
       
                       <LineChart

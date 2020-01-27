@@ -2,7 +2,6 @@ import React from 'react';
 import {View} from 'react-native'
 import {Scene, Router, Actions, ActionConst} from 'react-native-router-flux';
 import Landing from './screens/Landing';
-import EducationWellnessRoadMap from './screens/NewRoadMap';
 import ExerciseTracking from './screens/trackingscreens/ExerciseTracking';
 import MindfulnessTracking from './screens/trackingscreens/MindfulnessTracking';
 import SleepTracking from './screens/trackingscreens/SleepTracking';
@@ -12,7 +11,6 @@ import HeroTracking from './screens/trackingscreens/HeroTracking';
 import Settings from './screens/Settings';
 import Statistics from './screens/Statistics';
 import Help from './screens/accountmenu/Help';
-import TrackingForm from './screens/TrackingForm';
 import Herointro from './screens/HERO/Herointro';
 import {
   HeroEnth,
@@ -24,17 +22,6 @@ import {
 } from './screens/HERO';
 import NewLogin from './screens/NewLoginScreen';
 import RegisterPage from './screens/RegisterPage';
-import PrincipleStats from './screens/statsscreens/PrincipleStats';
-import HeroTotalStats from './screens/statsscreens/HeroTotalStats';
-import ExerciseStats from './screens/statsscreens/ExerciseStats';
-import MindfulStats from './screens/statsscreens/MindfulStats';
-import SleepStats from './screens/statsscreens/SleepStats';
-import SocialStats from './screens/statsscreens/SocialStats';
-import NutriStats from './screens/statsscreens/NutrStats';
-import Feedback from './screens/accountmenu/Feedback'
-import MindfulnessAudio from './screens/tools/MindfulnessAudio'
-import Tools from './screens/tools/ToolsMenu'
-import NewSurveyScreen from './screens/NewSurveyScreen'
 import Loading from './components/common/Loading'
 
 const Routercomponent = () => {
@@ -54,19 +41,6 @@ const Routercomponent = () => {
           title="Welcome to Wellness"
           header={null}
         />
-        <Scene
-          key="edroadmap"
-          component={EducationWellnessRoadMap}
-          header={null}
-          title="Learn More"
-        />
-        <Scene
-          key="trackingform"
-          component={TrackingForm}
-          title="Wellness Tracking Form"
-          backTitle="Back"
-        />
-        {/* <Scene key='feedback' component={Feedback} header={null}  title="Feedback" /> */}
         <Scene key="about" component={Help} header={null} title="About" />
         <Scene
           key="statistics"
@@ -74,18 +48,6 @@ const Routercomponent = () => {
           header={null}
           title="Statistics"
         />
-        <Scene
-          key="principlestats"
-          component={PrincipleStats}
-          backTitle={'Stats'}
-          title="Principles"
-        />
-        <Scene key="herostats" component={HeroTotalStats} backTitle={'Stats'} />
-        <Scene key="exstats" component={ExerciseStats} backTitle={'Stats'} />
-        <Scene key="mindstats" component={MindfulStats} backTitle={'Stats'} />
-        <Scene key="sleepstats" component={SleepStats} backTitle={'Stats'} />
-        <Scene key="socialstats" component={SocialStats} backTitle={'Stats'} />
-        <Scene key="nutristats" component={NutriStats} backTitle={'Stats'} />
         <Scene
           key="settings"
           backTitle="Back"
@@ -171,10 +133,6 @@ const Routercomponent = () => {
           title="Mental Wellness"
         />
         <Scene key="heroscore" component={HeroScore} header={null} />
-        <Scene key="feedback" component={Feedback} header={null} />
-        <Scene key="mindfulnessaudio" component={MindfulnessAudio} header={null} />
-        <Scene key="tools" component={Tools} header={null} />
-        <Scene key="newsurveyscreen" component={NewSurveyScreen} header={null} />
         <Scene key="loading" component={Loading} header={null} />
       </Scene>
     </Router>
