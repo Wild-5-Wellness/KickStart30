@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  Modal
+  Modal,
+  Platform
 } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 import heroBackground from '../../images/herobackground.jpeg';
@@ -25,8 +26,29 @@ const radio_props = [
 const HeroTracking = () => {
   const [heroDaily, setHeroDaily] = useState('');
   const [error, setError] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [modalVisible, setModalVisible] = useState(true);
+  const [state, setState] = useState({
+    date: new Date(),
+    modalVisible: false,
+    show: false,
+    showAndroid: false
+  })
+
+const [date, setDate] = useState(new Date())
+
+useEffect(()=>{
+  console.log("DATE?onmount", state.date)
+},[])
+
+useEffect(()=>{
+  console.log("dateChanged", state.date)
+},[state.date])
+
+useEffect(()=>{
+  console.log("androidDate",date)
+  console.log("compare", compareAsc(format(new Date(date), 'MM-DD'), format(new Date(), 'MM-DD')))
+  console.log((format(new Date(), 'MM-DD')))
+  console.log((format(new Date(date), 'MM-DD')))
+},[date])
 
   const submitForm = React.useCallback(async () => {
     const heroRef = scopeRefByUserAndDate('Surveys', 'heroDaily', date);
@@ -55,16 +77,43 @@ const HeroTracking = () => {
     }
   });
 
-  onDateChange = (e, date) => {
-    setDate(date);
+  const onDateChange = (e, date) => {
+    console.log("date running")
+    setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
   };
 
+  const onDateChangeAndroid = (e, date) => {
+    if(date === undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+    } else if (date !== undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+      setDate(date)
+    }
+    
+  }
+
+  const showAndroidDatePicker = (state) => {
+    console.log("this is happening?", date)
+    switch(state){
+      case true:
+        return (
+              <DateTimePicker
+                value={date}
+                show={state.show}
+                mode={'date'}
+                is24Hour={false}
+                display="default"
+                onChange={onDateChangeAndroid}
+                />
+        )
+    }
+  }
 
   return (
     <>
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <Modal animationType="slide" transparent={true} visible={state.modalVisible}>
           <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
-            <View
+            {state.show &&<View
               style={{
                 height: 210,
                 backgroundColor: '#fff',
@@ -72,15 +121,16 @@ const HeroTracking = () => {
                 borderWidth: 1,
               }}>
               <DateTimePicker
-                value={date}
+                value={state.date}
+                show={state.show}
                 mode={'date'}
                 is24Hour={false}
                 display="default"
                 onChange={onDateChange}
-              />
-            </View>
+             /> 
+            </View>}
             <TouchableOpacity
-              onPress={()=> setModalVisible(false)}
+              onPress={()=>setState(prevState=>({...prevState, modalVisible: false }))}
               style={{
                 height: 50,
                 width: '100%',
@@ -100,6 +150,7 @@ const HeroTracking = () => {
         activityTitle="HERO Exercises"
         onSave={submitForm}>
         <SafeAreaView style={{flex: 1}}>
+          {showAndroidDatePicker(state.showAndroid)}
           <View
             style={{
               height: 110,
@@ -114,7 +165,7 @@ const HeroTracking = () => {
             />
           </View>
           <TouchableOpacity
-            onPress={() => setModalVisible(true)}
+            onPress={() => setState(prevState=>({...prevState, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
             style={{
               height: 50,
               width: '80%',
@@ -125,7 +176,7 @@ const HeroTracking = () => {
               alignSelf: 'center',
             }}>
             <Text style={{color: '#fff'}}>
-              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date).toString(), 'YYYY-MM-DD')}
             </Text>
           </TouchableOpacity>
           <View
