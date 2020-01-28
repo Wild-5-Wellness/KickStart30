@@ -42,7 +42,7 @@ const displayDateText = () => {
     if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
       return "Today"
     } else{
-      return format(new Date(state.date.toString()), 'YYYY-MM-DD')
+      return format(new Date(state.date.toString()), 'MMM DD YYYY')
     }
   } else{
    return format(new Date(date), 'MMM DD YYYY')

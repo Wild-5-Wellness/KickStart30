@@ -20,17 +20,20 @@ const LoginModal = props => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [forgotPW, setForgotPW] = useState(false);
+  const [state, setState] = useState({
+    loading: false,
+    error: ''
+  })
 
   LoginPress = () => {
     if (email === "" && password === "") {
-      setError("Please enter your email and password");
+      setState({...state, error:"Please enter your email and password"});
     } else if (email === "") {
-      setError("Please enter your email");
+      setState({...state, error:"Please enter your email"});
     } else if (password === "") {
-      setError("Please enter your password");
+      setState({...state, error:"Please enter your password"});
     } else {
-      setLoading(true);
-      setError("");
+      setState({...state, loading: true, error:''})
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
@@ -38,7 +41,7 @@ const LoginModal = props => {
           null
         })
         .catch(err => {
-          this.onLoginFail(err);
+          onLoginFail(err);
         });
     }
   };
@@ -48,7 +51,7 @@ const LoginModal = props => {
   };
 
   forgotPress = () => {
-    setLoading(true);
+    setState({...state, loading: true})
     firebase
       .auth()
       .sendPasswordResetEmail(email)
@@ -62,26 +65,26 @@ const LoginModal = props => {
         ]);
       })
       .catch(err => {
-        setError(err);
+        setState({...state,loading: false, error: err})
       });
   };
 
   onLoginFail = err => {
     console.log(err.message);
     if (err.message === "The email address is badly formatted") {
-      setError("Invalid Email Address");
+      setState({...state,loading: false, error:"Invalid Email Address"})
     } else if (
       err.message ===
       "There is no user record corresponding to this identifier. The user may have been deleted."
     ) {
-      setError("Email address not registered yet!");
+      setState({...state,loading: false, error:"Email address not registered yet!"})
     } else if (
       err.message ===
       "The password is invalid or the user does not have a password."
     ) {
-      setError("Wrong Password");
+      setState({...state,loading: false, error:"Wrong Password"})
     } else {
-      setError(err.message);
+      setState({...state,loading: false, error:err.message})
     }
   };
 
@@ -154,13 +157,13 @@ const LoginModal = props => {
               />
             </View>
           ) : null}
-          {loading ? (
+          {state.loading ? (
             <View style={{ alignSelf: "center", paddingTop: 10 }}>
               <ActivityIndicator size="large" color="#041D5D" />
             </View>
           ) : null}
           <View style={{ alignSelf: "center", width: "90%", marginTop: "5%" }}>
-          {error ? <Text style={{alignSelf:'center', color:'red'}}>{error}</Text> : null}
+          {state.error ? <Text style={{alignSelf:'center', color:'red'}}>{state.error}</Text> : null}
             {!forgotPW ? (
               <TouchableOpacity
                 style={{

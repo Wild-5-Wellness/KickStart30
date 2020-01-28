@@ -42,7 +42,7 @@ const displayDateText = () => {
     if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
       return "Today"
     } else{
-      return format(new Date(state.date.toString()), 'YYYY-MM-DD')
+      return format(new Date(state.date.toString()), 'MMM DD YYYY')
     }
   } else{
    return format(new Date(date), 'MMM DD YYYY')
@@ -110,8 +110,6 @@ const displayDateText = () => {
         style={{
           height: 210,
           backgroundColor: '#fff',
-          borderColor: 'red',
-          borderWidth: 1,
         }}>
         <DateTimePicker
           value={state.date}
@@ -128,8 +126,6 @@ const displayDateText = () => {
           height: 50,
           width: '100%',
           backgroundColor: '#041D5D',
-          borderColor: 'lime',
-          borderWidth: 1,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
@@ -168,7 +164,7 @@ const displayDateText = () => {
           </Text>
         </View>
         <TouchableOpacity
-            onPress={() => setState(prevState=>({...prevState, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
+            onPress={() => setState(prevState=>({...prevState,show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
             style={{
               height: 50,
               width: '80%',
