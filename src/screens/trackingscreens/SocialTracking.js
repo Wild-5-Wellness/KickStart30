@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Modal, Text, TouchableOpacity, SafeAreaView} from 'react-native'
+import {View, Modal, Text, TouchableOpacity, SafeAreaView, Platform} from 'react-native'
 import {Alert, StyleSheet} from 'react-native';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
@@ -14,15 +14,20 @@ const SocialTracking = () => {
  
 
   const [didSociallyConnect, setDidSociallyConnect] = useState()
-  const [type, setType] = useState("")
   const [error, setError] = React.useState("")
-  const [modalVisible, setModalVisible] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [state, setState] = useState({
+    date: new Date(),
+    modalVisible: false,
+    show: false,
+    showAndroid: false
+  })
+
+const [date, setDate] = useState(new Date())
  
   submitForm = async () => {
    
 
-    const socialRef = scopeRefByUserAndDate('Surveys', 'social');
+    const socialRef = scopeRefByUserAndDate('Surveys', 'social', Platform.OS === 'android' ? date : state.date);
 
     if(didSociallyConnect === undefined){
       setError("Please Select an Option")
@@ -31,8 +36,7 @@ const SocialTracking = () => {
       .database()
       .ref(socialRef)
       .update({
-        didSociallyConnect,
-       type
+        didSociallyConnect
       });
 
     // Add error handling here...
@@ -45,31 +49,59 @@ const SocialTracking = () => {
     }
   };
 
-  onDateChange = (e, date) => {
-    setDate(date);
-  };
-
-    return (
-      <>
-           <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
-            <View
-              style={{
-                height: 210,
-                backgroundColor: '#fff',
-                borderColor: 'red',
-                borderWidth: 1,
-              }}>
+  const showAndroidDatePicker = (state) => {
+    console.log("this is happening?", date)
+    switch(state){
+      case true:
+        return (
               <DateTimePicker
                 value={date}
+                show={state.show}
                 mode={'date'}
                 is24Hour={false}
                 display="default"
-                onChange={onDateChange}
-              />
-            </View>
+                onChange={onDateChangeAndroid}
+                />
+        )
+    }
+  }
+
+  const onDateChangeAndroid = (e, date) => {
+    if(date === undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+    } else if (date !== undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+      setDate(date)
+    }
+    
+  }
+
+  onDateChange = (e, date) => {
+    setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
+  };;
+
+    return (
+      <>
+           <Modal animationType="slide" transparent={true} visible={state.modalVisible}>
+          <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+          {state.show &&  <View
+        style={{
+          height: 210,
+          backgroundColor: '#fff',
+          borderColor: 'red',
+          borderWidth: 1,
+        }}>
+        <DateTimePicker
+          value={state.date}
+          show={state.show}
+          mode={'date'}
+          is24Hour={false}
+          display="default"
+          onChange={onDateChange}
+        />
+      </View>}
             <TouchableOpacity
-              onPress={()=> setModalVisible(false)}
+              onPress={()=>setState(prevState=>({...prevState, modalVisible: false }))}
               style={{
                 height: 50,
                 width: '100%',
@@ -89,6 +121,7 @@ const SocialTracking = () => {
         activityTitle="Social Connectedness"
         onSave={submitForm}
       >
+        {showAndroidDatePicker(state.showAndroid)}
         <View
           style={{
             backgroundColor: socialColor,
@@ -114,7 +147,7 @@ const SocialTracking = () => {
           </Text>
         </View>
         <TouchableOpacity
-            onPress={() => setModalVisible(true)}
+            onPress={() => setState(prevState=>({...prevState, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
             style={{
               height: 50,
               width: '80%',
@@ -125,7 +158,7 @@ const SocialTracking = () => {
               alignSelf: 'center',
             }}>
             <Text style={{color: '#fff'}}>
-              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
             </Text>
           </TouchableOpacity>
         <View style={{alignItems: "center", marginTop: 10}}>

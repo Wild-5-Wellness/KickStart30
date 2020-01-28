@@ -16,7 +16,7 @@ import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {Actions} from 'react-native-router-flux';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {format, compareAsc} from 'date-fns';
+import {format, compareDesc} from 'date-fns';
 
 const radio_props = [
   {label: 'Yes', value: 1},
@@ -45,13 +45,16 @@ useEffect(()=>{
 
 useEffect(()=>{
   console.log("androidDate",date)
-  console.log("compare", compareAsc(format(new Date(date), 'MM-DD'), format(new Date(), 'MM-DD')))
-  console.log((format(new Date(), 'MM-DD')))
-  console.log((format(new Date(date), 'MM-DD')))
+  console.log("androidDate",typeof date)
+  const Date1 = format(new Date(date), 'MM-DD');
+  const Date2 = format(new Date(), 'MM-DD');
+  console.log("compare", compareDesc(Date1, Date2))
+
+  console.log(format(new Date(date), 'MM-DD'))
 },[date])
 
   const submitForm = React.useCallback(async () => {
-    const heroRef = scopeRefByUserAndDate('Surveys', 'heroDaily', date);
+    const heroRef = scopeRefByUserAndDate('Surveys', 'heroDaily', Platform.OS === 'android' ? date : state.date);
     if (heroDaily === '') {
       setError('Please Select an Option');
     } else {
@@ -176,7 +179,7 @@ useEffect(()=>{
               alignSelf: 'center',
             }}>
             <Text style={{color: '#fff'}}>
-              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date).toString(), 'YYYY-MM-DD')}
+              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
             </Text>
           </TouchableOpacity>
           <View
@@ -185,9 +188,7 @@ useEffect(()=>{
               width: '100%',
               alignItems: 'center',
               alignSelf: 'center',
-              marginTop: 10,
-              borderColor: 'lime',
-              borderWidth: 1,
+              marginTop: 10
             }}>
             <Text
               style={{

@@ -22,12 +22,18 @@ const types = [
 const MindfulnessTracking = () => {
   const [didMeditateToday, setDidMeditateToday] = useState();
   const [error, setError] = useState("")
-  const [modalVisible, setModalVisible] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [state, setState] = useState({
+    date: new Date(),
+    modalVisible: false,
+    show: false,
+    showAndroid: false
+  })
+
+const [date, setDate] = useState(new Date())
 
 
   const submitForm = React.useCallback(async () => {
-    const mindfulnessRef = scopeRefByUserAndDate('Surveys', 'mindfulness', date);
+    const mindfulnessRef = scopeRefByUserAndDate('Surveys', 'mindfulness', Platform.OS === 'android' ? date : state.date);
     if(didMeditateToday === undefined){
       setError("Please Select an Option")
     }else {
@@ -44,16 +50,42 @@ const MindfulnessTracking = () => {
   }
   }, [didMeditateToday]);
 
- 
+  const showAndroidDatePicker = (state) => {
+    console.log("this is happening?", date)
+    switch(state){
+      case true:
+        return (
+              <DateTimePicker
+                value={date}
+                show={state.show}
+                mode={'date'}
+                is24Hour={false}
+                display="default"
+                onChange={onDateChangeAndroid}
+                />
+        )
+    }
+  }
+
+  const onDateChangeAndroid = (e, date) => {
+    if(date === undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+    } else if (date !== undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+      setDate(date)
+    }
+    
+  }
+
   onDateChange = (e, date) => {
-    setDate(date);
+    setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
   };
 
   return (
     <>
-    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+    <Modal animationType="slide" transparent={true} visible={state.modalVisible}>
     <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
-      <View
+    {state.show &&  <View
         style={{
           height: 210,
           backgroundColor: '#fff',
@@ -61,15 +93,16 @@ const MindfulnessTracking = () => {
           borderWidth: 1,
         }}>
         <DateTimePicker
-          value={date}
+          value={state.date}
+          show={state.show}
           mode={'date'}
           is24Hour={false}
           display="default"
           onChange={onDateChange}
         />
-      </View>
+      </View>}
       <TouchableOpacity
-        onPress={()=> setModalVisible(false)}
+        onPress={()=>setState(prevState=>({...prevState, modalVisible: false }))}
         style={{
           height: 50,
           width: '100%',
@@ -89,6 +122,7 @@ const MindfulnessTracking = () => {
         activityTitle="Mindfulness"
         onSave={submitForm}
       >
+        {showAndroidDatePicker(state.showAndroid)}
         <View
           style={{
             marginVertical: 10,
@@ -113,7 +147,7 @@ const MindfulnessTracking = () => {
           </Text>
         </View>
         <TouchableOpacity
-            onPress={() => setModalVisible(true)}
+            onPress={() => setState(prevState=>({...prevState, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
             style={{
               height: 50,
               width: '80%',
@@ -124,7 +158,7 @@ const MindfulnessTracking = () => {
               alignSelf: 'center',
             }}>
             <Text style={{color: '#fff'}}>
-              {compareAsc(format(new Date(), 'MM-DD'), format(new Date(date), 'MM-DD')) === 0 ? "Today" : format(new Date(date.toString()), 'YYYY-MM-DD')}
+              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
             </Text>
           </TouchableOpacity>
           <View
