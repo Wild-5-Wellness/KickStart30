@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {View} from 'react-native'
-import {Text, Picker, Icon} from 'native-base';
+import React, {useState, useEffect} from 'react';
+import {View, Modal, Text, TouchableOpacity, SafeAreaView, Platform} from 'react-native'
 import {Alert, StyleSheet} from 'react-native';
 import firebase from 'react-native-firebase';
 import {Actions} from 'react-native-router-flux';
@@ -8,19 +7,44 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {TrackingScreen} from './TrackingScreen';
 import RadioForm from "react-native-simple-radio-button";
 import {socialColor} from '../../components/common/colors'
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const SocialTracking = () => {
  
 
   const [didSociallyConnect, setDidSociallyConnect] = useState()
-  const [type, setType] = useState("")
   const [error, setError] = React.useState("")
+  const [state, setState] = useState({
+    date: new Date(),
+    modalVisible: false,
+    show: false,
+    showAndroid: false
+  })
+
+const [date, setDate] = useState(new Date())
+
+const displayDateText = () => {
+   if(Platform.OS === 'ios'){
+     if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
+       return "Today"
+     } else{
+       return format(new Date(state.date.toString()), 'MMM DD YYYY')
+     }
+   } else{
+    return format(new Date(date), 'MMM DD YYYY')
+   }  
+}
+
+useEffect(() => {
+  console.log(displayDateText())
+}, [date])
  
   submitForm = async () => {
    
 
-    const socialRef = scopeRefByUserAndDate('Surveys', 'social');
+    const socialRef = scopeRefByUserAndDate('Surveys', 'social', Platform.OS === 'android' ? date : state.date);
 
     if(didSociallyConnect === undefined){
       setError("Please Select an Option")
@@ -29,39 +53,100 @@ const SocialTracking = () => {
       .database()
       .ref(socialRef)
       .update({
-        didSociallyConnect,
-       type
+        didSociallyConnect
       });
 
     // Add error handling here...
 
     Alert.alert(
       "Success!",
-      "Your social interactions for today have been recorded.",
+      `Your social interactions for ${displayDateText()} have been recorded.`,
       [{text: "OK", onPress: Actions.landing()}]
     );
     }
   };
 
+  const showAndroidDatePicker = (state) => {
+    console.log("this is happening?", date)
+    switch(state){
+      case true:
+        return (
+              <DateTimePicker
+                value={date}
+                show={state.show}
+                mode={'date'}
+                is24Hour={false}
+                display="default"
+                onChange={onDateChangeAndroid}
+                />
+        )
+    }
+  }
+
+  const onDateChangeAndroid = (e, date) => {
+    if(date === undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+    } else if (date !== undefined){
+      setState(prevState=>({...prevState, showAndroid: false}))
+      setDate(date)
+    }
+    
+  }
+
+  onDateChange = (e, date) => {
+    setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
+  };;
+
     return (
+      <>
+           <Modal animationType="slide" transparent={true} visible={state.modalVisible}>
+          <SafeAreaView style={{flex: 1, justifyContent: 'flex-end', backgroundColor:'rgba(0,0,0,.8)'}}>
+          {state.show &&  <View
+        style={{
+          height: 210,
+          backgroundColor: '#fff'
+        }}>
+        <DateTimePicker
+          value={state.date}
+          show={state.show}
+          mode={'date'}
+          is24Hour={false}
+          display="default"
+          onChange={onDateChange}
+        />
+      </View>}
+            <TouchableOpacity
+              onPress={()=>setState(prevState=>({...prevState, modalVisible: false }))}
+              style={{
+                height: 50,
+                width: '100%',
+                backgroundColor: '#041D5D',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#fff'}}>Close</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+      </Modal>
       <TrackingScreen
         backgroundImage={{uri: "social-tracking-bg"}}
         color={socialColor}
         activityTitle="Social Connectedness"
         onSave={submitForm}
       >
+        {showAndroidDatePicker(state.showAndroid)}
         <View
           style={{
             backgroundColor: socialColor,
             width: "85%",
             alignSelf: "center",
             height: 90,
-            marginTop: 10,
+            marginVertical: 10,
           }}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: RFValue(20),
               color: "white",
               alignSelf: "center",
               fontWeight: "700",
@@ -69,21 +154,36 @@ const SocialTracking = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: "white", textAlign: "center"}}>
+          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Meet or call a minimum of two friends or family each day for 30
             days.
           </Text>
         </View>
+        <TouchableOpacity
+            onPress={() => setState(prevState=>({...prevState,show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
+            style={{
+              height: 50,
+              width: '80%',
+              backgroundColor: socialColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {displayDateText()}
+            </Text>
+          </TouchableOpacity>
         <View style={{alignItems: "center", marginTop: 10}}>
           <Text
             style={{
               marginBottom: "5%",
-              fontSize: 20,
+              fontSize: RFValue(20),
               textAlign: "center",
               fontWeight: "600",
             }}
           >
-            Did I Socially Connect With at Least 2 People Today
+            Did I socially connect with at least 2 people today?
           </Text>
           <RadioForm
             radio_props={[{label: "Yes", value: 1}, {label: "No", value: 0}]}
@@ -92,7 +192,7 @@ const SocialTracking = () => {
             labelHorizontal={true}
             buttonColor={socialColor}
             selectedButtonColor={socialColor}
-            labelStyle={{fontSize: 20, color: "#000"}}
+            labelStyle={{fontSize: RFValue(20), color: "#000"}}
             animation={true}
             onPress={value => {
               setError("")
@@ -101,34 +201,8 @@ const SocialTracking = () => {
           />
           <Text style={{color:'red'}}>{error}</Text>
         </View>
-        <Text style={styles.subtitle} numberOfLines={1}>
-          What social contacts did you make?
-        </Text>
-        <Picker
-              style={{
-                width:(Platform.OS === 'ios') ? undefined : '90%',
-                marginLeft: 5, marginRight: 5}}
-              selectedValue={type}
-              onValueChange={type => setType(type)}
-              mode="dropdown"
-              placeholder="Type of SocialConnectedness"
-              placeholderStyle={{color: '#000'}}
-              placeholderIconColor="#000"
-              iosIcon={
-                <Icon
-                  name="ios-arrow-dropdown"
-                  style={{color: '#000', fontSize: 25}}
-                />
-              }
-              textStyle={{color: '#000'}}
-            >
-         
-                <Picker.Item label="Called Friend" value="called friend" />
-                <Picker.Item label="Met Friend in Person" value="met friend in person" />
-                <Picker.Item label="Called Family" value="called family" />
-                <Picker.Item label="Met Family in Person" value="met family in person" />
-            </Picker>
       </TrackingScreen>
+      </>
     );
   }
 

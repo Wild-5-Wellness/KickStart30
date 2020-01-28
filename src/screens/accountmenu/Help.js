@@ -3,6 +3,7 @@ import { View, Platform, SafeAreaView, Text } from "react-native";
 import { Accordion, Icon } from 'native-base'
 import Navbar from "../../components/Navbar";
 import { aboutData }from '../../components/common/aboutData'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const Help = () => {
 
@@ -21,8 +22,8 @@ const Help = () => {
           {" "}{item.title}
         </Text>
         {expanded
-          ? <Icon style={{ fontSize: 18, color:'#fff' }} name="remove-circle" />
-          : <Icon style={{ fontSize: 18, color:'#fff' }} name="add-circle" />}
+          ? <Icon style={{ fontSize: RFValue(18), color:'#fff' }} name="remove-circle" />
+          : <Icon style={{ fontSize: RFValue(18), color:'#fff' }} name="add-circle" />}
       </View>
     );
   }

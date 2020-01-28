@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@react-native-community/audio-toolkit": "2.0.2",
+    "@react-native-community/datetimepicker": "^2.1.0",
     "@react-native-community/netinfo": "4.4.0",
     "@react-native-community/slider": "2.0.2",
     "axios": "0.19.0",
@@ -27,7 +28,6 @@
     "react-native-elements": "1.2.6",
     "react-native-exception-handler": "2.10.8",
     "react-native-firebase": "5.5.6",
-    "react-native-fit-image": "^1.5.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-linear-gradient": "2.5.4",
     "react-native-modal": "11.0.2",
@@ -37,15 +37,13 @@
     "react-native-responsive-fontsize": "^0.2.3",
     "react-native-router-flux": "4.0.6",
     "react-native-simple-radio-button": "2.7.3",
-    "react-native-snap-carousel": "3.7.5",
     "react-native-svg": "9.5.1",
     "react-native-svg-charts": "5.2.0",
     "react-native-typography": "1.4.1",
     "react-native-vector-icons": "6.6.0",
     "rollbar-react-native": "0.7.0",
     "toggle-switch-react-native": "2.0.2",
-    "victory": "32.2.3",
-    "victory-native": "32.0.2"
+    "victory": "32.2.3"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",

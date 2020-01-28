@@ -152,7 +152,7 @@ export function Navigation(props) {
               <View
                 style={styles.KS30DayTextContainer}>
                 {!props.hero ? null : <Text style={styles.KS30DayText}>
-                  Day {props.day} of the KickStart30
+                  Day {props.day} of KickStart30
                 </Text>}
               </View>
               <Image
@@ -193,7 +193,7 @@ export function Navigation(props) {
             </View>
             <View style={styles.KS30DayTextContainer}>
               <Text style={styles.KS30DayText}>
-                Day {props.day} of the KickStart30
+                Day {props.day} of KickStart30
               </Text>
             </View>
             <View style={{flex: 1, justifyContent: 'flex-end'}}>
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
   },
   titleHEROMain: {
     color: '#041D5D',
-    fontSize: 24,
+    fontSize: RFValue(24),
     alignSelf: 'center',
     fontWeight: '800',
     textAlign: 'center',
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#041D5D',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: RFValue(20),
     marginBottom: 10,
     textAlign: 'center',
   },
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#041D5D',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: RFValue(20),
     marginBottom: 10,
   },
   KS30DayText: {
