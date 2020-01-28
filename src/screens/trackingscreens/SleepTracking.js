@@ -9,6 +9,7 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {sleepColor} from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const SleepTracking = () => {
   const [
@@ -97,7 +98,7 @@ const SleepTracking = () => {
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: RFValue(20),
               color: 'white',
               alignSelf: 'center',
               fontWeight: '700',
@@ -105,7 +106,7 @@ const SleepTracking = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>
+          <Text style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
             Implement 4 or more of the 6 sleep hygiene practices each day for 30
             days
           </Text>
@@ -129,7 +130,7 @@ const SleepTracking = () => {
           <Text
             style={{
               marginBottom: '5%',
-              fontSize: 20,
+              fontSize: RFValue(20),
               textAlign: 'center',
               fontWeight: '600',
             }}
@@ -146,7 +147,7 @@ const SleepTracking = () => {
             labelHorizontal={true}
             buttonColor={sleepColor}
             selectedButtonColor={sleepColor}
-            labelStyle={{fontSize: 20, color: '#000'}}
+            labelStyle={{fontSize: RFValue(20), color: '#000'}}
             animation={true}
             onPress={value =>{ 
               setError("")

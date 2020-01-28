@@ -9,6 +9,7 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import { nutritionColor } from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const NutritionTracking = () => {
   const [loggedNutritionToday, setLoggedNutritionToday] = useState();
@@ -99,7 +100,7 @@ const NutritionTracking = () => {
               >
                 Practices
               </Text>
-              <Text style={{fontSize: 16, color: 'white', textAlign: 'center', paddingBottom:5}}>
+              <Text style={{fontSize: RFValue(16), color: 'white', textAlign: 'center', paddingBottom:5}}>
                 Log your daily meals/snacks/beverages/alcohol each day for 30
                 days, follow the MIND diet principles as closely as you can
               </Text>
@@ -141,7 +142,7 @@ const NutritionTracking = () => {
                 labelHorizontal={true}
                 buttonColor={nutritionColor}
                 selectedButtonColor={nutritionColor}
-                labelStyle={{fontSize: 20, color: '#000'}}
+                labelStyle={{fontSize: RFValue(20), color: '#000'}}
                 animation={true}
                 onPress={value =>{ 
                   setError("")

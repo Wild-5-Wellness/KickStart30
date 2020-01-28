@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
   },
   titleHEROMain: {
     color: '#041D5D',
-    fontSize: 24,
+    fontSize: RFValue(24),
     alignSelf: 'center',
     fontWeight: '800',
     textAlign: 'center',
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#041D5D',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: RFValue(20),
     marginBottom: 10,
     textAlign: 'center',
   },
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#041D5D',
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: RFValue(20),
     marginBottom: 10,
   },
   KS30DayText: {

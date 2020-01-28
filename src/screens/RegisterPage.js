@@ -24,6 +24,8 @@ import { withAuthProvider } from "../context/authcontext";
 import { scopeRefByUser } from "../utils/registration";
 import abstractimg from "../images/abstract2.jpeg";
 import Disclaimer from "../components/common/Disclaimer";
+import {RFValue} from 'react-native-responsive-fontsize'
+
 const screenheight = Dimensions.get("window").height;
 const RegisterPage = (props) => {
   const [loading, setLoading] = useState(false);
@@ -123,7 +125,7 @@ const RegisterPage = (props) => {
             <View>
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: RFValue(15),
                   fontWeight: "600",
                   textAlign: "center",
                   marginTop: "5%"
@@ -192,7 +194,7 @@ const RegisterPage = (props) => {
             <View>
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: RFValue(15),
                   fontWeight: "600",
                   textAlign: "center",
                   marginTop: "10%"
@@ -217,7 +219,7 @@ const RegisterPage = (props) => {
             <View>
               <Text
                 style={{
-                  fontSize: 15,
+                  fontSize: RFValue(15),
                   fontWeight: "600",
                   textAlign: "center",
                   marginTop: "10%"
@@ -254,7 +256,7 @@ const RegisterPage = (props) => {
               <View>
                 <Text
                   style={{
-                    fontSize: 15,
+                    fontSize: RFValue(15),
                     fontWeight: "600",
                     textAlign: "center",
                     marginTop: "6%"
@@ -275,7 +277,7 @@ const RegisterPage = (props) => {
 
             <Text
               style={{
-                fontSize: 30,
+                fontSize: RFValue(30),
                 color: "red",
                 alignSelf: "center",
                 textAlign: "center"
@@ -292,10 +294,10 @@ const RegisterPage = (props) => {
 
             <View style={{ alignSelf: "center", marginTop: "5%" }}>
              <TouchableOpacity style={{height: 70, width:150, backgroundColor:"#041D5D", borderRadius:7, justifyContent:'center'}} onPress={() => showDisclaimerScreen()}>
-               <Text style={{fontSize:24, color:"#fff", alignSelf:'center'}}>Register</Text>
+               <Text style={{fontSize: RFValue(24), color:"#fff", alignSelf:'center'}}>Register</Text>
              </TouchableOpacity>
              <TouchableOpacity style={{marginTop: 15}} onPress={props.closeModal}>
-               <Text style={{fontSize:24, color:"#041D5D", alignSelf:'center'}}>Cancel</Text>
+               <Text style={{fontSize:RFValue(24), color:"#041D5D", alignSelf:'center'}}>Cancel</Text>
              </TouchableOpacity>
             </View>
           </View>
@@ -312,7 +314,7 @@ const RegisterPage = (props) => {
         </View>
       ) : error ? (
         <View style={{ width:'100%',alignSelf: "center", backgroundColor: '#fff' }}>
-          <Text style={{ fontSize: 20, color: "red", alignSelf: "center", textAlign:'center' }}>
+          <Text style={{ fontSize: RFValue(20), color: "red", alignSelf: "center", textAlign:'center' }}>
             {error}
           </Text>
         </View>
@@ -330,12 +332,12 @@ const RegisterPage = (props) => {
       >
         <View style={{ alignSelf: "center" }}>
         <TouchableOpacity style={{height: 70, width:150, backgroundColor:"#041D5D", borderRadius:7, justifyContent:'center'}} onPress={()=> registerPress()}>
-           <Text style={{fontSize:24, color:"#fff", alignSelf:'center'}}>Accept</Text>
+           <Text style={{fontSize: RFValue(24), color:"#fff", alignSelf:'center'}}>Accept</Text>
         </TouchableOpacity>
         </View>
         <View style={{ alignSelf: "center" }}>
         <TouchableOpacity style={{height: 70, width:150, backgroundColor:"#041D5D", borderRadius:7, justifyContent:'center'}} onPress={() => Actions.newlogin()}>
-               <Text style={{fontSize:24, color:"#fff", alignSelf:'center'}} onPress={()=> decline()}>Decline</Text>
+               <Text style={{fontSize: RFValue(24), color:"#fff", alignSelf:'center'}} onPress={()=> decline()}>Decline</Text>
              </TouchableOpacity>
         </View>
       </View>

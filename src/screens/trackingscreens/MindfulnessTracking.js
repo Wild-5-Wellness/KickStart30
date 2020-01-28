@@ -9,6 +9,7 @@ import mindTrackingImage from '../../images/mindfultracking1.jpg';
 import {mindfulnessColor} from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const types = [
   'Mindfulness',
@@ -100,7 +101,7 @@ const MindfulnessTracking = () => {
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: RFValue(20),
               color: 'white',
               alignSelf: 'center',
               fontWeight: '700',
@@ -108,7 +109,7 @@ const MindfulnessTracking = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>
+          <Text style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
             Practice mindfulness for at least 10 minutes each day for 30 days.
           </Text>
         </View>
@@ -137,7 +138,7 @@ const MindfulnessTracking = () => {
             <Text
               style={{
                 marginBottom: '5%',
-                fontSize: 20,
+                fontSize: RFValue(20),
                 textAlign: 'center',
                 fontWeight: '600',
               }}

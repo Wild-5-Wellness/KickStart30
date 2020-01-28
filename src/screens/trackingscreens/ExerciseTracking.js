@@ -10,6 +10,7 @@ import {scopeRefByUserAndDate} from "../../utils/firebase";
 import {exerciseColor} from "../../components/common/colors";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const exerciseTypes = [
   "Walking",
@@ -106,7 +107,7 @@ function ExerciseTracking() {
         >
           <Text
             style={{
-              fontSize: 26,
+              fontSize: RFValue(26),
               color: "white",
               alignSelf: "center",
               fontWeight: "700",
@@ -114,7 +115,7 @@ function ExerciseTracking() {
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: "white", textAlign: "center"}}>
+          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Exercise 30 minutes each day for 30 days, aim for at least moderate
             intensity.
           </Text>

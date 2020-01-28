@@ -9,6 +9,7 @@ import RadioForm from "react-native-simple-radio-button";
 import {socialColor} from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const SocialTracking = () => {
  
@@ -100,7 +101,7 @@ const SocialTracking = () => {
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: RFValue(20),
               color: "white",
               alignSelf: "center",
               fontWeight: "700",
@@ -108,7 +109,7 @@ const SocialTracking = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: "white", textAlign: "center"}}>
+          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Meet or call a minimum of two friends or family each day for 30
             days.
           </Text>
@@ -132,7 +133,7 @@ const SocialTracking = () => {
           <Text
             style={{
               marginBottom: "5%",
-              fontSize: 20,
+              fontSize: RFValue(20),
               textAlign: "center",
               fontWeight: "600",
             }}
@@ -146,7 +147,7 @@ const SocialTracking = () => {
             labelHorizontal={true}
             buttonColor={socialColor}
             selectedButtonColor={socialColor}
-            labelStyle={{fontSize: 20, color: "#000"}}
+            labelStyle={{fontSize: RFValue(20), color: "#000"}}
             animation={true}
             onPress={value => {
               setError("")
