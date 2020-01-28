@@ -9,15 +9,8 @@ import mindTrackingImage from '../../images/mindfultracking1.jpg';
 import {mindfulnessColor} from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
-const types = [
-  'Mindfulness',
-  'Transcendental',
-  'Silent',
-  'Qigong',
-  'Compassion',
-  'Other',
-];
 
 const MindfulnessTracking = () => {
   const [didMeditateToday, setDidMeditateToday] = useState();
@@ -32,6 +25,18 @@ const MindfulnessTracking = () => {
 const [date, setDate] = useState(new Date())
 
 
+const displayDateText = () => {
+  if(Platform.OS === 'ios'){
+    if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
+      return "Today"
+    } else{
+      return format(new Date(state.date.toString()), 'YYYY-MM-DD')
+    }
+  } else{
+   return format(new Date(date), 'MMM DD YYYY')
+  }  
+}
+
   const submitForm = React.useCallback(async () => {
     const mindfulnessRef = scopeRefByUserAndDate('Surveys', 'mindfulness', Platform.OS === 'android' ? date : state.date);
     if(didMeditateToday === undefined){
@@ -44,7 +49,7 @@ const [date, setDate] = useState(new Date())
         didMeditateToday,
       });
 
-    Alert.alert('Success!', 'Your mindfulness for today has been recorded.', [
+    Alert.alert('Success!', `Your mindfulness for ${displayDateText()} has been recorded.`, [
       {text: 'OK', onPress: Actions.landing()},
     ]);
   }
@@ -134,7 +139,7 @@ const [date, setDate] = useState(new Date())
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: RFValue(20),
               color: 'white',
               alignSelf: 'center',
               fontWeight: '700',
@@ -142,7 +147,7 @@ const [date, setDate] = useState(new Date())
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: 'white', textAlign: 'center'}}>
+          <Text style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
             Practice mindfulness for at least 10 minutes each day for 30 days.
           </Text>
         </View>
@@ -158,7 +163,7 @@ const [date, setDate] = useState(new Date())
               alignSelf: 'center',
             }}>
             <Text style={{color: '#fff'}}>
-              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
+              {displayDateText()}
             </Text>
           </TouchableOpacity>
           <View
@@ -171,7 +176,7 @@ const [date, setDate] = useState(new Date())
             <Text
               style={{
                 marginBottom: '5%',
-                fontSize: 20,
+                fontSize: RFValue(20),
                 textAlign: 'center',
                 fontWeight: '600',
               }}

@@ -6,6 +6,7 @@ import firebase from 'react-native-firebase';
 import { Slider } from "react-native-elements";
 import Navbar from "../../components/Navbar";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const screenheight = Dimensions.get("window").height;
 const HeroRes = () => {
@@ -31,7 +32,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -45,7 +46,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -59,7 +60,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -73,7 +74,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -87,7 +88,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -106,7 +107,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
         <View style={{height: 100, marginTop: 10}}>
           <Text
             style={{
-              fontSize: 30,
+              fontSize: RFValue(30),
               fontWeight: "600",
               textAlign: "center",
               marginTop: 20
@@ -119,7 +120,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
         <View style={{height: 80}}>
           <Text
             style={{
-              fontSize: 22,
+              fontSize: RFValue(22),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -146,7 +147,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
           />
           <Text
             style={{
-              fontSize: 25,
+              fontSize: RFValue(25),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -157,7 +158,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
 
           <View style={{ alignSelf: "center", marginTop: "10%" }}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
-            <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Next</Text>
+            <Text style={{color:"#fff", fontSize: RFValue(24), fontWeight:'800', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
           </View>
           </View>

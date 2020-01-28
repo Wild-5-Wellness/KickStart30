@@ -7,6 +7,7 @@ import {
   VERTICAL_POSITION,
 } from '../../components/common/BlurredBackgroundImage';
 import {Card, ModButton} from '../../components/common';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 export function TrackingScreen(props) {
   return (
@@ -53,7 +54,7 @@ TrackingScreen.propTypes = {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 30,
+    fontSize: RFValue(30),
     fontWeight: '600',
     width: '100%',
     textAlign: 'center',

@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
-
+import {RFValue} from 'react-native-responsive-fontsize'
 const ModButton = ({color, onPress, label, style}) => (
   <TouchableOpacity
     onPress={onPress}
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: 'white',
-    fontSize: 20,
+    fontSize: RFValue(20),
     fontWeight: '500',
     padding: 15,
     alignSelf: 'center',

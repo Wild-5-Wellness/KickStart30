@@ -10,6 +10,7 @@ import Star from "../../images/wild5star_100_100.png";
 import { scopeRefByUserAndDate } from "../../utils/firebase";
 import { scopeRefByUserHero } from '../../utils/heroRef'
 import {format} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const screenheight = Dimensions.get("window").height;
 const HeroScore = () => {
@@ -52,7 +53,7 @@ const HeroScore = () => {
       return (
         <Text
           style={{
-            fontSize: 30,
+            fontSize: RFValue(30),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "0%",
@@ -66,7 +67,7 @@ const HeroScore = () => {
       return (
         <Text
           style={{
-            fontSize: 30,
+            fontSize: RFValue(30),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "0%",
@@ -80,7 +81,7 @@ const HeroScore = () => {
       return (
         <Text
           style={{
-            fontSize: 30,
+            fontSize: RFValue(30),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "0%",
@@ -94,7 +95,7 @@ const HeroScore = () => {
       return (
         <Text
           style={{
-            fontSize: 30,
+            fontSize: RFValue(30),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "0%",
@@ -108,7 +109,7 @@ const HeroScore = () => {
       return (
         <Text
           style={{
-            fontSize: 30,
+            fontSize: RFValue(30),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "0%",
@@ -175,12 +176,12 @@ export { HeroScore };
 const styles = StyleSheet.create({
   subTitleText: {
     textAlign: "center",
-    fontSize: 15,
+    fontSize: RFValue(15),
     fontWeight: "600",
   },
   mainText: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: RFValue(30),
     fontWeight: "600",
     marginTop: "0%"
   },
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   scoreText: {
     alignSelf:'center',
     textAlign: "center",
-    fontSize: 48,
+    fontSize: RFValue(48),
     fontWeight: "600",
     marginTop: 5,
     marginBottom: "0%",

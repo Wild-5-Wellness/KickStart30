@@ -17,6 +17,7 @@ import {Actions} from 'react-native-router-flux';
 import KS30 from "../images/KS30_login.png";
 import Register from './RegisterPage'
 import LoginModal from '../components/LoginModal'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const {height, width} = Dimensions.get('window')
 
@@ -64,7 +65,7 @@ const NewLoginScreen = props => {
             />
         </View>
         <View style={{flex: .3, backgroundColor: "#52669c", alignSelf:'center', justifyContent:'center'}}>
-          <Text style={{alignSelf:'center', fontSize:20, color: '#fff', paddingRight:5, paddingLeft: 5}}>Let's Get Started</Text>
+          <Text style={{alignSelf:'center', fontSize: RFValue(20), color: '#fff', paddingRight:5, paddingLeft: 5}}>Let's Get Started</Text>
           </View>
           <View style={{flex: 1,flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems:'center'}}>
             <TouchableOpacity style={styles.buttons} onPress={()=>showModal("Register")}>
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     fontWeight: '900',
     color: '#52669c', 
-    fontSize:  18
+    fontSize:  RFValue(18)
   },
   imageView:{
     height: 60,

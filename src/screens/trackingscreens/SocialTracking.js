@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Modal, Text, TouchableOpacity, SafeAreaView, Platform} from 'react-native'
 import {Alert, StyleSheet} from 'react-native';
 import firebase from 'react-native-firebase';
@@ -9,6 +9,7 @@ import RadioForm from "react-native-simple-radio-button";
 import {socialColor} from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const SocialTracking = () => {
  
@@ -23,6 +24,22 @@ const SocialTracking = () => {
   })
 
 const [date, setDate] = useState(new Date())
+
+const displayDateText = () => {
+   if(Platform.OS === 'ios'){
+     if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
+       return "Today"
+     } else{
+       return format(new Date(state.date.toString()), 'YYYY-MM-DD')
+     }
+   } else{
+    return format(new Date(date), 'MMM DD YYYY')
+   }  
+}
+
+useEffect(() => {
+  console.log(displayDateText())
+}, [date])
  
   submitForm = async () => {
    
@@ -43,7 +60,7 @@ const [date, setDate] = useState(new Date())
 
     Alert.alert(
       "Success!",
-      "Your social interactions for today have been recorded.",
+      `Your social interactions for ${displayDateText()} have been recorded.`,
       [{text: "OK", onPress: Actions.landing()}]
     );
     }
@@ -133,7 +150,7 @@ const [date, setDate] = useState(new Date())
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: RFValue(20),
               color: "white",
               alignSelf: "center",
               fontWeight: "700",
@@ -141,7 +158,7 @@ const [date, setDate] = useState(new Date())
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: "white", textAlign: "center"}}>
+          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Meet or call a minimum of two friends or family each day for 30
             days.
           </Text>
@@ -158,14 +175,14 @@ const [date, setDate] = useState(new Date())
               alignSelf: 'center',
             }}>
             <Text style={{color: '#fff'}}>
-              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
+              {displayDateText()}
             </Text>
           </TouchableOpacity>
         <View style={{alignItems: "center", marginTop: 10}}>
           <Text
             style={{
               marginBottom: "5%",
-              fontSize: 20,
+              fontSize: RFValue(20),
               textAlign: "center",
               fontWeight: "600",
             }}
@@ -179,7 +196,7 @@ const [date, setDate] = useState(new Date())
             labelHorizontal={true}
             buttonColor={socialColor}
             selectedButtonColor={socialColor}
-            labelStyle={{fontSize: 20, color: "#000"}}
+            labelStyle={{fontSize: RFValue(20), color: "#000"}}
             animation={true}
             onPress={value => {
               setError("")

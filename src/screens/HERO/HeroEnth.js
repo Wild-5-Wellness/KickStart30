@@ -5,6 +5,7 @@ import { Actions } from "react-native-router-flux";
 import firebase from 'react-native-firebase';
 import { Slider } from "react-native-elements";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const screenheight = Dimensions.get("window").height;
 const HeroEnth = () => {
@@ -28,7 +29,7 @@ const HeroEnth = () => {
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -42,7 +43,7 @@ const HeroEnth = () => {
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -56,7 +57,7 @@ const HeroEnth = () => {
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -70,7 +71,7 @@ const HeroEnth = () => {
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -84,7 +85,7 @@ const HeroEnth = () => {
       return (
         <Text
           style={{
-            fontSize: 25,
+            fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
             marginTop: "10%",
@@ -102,7 +103,7 @@ const HeroEnth = () => {
         <View style={{height: 100, marginTop: 10}}>
           <Text
             style={{
-              fontSize: 30,
+              fontSize: RFValue(30),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -114,7 +115,7 @@ const HeroEnth = () => {
         <View style={{height: 80}}>
           <Text
             style={{
-              fontSize: 22,
+              fontSize: RFValue(22),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -142,7 +143,7 @@ const HeroEnth = () => {
           />
           <Text
             style={{
-              fontSize: 25,
+              fontSize: RFValue(25),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -153,7 +154,7 @@ const HeroEnth = () => {
 
           <View style={{ alignSelf: "center", marginTop: "15%" }}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
-            <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Next</Text>
+            <Text style={{color:"#fff", fontSize: RFValue(24), fontWeight:'800', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
           </View>
         </View>

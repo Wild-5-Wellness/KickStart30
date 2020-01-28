@@ -4,7 +4,7 @@ import { Text, Button, Icon } from "native-base";
 import { Actions } from "react-native-router-flux";
 import HEROlogo from "../../images/herologo.png";
 import Navbar from '../../components/Navbar'
-// import background from "../../images/herobackground.jpeg";
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const screenheight = Dimensions.get("window").height;
 const HeroIntro = () => {
@@ -22,7 +22,7 @@ const HeroIntro = () => {
           <Text
             style={{
               marginTop: "7%",
-              fontSize: 24,
+              fontSize: RFValue(24),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -34,7 +34,7 @@ const HeroIntro = () => {
           <Text
             style={{
               marginTop: "15%",
-              fontSize: 20,
+              fontSize: RFValue(20),
               fontWeight: "600",
               textAlign: "center"
             }}
@@ -44,7 +44,7 @@ const HeroIntro = () => {
         </View>
         <View style={{marginTop:'7%'}}>
           <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => Actions.herohappy()}>
-            <Text style={{color:"#fff", fontSize: 24, fontWeight:'800', alignSelf:'center'}}>Start</Text>
+            <Text style={{color:"#fff", fontSize: RFValue(24), fontWeight:'800', alignSelf:'center'}}>Start</Text>
             </TouchableOpacity>
         </View>
         <View style={{flex:1, justifyContent:'flex-end'}}>

@@ -9,6 +9,7 @@ import {scopeRefByUserAndDate} from '../../utils/firebase';
 import { nutritionColor } from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const NutritionTracking = () => {
   const [loggedNutritionToday, setLoggedNutritionToday] = useState();
@@ -22,6 +23,18 @@ const NutritionTracking = () => {
 
 const [date, setDate] = useState(new Date())
 
+const displayDateText = () => {
+  if(Platform.OS === 'ios'){
+    if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
+      return "Today"
+    } else{
+      return format(new Date(state.date.toString()), 'YYYY-MM-DD')
+    }
+  } else{
+   return format(new Date(date), 'MMM DD YYYY')
+  }  
+}
+
   const submitForm = React.useCallback(async () => {
     const nutritionRef = scopeRefByUserAndDate('Surveys', 'nutrition', Platform.OS === 'android' ? date : state.date);
     if(loggedNutritionToday === undefined){
@@ -34,7 +47,7 @@ const [date, setDate] = useState(new Date())
         loggedNutritionToday
       });
 
-    Alert.alert('Success!', 'Your nutrition for today has been recorded.', [
+    Alert.alert('Success!', `Your nutrition for ${displayDateText()} has been recorded.`, [
       {text: 'OK', onPress: Actions.landing()},
     ]);
   }
@@ -114,7 +127,6 @@ const [date, setDate] = useState(new Date())
           activityTitle="Nutrition"
           onSave={submitForm}
         >
-          <ScrollView style={{flex: 1}}>
           {showAndroidDatePicker(state.showAndroid)}
             <View
               style={{
@@ -134,7 +146,7 @@ const [date, setDate] = useState(new Date())
               >
                 Practices
               </Text>
-              <Text style={{fontSize: 16, color: 'white', textAlign: 'center', paddingBottom:5}}>
+              <Text style={{fontSize: RFValue(16), color: 'white', textAlign: 'center', paddingBottom:5}}>
                 Log your daily meals/snacks/beverages/alcohol each day for 30
                 days, follow the MIND diet principles as closely as you can
               </Text>
@@ -151,7 +163,7 @@ const [date, setDate] = useState(new Date())
               alignSelf: 'center',
             }}>
              <Text style={{color: '#fff'}}>
-              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
+              {displayDateText()}
             </Text>
           </TouchableOpacity>
             <View style={{alignItems: 'center', marginTop: 10}}>
@@ -176,7 +188,7 @@ const [date, setDate] = useState(new Date())
                 labelHorizontal={true}
                 buttonColor={nutritionColor}
                 selectedButtonColor={nutritionColor}
-                labelStyle={{fontSize: 20, color: '#000'}}
+                labelStyle={{fontSize: RFValue(20), color: '#000'}}
                 animation={true}
                 onPress={value =>{ 
                   setError("")
@@ -186,7 +198,6 @@ const [date, setDate] = useState(new Date())
             </View>
             <View>
             </View>
-          </ScrollView>
         </TrackingScreen>
         </>
    );

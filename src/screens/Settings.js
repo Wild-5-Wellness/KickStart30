@@ -29,6 +29,7 @@ import {
 import { scopeRefByUser } from "../utils/registration";
 import { scopeRefByUserHero } from "../utils/heroRef";
 import { format } from 'date-fns'
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const { width, height } = Dimensions.get("window");
 
@@ -426,7 +427,7 @@ class Settings extends Component<Props> {
                 <>
                   <Text
                     style={{
-                      fontSize: 20,
+                      fontSize: RFValue(20),
                       color: "#041D5D",
                       textAlign: "center",
                       marginTop: 15
@@ -456,7 +457,7 @@ class Settings extends Component<Props> {
                           style={{
                             color: "#fff",
                             alignSelf: "center",
-                            fontSize: 22
+                            fontSize: RFValue(22)
                           }}
                         >
                           NO
@@ -477,7 +478,7 @@ class Settings extends Component<Props> {
                           style={{
                             color: "#fff",
                             alignSelf: "center",
-                            fontSize: 22
+                            fontSize: RFValue(22)
                           }}
                         >
                           YES
@@ -490,7 +491,7 @@ class Settings extends Component<Props> {
                 <View style={{ flex: 1 }}>
                   <Text
                     style={{
-                      fontSize: 22,
+                      fontSize: RFValue(22),
                       color: "#041D5D",
                       textAlign: "center",
                       marginTop: 20
@@ -512,7 +513,7 @@ class Settings extends Component<Props> {
                         style={{
                           color: "#fff",
                           alignSelf: "center",
-                          fontSize: 22
+                          fontSize: RFValue(22)
                         }}
                       >
                         Ok
@@ -539,7 +540,7 @@ class Settings extends Component<Props> {
               <View style={{ alignSelf: "center"}}>
                 <Text
                   style={{
-                    fontSize: 36,
+                    fontSize: RFValue(36),
                     marginBottom: Platform.OS === "ios" ? 10 : 0,
                     fontWeight: "900",
                     color: "#000"
@@ -549,7 +550,7 @@ class Settings extends Component<Props> {
                 </Text>
                 <Icon />
               </View>
-              <Text style={{ fontSize: 20, color: "#000" }}>Notifications</Text>
+              <Text style={{ fontSize: RFValue(20), color: "#000" }}>Notifications</Text>
               {/* {height < 666 || width < 374 ? (
                 <View
                   style={{
@@ -630,7 +631,7 @@ class Settings extends Component<Props> {
               >
                 <View style={{ marginTop: 15, flexDirection: 'row'}}>
                   <View>
-                  <Text style={{ fontSize: 20, color: "#000" }}>Exercise</Text>
+                  <Text style={{ fontSize: RFValue(20), color: "#000" }}>Exercise</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
                     size="large"
@@ -646,7 +647,7 @@ class Settings extends Component<Props> {
                 </View>
                 <View style={{ marginTop: 15, flexDirection: 'row'}}>
                   <View>
-                  <Text style={{ fontSize: 20, color: "#000" }}>
+                  <Text style={{ fontSize: RFValue(20), color: "#000" }}>
                     Mindfulness
                   </Text>
                   <ToggleSwitch
@@ -664,7 +665,7 @@ class Settings extends Component<Props> {
                 </View>
                 <View style={{ marginTop: 15, flexDirection: 'row'}}>
                   <View>
-                  <Text style={{ fontSize: 20, color: "#000" }}>Sleep</Text>
+                  <Text style={{ fontSize: RFValue(20), color: "#000" }}>Sleep</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
                     size="large"
@@ -680,7 +681,7 @@ class Settings extends Component<Props> {
                 </View>
                 <View style={{ marginTop: 15, flexDirection: 'row' }}>
                   <View>
-                  <Text style={{ fontSize: 20, color: "#000" }}>Social</Text>
+                  <Text style={{ fontSize: RFValue(20), color: "#000" }}>Social</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
                     size="large"
@@ -696,7 +697,7 @@ class Settings extends Component<Props> {
                 </View>
                 <View style={{ marginTop: 15, flexDirection: 'row' }}>
                   <View>
-                  <Text style={{ fontSize: 20, color: "#000" }}>Nutrition</Text>
+                  <Text style={{ fontSize: RFValue(20), color: "#000" }}>Nutrition</Text>
                   <ToggleSwitch
                     labelStyle={{ color: "#000", fontWeight: "900" }}
                     size="large"
@@ -761,7 +762,7 @@ class Settings extends Component<Props> {
                   onPress={() => firebase.auth().signOut()}
                 >
                   <Text
-                    style={{ color: "#fff", alignSelf: "center", fontSize: 18 }}
+                    style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18) }}
                   >
                     Logout
                   </Text>
@@ -782,7 +783,7 @@ class Settings extends Component<Props> {
                         style={{
                           color: "#fff",
                           alignSelf: "center",
-                          fontSize: 17,
+                          fontSize: RFValue(17),
                           textAlign: "center",
                           fontWeight: "700"
                         }}
@@ -793,7 +794,7 @@ class Settings extends Component<Props> {
                         style={{
                           color: "red",
                           alignSelf: "center",
-                          fontSize: 12,
+                          fontSize: RFValue(12),
                           textAlign: "center",
                           fontWeight: "700"
                         }}
@@ -814,7 +815,7 @@ class Settings extends Component<Props> {
                   onPress={()=> Actions.about()}
                   >
                        <Text
-                    style={{ color: "#fff", alignSelf: "center", fontSize: 18 }}
+                    style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18) }}
                   >
                     About
                   </Text>

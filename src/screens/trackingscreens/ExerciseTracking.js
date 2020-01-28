@@ -10,6 +10,7 @@ import {scopeRefByUserAndDate} from "../../utils/firebase";
 import {exerciseColor} from "../../components/common/colors";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 const exerciseTypes = [
   "Walking",
@@ -36,6 +37,18 @@ function ExerciseTracking() {
 
 const [date, setDate] = useState(new Date())
 
+const displayDateText = () => {
+  if(Platform.OS === 'ios'){
+    if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
+      return "Today"
+    } else{
+      return format(new Date(state.date.toString()), 'YYYY-MM-DD')
+    }
+  } else{
+   return format(new Date(date), 'MMM DD YYYY')
+  }  
+}
+
   const submitForm = React.useCallback(async () => {
     const exerciseRef = scopeRefByUserAndDate("Surveys", "exercise", Platform.OS === 'android' ? date : state.date);
     console.log(typeof didFollowFID)
@@ -49,7 +62,7 @@ const [date, setDate] = useState(new Date())
         didFollowFID
       });
 
-      Alert.alert("Success!", "Your exercise has been recorded.", [
+      Alert.alert("Success!", `Your exercise for ${displayDateText()} has been recorded.`, [
         {text: "OK", onPress: Actions.landing()},
       ]);
     }
@@ -141,7 +154,7 @@ const [date, setDate] = useState(new Date())
         >
           <Text
             style={{
-              fontSize: 26,
+              fontSize: RFValue(26),
               color: "white",
               alignSelf: "center",
               fontWeight: "700",
@@ -149,7 +162,7 @@ const [date, setDate] = useState(new Date())
           >
             Practices
           </Text>
-          <Text style={{fontSize: 18, color: "white", textAlign: "center"}}>
+          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Exercise 30 minutes each day for 30 days, aim for at least moderate
             intensity.
           </Text>
@@ -166,7 +179,7 @@ const [date, setDate] = useState(new Date())
               alignSelf: 'center',
             }}>
               <Text style={{color: '#fff'}}>
-              {Platform.OS === 'ios' ? compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0 ? "Today" : format(new Date(state.date.toString()), 'YYYY-MM-DD') : format(new Date(date), 'MMM DD YYYY')}
+              {displayDateText()}
             </Text>
           </TouchableOpacity>
         <View style={{alignItems: "center", marginTop: 10}}>
