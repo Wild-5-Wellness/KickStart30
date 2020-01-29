@@ -29,7 +29,7 @@ const [date, setDate] = useState(new Date())
 
 const displayDateText = () => {
   if(Platform.OS === 'ios'){
-    if(compareAsc(format(new Date(), 'MM-DD'), format(new Date(state.date), 'MM-DD')) === 0){
+    if(format(new Date(), 'MM-DD') === format(new Date(state.date), 'MM-DD')){
       return "Today"
     } else{
       return format(new Date(state.date.toString()), 'MMM DD YYYY')
