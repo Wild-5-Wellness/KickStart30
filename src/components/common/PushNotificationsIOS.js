@@ -52,7 +52,6 @@ class PushNotificationsIOS {
       alertAction: "view",
       repeatType: "day",
       message: "",
-      number: "10"
     };
 
     if (pillar === "exercise") {

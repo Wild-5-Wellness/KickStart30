@@ -159,21 +159,6 @@ const displayDateText = () => {
               resizeMode="contain"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => setState(prevState=>({...prevState, show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
-            style={{
-              height: 50,
-              width: '80%',
-              backgroundColor: '#333',
-              borderRadius: 8,
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}>
-            <Text style={{color: '#fff'}}>
-              {displayDateText()}
-            </Text>
-          </TouchableOpacity>
           <View
             style={{
               flex: 1,
@@ -204,6 +189,21 @@ const displayDateText = () => {
                 setHeroDaily(value);
               }}
             />
+          <TouchableOpacity
+            onPress={() => setState(prevState=>({...prevState, show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
+            style={{
+              height: 30,
+              width: '60%',
+              backgroundColor: '#333',
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {displayDateText()}
+            </Text>
+          </TouchableOpacity>
             <Text style={{color: 'red'}}>{error}</Text>
           </View>
         </SafeAreaView>
