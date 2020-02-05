@@ -147,21 +147,6 @@ const displayDateText = () => {
                 days, follow the MIND diet principles as closely as you can
               </Text>
             </View>
-            <TouchableOpacity
-            onPress={() => setState(prevState=>({...prevState, show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
-            style={{
-              height: 50,
-              width: '80%',
-              backgroundColor: nutritionColor,
-              borderRadius: 8,
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}>
-             <Text style={{color: '#fff'}}>
-              {displayDateText()}
-            </Text>
-          </TouchableOpacity>
             <View style={{alignItems: 'center', marginTop: 10}}>
               <Text
                 style={{
@@ -190,6 +175,21 @@ const displayDateText = () => {
                   setError("")
                   setLoggedNutritionToday(value)}}
               />
+            <TouchableOpacity
+            onPress={() => setState(prevState=>({...prevState, show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
+            style={{
+              height: 30,
+              width: '60%',
+              backgroundColor: nutritionColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+             <Text style={{color: '#fff'}}>
+              {displayDateText()}
+            </Text>
+          </TouchableOpacity>
               <Text style={{color:'red'}}>{error}</Text>
             </View>
             <View>

@@ -44,7 +44,7 @@ function Landing(props) {
   useEffect(() => {
     const date = format(new Date(), 'YYYY-MM-DD-HH-mm');
     const user = firebase.auth().currentUser;
-    console.log(user);
+    // console.log(user);
     const [scopedUser] = user.email.split('.') || undefined;
 
     setLoading(true);
@@ -56,8 +56,8 @@ function Landing(props) {
         if (snap.val() !== null && initialSurveydate !== '') {
           const data = Object.keys(snap.val()).sort();
           const dateDiff = spliceString(initialSurveydate, date);
-          // console.log(data.length)
-          // console.log(dateDiff);
+          // console.log("length",data.length)
+          // console.log("dataDIFF",dateDiff);
           if (dateDiff === true) {
             setLoading(false);
             setHero2(true);

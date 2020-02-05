@@ -147,24 +147,8 @@ const displayDateText = () => {
             Practice mindfulness for at least 10 minutes each day for 30 days.
           </Text>
         </View>
-        <TouchableOpacity
-            onPress={() => setState(prevState=>({...prevState,show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
-            style={{
-              height: 50,
-              width: '80%',
-              backgroundColor: mindfulnessColor,
-              borderRadius: 8,
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}>
-            <Text style={{color: '#fff'}}>
-              {displayDateText()}
-            </Text>
-          </TouchableOpacity>
           <View
             style={{
-              alignSelf: 'center',
               marginTop: 10,
               alignItems: 'center',
             }}
@@ -193,6 +177,21 @@ const displayDateText = () => {
                 setError("")
                 setDidMeditateToday(value)}}
             />
+                <TouchableOpacity
+            onPress={() => setState(prevState=>({...prevState,show: Platform.OS === 'ios' ? true : false, modalVisible: Platform.OS === 'ios' ? true : false, showAndroid: Platform.OS === 'android' ? true : false }))}
+            style={{
+              height: 30,
+              width: '60%',
+              backgroundColor: mindfulnessColor,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
+            <Text style={{color: '#fff'}}>
+              {displayDateText()}
+            </Text>
+          </TouchableOpacity>
             <Text style={{color:'red'}}>{error}</Text>
           </View>
       </TrackingScreen>
