@@ -38,7 +38,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
-            marginTop: "10%",
+            marginTop: "8%",
             color: "red"
           }}
         >
@@ -52,7 +52,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
-            marginTop: "10%",
+            marginTop: "8%",
             color: "orange"
           }}
         >
@@ -66,7 +66,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
-            marginTop: "10%",
+            marginTop: "8%",
             color: "#fad859"
           }}
         >
@@ -80,7 +80,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
-            marginTop: "10%",
+            marginTop: "8%",
             color: "#2ecc71"
           }}
         >
@@ -94,7 +94,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
             fontSize: RFValue(25),
             fontWeight: "600",
             textAlign: "center",
-            marginTop: "10%",
+            marginTop: "8%",
             color: "#52b3d9"
           }}
         >
