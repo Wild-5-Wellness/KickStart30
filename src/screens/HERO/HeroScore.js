@@ -49,7 +49,7 @@ const HeroScore = () => {
   };
 
   totalReview = () => {
-    if (totalScore === 0) {
+    if (totalScore === 0 || totalScore <= 10) {
       return (
         <Text
           style={{
