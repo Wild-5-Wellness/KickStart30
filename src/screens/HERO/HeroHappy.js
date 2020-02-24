@@ -7,6 +7,7 @@ import { Slider } from "react-native-elements";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
 import {format} from 'date-fns';
 import {RFValue} from 'react-native-responsive-fontsize'
+import {SurveyTitle, SurveyQuestion, SurveySlider, SurveyValue, SurveyBtn, SurveyWrapper} from '../../components/heroSurvey/index'
 
 const screenheight = Dimensions.get("window").height;
 const HeroHappy = () => {
@@ -106,67 +107,19 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
 
 
     return (
-      <View style={{ backgroundColor: "white", flex: 1 }}>
-        <View style={{height: 100, marginTop: 10}}>
-          <Text
-            style={{
-              fontSize: RFValue(30),
-              fontWeight: "600",
-              textAlign: "center"
-            }}
-          >
-            Happiness
-          </Text>
-        </View>
-
-        <View style={{height: 60}}>
-          <Text
-            style={{
-              fontSize: RFValue(22),
-              fontWeight: "600",
-              textAlign: "center"
-            }}
-          >
-            On average, during the last 7 DAYS, how happy have you felt?
-          </Text>
-        </View>
-
-        <View
-          style={{
-            height: 70,
-            alignItems: "stretch",
-            marginLeft: "5%",
-            marginRight: "5%",
-            marginTop: "10%"
-          }}
-        >
-          <Slider
-            thumbTintColor="#041D5D"
+      <View style={{ backgroundColor: "white", flex: 1}}>
+        <SurveyWrapper>
+        <SurveyTitle title="Happiness"/>
+        <SurveyQuestion question="On average, during the last 7 DAYS, how happy have you felt?"/>
+          <SurveySlider
             value={happyValue}
-            step={1}
-            minimumValue={0}
-            maximumValue={10}
-            onValueChange={value => setHappyValue(value)}
+            onValueChange={setHappyValue}
           />
-          <Text
-            style={{
-              fontSize: RFValue(25),
-              fontWeight: "600",
-              textAlign: "center"
-            }}
-          >
-            Value: {happyValue}
-          </Text>
-          <View style={{height: 65}}>
+          <SurveyValue value={happyValue}/>
           {feeling()}
+          <SurveyBtn onPress={() => submit()}/>
+          </SurveyWrapper>
           </View>
-          <View style={{ alignSelf: "center", marginTop: "10%" }}>
-          <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
-            <Text style={{color:"#fff", fontSize: RFValue(24), fontWeight:'800', alignSelf:'center'}}>Next</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
     );
   }
 

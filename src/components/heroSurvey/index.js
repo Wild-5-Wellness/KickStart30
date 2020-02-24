@@ -1,0 +1,6 @@
+export * from './SurveyQuestion'
+export * from './SurveyTitle'
+export * from './SurveySlider'
+export * from './SurveyValue'
+export * from './SurveyBtn'
+export * from './SurveyWrapper'
