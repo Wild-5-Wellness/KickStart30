@@ -7,6 +7,7 @@ import { Slider } from "react-native-elements";
 import Navbar from "../../components/Navbar";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
 import {RFValue} from 'react-native-responsive-fontsize'
+import {SurveyTitle, SurveyQuestion, SurveySlider, SurveyValue, SurveyBtn, SurveyWrapper} from '../../components/heroSurvey/index'
 
 const screenheight = Dimensions.get("window").height;
 const HeroRes = () => {
@@ -104,64 +105,14 @@ const [resilienceValue, setResilienceValue] = useState(0)
 
     return (
       <View style={{ backgroundColor: "white", flex: 1 }}>
-        <View style={{height: 100, marginTop: 10}}>
-          <Text
-            style={{
-              fontSize: RFValue(30),
-              fontWeight: "600",
-              textAlign: "center",
-              marginTop: 20
-            }}
-          >
-            Resilience
-          </Text>
-        </View>
-
-        <View style={{height: 80}}>
-          <Text
-            style={{
-              fontSize: RFValue(22),
-              fontWeight: "600",
-              textAlign: "center"
-            }}
-          >
-            On average, during the last 7 DAYS, how resilient have you felt?
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flex: 1,
-            alignItems: "stretch",
-            marginLeft: "5%",
-            marginRight: "5%"
-          }}
-        >
-          <Slider
-            thumbTintColor="#041D5D"
-            value={resilienceValue}
-            step={1}
-            minimumValue={0}
-            maximumValue={10}
-            onValueChange={value => setResilienceValue(value)}
-          />
-          <Text
-            style={{
-              fontSize: RFValue(25),
-              fontWeight: "600",
-              textAlign: "center"
-            }}
-          >
-            Value: {resilienceValue}
-          </Text>
+        <SurveyWrapper>
+          <SurveyTitle title="Resilience"/>
+          <SurveyQuestion question="On average, during the last 7 DAYS, how resilient have you felt?"/>
+          <SurveySlider value={resilienceValue} onValueChange={setResilienceValue}/>
+          <SurveyValue value={resilienceValue} />
           {feeling()}
-
-          <View style={{ alignSelf: "center", marginTop: "10%" }}>
-          <TouchableOpacity style={{alignSelf: "center", height: 60, width: 120, borderRadius:28, backgroundColor: "#041D5D", borderWidth: 1, borderColor:'black', justifyContent:'center', flexDirection:'row'}} onPress={() => submit()}>
-            <Text style={{color:"#fff", fontSize: RFValue(24), fontWeight:'800', alignSelf:'center'}}>Next</Text>
-            </TouchableOpacity>
-          </View>
-          </View>
+          <SurveyBtn onPress={() => submit()}/>
+        </SurveyWrapper>
         </View>
     );
   }
