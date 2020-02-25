@@ -49,7 +49,7 @@ const HeroScore = () => {
   };
 
   totalReview = () => {
-    if (totalScore === 0) {
+    if (totalScore === 0 || totalScore <= 10) {
       return (
         <Text
           style={{
@@ -161,7 +161,7 @@ const HeroScore = () => {
           </ImageBackground>
         </View>
 
-        <View>{totalScore ? totalReview() : <Spinner />}</View>
+        {/* <View>{totalScore ? totalReview() : <Spinner />}</View> */}
           <View style={{flex: 1, justifyContent:'flex-end'}}>
           <Navbar />
           </View>

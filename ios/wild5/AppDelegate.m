@@ -15,10 +15,13 @@
 #import <Firebase.h>
 #import <RollbarReactNative/RollbarReactNative.h>
 #import "ReactNativeConfig.h"
+#import <React/RCTLinkingManager.h>
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application
+      didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    
 {
   [FIRApp configure];
   NSString *rollbarAccessToken = [ReactNativeConfig envFor:@"ROLLBAR_CLIENT_ITEM"];
@@ -27,7 +30,6 @@
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"wild5"
                                             initialProperties:nil];
-
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

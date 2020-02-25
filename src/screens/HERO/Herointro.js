@@ -39,7 +39,7 @@ const HeroIntro = () => {
               textAlign: "center"
             }}
           >
-            Check Your HERO Wellness Score For This Week
+            Check Your HERO Wellness Score
           </Text>
         </View>
         <View style={{marginTop:'7%'}}>

@@ -149,6 +149,7 @@ const displayDateText = () => {
           }}
         >
           <Text
+          allowFontScaling={false}
             style={{
               fontSize: RFValue(26),
               color: "white",
@@ -158,7 +159,7 @@ const displayDateText = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
+          <Text allowFontScaling={false} style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Exercise 30 minutes each day for 30 days, aim for at least moderate
             intensity.
           </Text>

@@ -130,10 +130,11 @@ const displayDateText = () => {
             backgroundColor: mindfulnessColor,
             width: '85%',
             alignSelf: 'center',
-            height: 90,
+            height: 100,
           }}
         >
           <Text
+          allowFontScaling={false}
             style={{
               fontSize: RFValue(20),
               color: 'white',
@@ -143,7 +144,7 @@ const displayDateText = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
+          <Text allowFontScaling={false} style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
             Practice mindfulness for at least 10 minutes each day for 30 days.
           </Text>
         </View>
