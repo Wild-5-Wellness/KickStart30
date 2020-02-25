@@ -130,7 +130,7 @@ const displayDateText = () => {
             backgroundColor: mindfulnessColor,
             width: '85%',
             alignSelf: 'center',
-            height: 90,
+            height: 100,
           }}
         >
           <Text
