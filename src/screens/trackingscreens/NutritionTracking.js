@@ -133,6 +133,7 @@ const displayDateText = () => {
               }}
             >
               <Text
+              allowFontScaling={false}
                 style={{
                   fontSize: 20,
                   color: 'white',
@@ -142,7 +143,7 @@ const displayDateText = () => {
               >
                 Practices
               </Text>
-              <Text style={{fontSize: RFValue(16), color: 'white', textAlign: 'center', paddingBottom:5}}>
+              <Text allowFontScaling={false} style={{fontSize: RFValue(16), color: 'white', textAlign: 'center', paddingBottom:5}}>
                 Log your daily meals/snacks/beverages/alcohol each day for 30
                 days, follow the MIND diet principles as closely as you can
               </Text>

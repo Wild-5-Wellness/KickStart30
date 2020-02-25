@@ -139,6 +139,7 @@ const displayDateText = () => {
           }}
         >
           <Text
+          allowFontScaling={false}
             style={{
               fontSize: RFValue(20),
               color: 'white',
@@ -148,7 +149,7 @@ const displayDateText = () => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
+          <Text allowFontScaling={false} style={{fontSize: RFValue(18), color: 'white', textAlign: 'center'}}>
             Implement 4 or more of the 6 sleep hygiene practices each day for 30
             days
           </Text>

@@ -102,7 +102,7 @@ const HeroEnth = () => {
     return (
       <View style={{ backgroundColor: "white", flex: 1 }}>
       <SurveyWrapper>
-      <SurveyTitle title="Enthusiastic"/>
+      <SurveyTitle title="Enthusiasm"/>
       <SurveyQuestion question="On average, during the last 7 DAYS, how enthusiastic have you felt?"/>
       <SurveySlider value={enthusiasmValue} onValueChange={setEnthusiasmValue}/>
       <SurveyValue value={enthusiasmValue}/>

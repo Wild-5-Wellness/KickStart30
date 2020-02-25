@@ -145,6 +145,7 @@ useEffect(() => {
           }}
         >
           <Text
+          allowFontScaling={false}
             style={{
               fontSize: RFValue(20),
               color: "white",
@@ -154,7 +155,7 @@ useEffect(() => {
           >
             Practices
           </Text>
-          <Text style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
+          <Text allowFontScaling={false} style={{fontSize: RFValue(18), color: "white", textAlign: "center"}}>
             Meet or call a minimum of two friends or family each day for 30
             days.
           </Text>

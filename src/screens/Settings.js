@@ -9,7 +9,8 @@ import {
   ActivityIndicator,
   Dimensions,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  Linking
 } from "react-native";
 import { Icon } from "native-base";
 import Navbar from "../components/Navbar";
@@ -396,6 +397,11 @@ class Settings extends Component<Props> {
       .catch(err => this.setState({ error: err }));
   };
 
+  openLink = (url) => {
+    console.log(url)
+    Linking.openURL(url)
+  }
+
   render() {
     return (
       <>
@@ -426,6 +432,7 @@ class Settings extends Component<Props> {
               {!this.state.deleteCompleted ? (
                 <>
                   <Text
+                    allowFontScaling={false}
                     style={{
                       fontSize: RFValue(20),
                       color: "#041D5D",
@@ -454,6 +461,7 @@ class Settings extends Component<Props> {
                         onPress={() => this.setState({ modalVisible: false })}
                       >
                         <Text
+                        allowFontScaling={false}
                           style={{
                             color: "#fff",
                             alignSelf: "center",
@@ -475,6 +483,7 @@ class Settings extends Component<Props> {
                         onPress={() => this.deleteAllData()}
                       >
                         <Text
+                        allowFontScaling={false}
                           style={{
                             color: "#fff",
                             alignSelf: "center",
@@ -490,6 +499,7 @@ class Settings extends Component<Props> {
               ) : (
                 <View style={{ flex: 1 }}>
                   <Text
+                  allowFontScaling={false}
                     style={{
                       fontSize: RFValue(22),
                       color: "#041D5D",
@@ -510,6 +520,7 @@ class Settings extends Component<Props> {
                       onPress={() => this.setState({ modalVisible: false })}
                     >
                       <Text
+                      allowFontScaling={false}
                         style={{
                           color: "#fff",
                           alignSelf: "center",
@@ -762,6 +773,7 @@ class Settings extends Component<Props> {
                   onPress={() => firebase.auth().signOut()}
                 >
                   <Text
+                  allowFontScaling={false}
                     style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18) }}
                   >
                     Logout
@@ -780,6 +792,7 @@ class Settings extends Component<Props> {
                   >
                     <View>
                       <Text
+                      allowFontScaling={false}
                         style={{
                           color: "#fff",
                           alignSelf: "center",
@@ -791,6 +804,7 @@ class Settings extends Component<Props> {
                         Reset
                       </Text>
                       <Text
+                      allowFontScaling={false}
                         style={{
                           color: "red",
                           alignSelf: "center",
@@ -815,12 +829,16 @@ class Settings extends Component<Props> {
                   onPress={()=> Actions.about()}
                   >
                        <Text
+                       allowFontScaling={false}
                     style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18) }}
                   >
                     About
                   </Text>
                   </TouchableOpacity>
               </View>
+              <TouchableOpacity onPress={()=> this.openLink('http://bit.ly/KickStart30')} style={{height: 60, width:'90%', backgroundColor:"#041D5D", alignSelf:'center', alignItems:'center', justifyContent:'center',  borderRadius: 7, marginBottom:10}}>
+                    <Text style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18)}}>Buy the Book</Text>
+              </TouchableOpacity>
             {/* </View> */}
             </ScrollView>
           </View>
