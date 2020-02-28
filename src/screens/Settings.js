@@ -755,7 +755,7 @@ class Settings extends Component<Props> {
             </TouchableOpacity> */}
               <View
                 style={{
-                  marginLeft: 15,
+                  marginHorizontal: 'auto',
                   marginTop: 20,
                   flexDirection: "row",
                   justifyContent: "space-evenly",
@@ -837,7 +837,7 @@ class Settings extends Component<Props> {
                   </TouchableOpacity>
               </View>
               <TouchableOpacity onPress={()=> this.openLink('http://bit.ly/KickStart30')} style={{height: 60, width:'90%', backgroundColor:"#041D5D", alignSelf:'center', alignItems:'center', justifyContent:'center',  borderRadius: 7, marginBottom:10}}>
-                    <Text style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18)}}>Buy the Book</Text>
+                    <Text style={{ color: "#fff", alignSelf: "center", fontSize: RFValue(18)}}>BUY THE WORKBOOK</Text>
               </TouchableOpacity>
             {/* </View> */}
             </ScrollView>
