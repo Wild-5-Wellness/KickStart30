@@ -63,6 +63,10 @@ class Settings extends Component<Props> {
     this.PushNotificationIOS = new PushNotificationIOS(this.onNotif);
   }
 
+  componentDidUpdate(){
+    console.log(this.state.chosenDate)
+  }
+
   componentDidMount() {
     var user = firebase.auth().currentUser;
     if (user) {
@@ -160,11 +164,13 @@ class Settings extends Component<Props> {
   };
 
   setDate = newDate => {
+    console.log("set DAte running")
     this.setState({ chosenDate: newDate });
     // schedule notification (this.state.piller, newDate)
   };
 
   showTimePicker = () => {
+    // console.log(this.state.chosenDate)
     return (
       <TimePicker
         date={this.state.chosenDate}
@@ -562,77 +568,6 @@ class Settings extends Component<Props> {
                 <Icon />
               </View>
               <Text style={{ fontSize: RFValue(20), color: "#000" }}>Notifications</Text>
-              {/* {height < 666 || width < 374 ? (
-                <View
-                  style={{
-                    left: "50%",
-                    flex: 1,
-                    flexDirection: "column",
-                    top: "10%",
-                    borderColor:'black',
-                    borderWidth:1
-                  }}
-                >
-                  <TouchableOpacity
-                    style={{
-                      height: 60,
-                      width: 100,
-                      backgroundColor: "#041D5D",
-                      justifyContent: "center",
-                      borderRadius: 7,
-                      marginBottom: 10,
-                      zIndex: 1
-                    }}
-                    onPress={() => firebase.auth().signOut()}
-                  >
-                    <Text
-                      style={{
-                        color: "#fff",
-                        alignSelf: "center",
-                        fontSize: 18
-                      }}
-                    >
-                      Logout
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{
-                      height: 60,
-                      width: 100,
-                      backgroundColor: "#041D5D",
-                      justifyContent: "center",
-                      borderRadius: 7,
-                      zIndex: 1
-                    }}
-                    onPress={() => this.setState({ modalVisible: true })}
-                  >
-                    <View>
-                      <Text
-                        style={{
-                          color: "#fff",
-                          alignSelf: "center",
-                          fontSize: 17,
-                          textAlign: "center",
-                          fontWeight: "700"
-                        }}
-                      >
-                        Reset
-                      </Text>
-                      <Text
-                        style={{
-                          color: "red",
-                          alignSelf: "center",
-                          fontSize: 12,
-                          textAlign: "center",
-                          fontWeight: "700"
-                        }}
-                      >
-                        KickStart30
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              ) : null} */}
               <View
                 style={{
                   borderTopWidth: 1,
