@@ -19,10 +19,11 @@ export default class RNModalDatetimePicker extends Component {
   };
 
   render() {
+    console.log(this.props.date)
     return (
       <> 
         <DateTimePicker
-          // date={this.props.date}
+          date={this.props.date}
           onDateChange={this.props.onDateChange}
           style={{ color: "blue" }}
           isVisible={this.props.showTimer}
