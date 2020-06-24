@@ -80,7 +80,7 @@ function Landing(props) {
       });
   }, [initialSurveydate]);
 
-  checkHeroData = () => {
+  const checkHeroData = () => {
     const heroRef = scopeRefByUserHero('HERO');
     firebase
       .database()
@@ -93,7 +93,7 @@ function Landing(props) {
       });
   };
 
-  onNotif = notif => {
+  const onNotif = notif => {
     // console.log(notif);
     Alert.alert(notif.title, notif.message);
   };

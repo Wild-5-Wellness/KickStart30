@@ -13,12 +13,10 @@ import {
   Linking
 } from "react-native";
 import { Icon } from "native-base";
-import Navbar from "../components/Navbar";
 import ToggleSwitch from "toggle-switch-react-native";
 import PushNotificationIOS from "../components/common/PushNotificationsIOS";
 import appConfig from "../../app.json";
 import TimePicker from "../components/common/TimePicker";
-import { Actions } from "react-native-router-flux";
 import firebase from "react-native-firebase";
 import {
   exerciseColor,
@@ -34,8 +32,7 @@ import {RFValue} from 'react-native-responsive-fontsize'
 
 const { width, height } = Dimensions.get("window");
 
-type Props = {};
-class Settings extends Component<Props> {
+class Settings extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -68,6 +65,7 @@ class Settings extends Component<Props> {
   }
 
   componentDidMount() {
+    console.log(this.props)
     var user = firebase.auth().currentUser;
     if (user) {
       var res = user.email.split(".");
@@ -761,7 +759,7 @@ class Settings extends Component<Props> {
                     borderRadius: 7,
                     zIndex: 1
                   }}
-                  onPress={()=> Actions.about()}
+                  onPress={()=> this.props.navigation.navigate('About')}
                   >
                        <Text
                        allowFontScaling={false}
@@ -777,7 +775,6 @@ class Settings extends Component<Props> {
             {/* </View> */}
             </ScrollView>
           </View>
-          <Navbar settingsdisable />
           </SafeAreaView>
         </View>
       </>

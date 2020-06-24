@@ -2,58 +2,30 @@ import React, {Component} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import firebase from 'react-native-firebase';
-import {Actions} from 'react-native-router-flux';
 import {getScopedUser} from '../utils/firebase';
 import moment from 'moment';
 
 const {Consumer, Provider} = React.createContext();
 
 export default class AuthProvider extends Component {
-  state = {
-    user: '',
-    ready: false,
-    authenticated: null,
-    isConnected: false,
-    daysSinceSignUp: '',
-    isSurveyComplete: false,
-    loading: false
-  };
-
-  unsubscribe;
-
-   componentDidMount() {
-    this.unsubscribe =  firebase.auth().onAuthStateChanged(user => {
-      Actions.reset('loading')
-      if (user) {
-      this.dateDifference().then(()=> {
-          if (
-            this.state.daysSinceSignUp >= 10 &&
-            this.state.isSurveyComplete === false
-          ) {
-            console.log(Actions.currentScene)
-            Actions.reset('newsurveyscreen');
-          } else if(Actions.currentScene !== 'landing') {
-            Actions.reset('landing');
-          }
-        
-      })
-      } else {
-        console.log(user,"user is not")
-        this.setState({loading: false})
-        Actions.reset('newlogin');
-      }
-    
-    });
-  
-    // NetInfo.fetch().then(state => {
-    //   this.setState({isConnected: true})
-    // })
+  constructor(props){
+    super()
+    this.state = {
+      user: '',
+      ready: false,
+      authenticated: null,
+      isConnected: false,
+      daysSinceSignUp: '',
+      isSurveyComplete: false,
+      loading: false
+    };
   }
 
-  componentWillUnmount() {
-    // console.log("unmounting")
-    this.unsubscribe();
+  componentDidMount(){
+    console.log("AUTHcontextprops",this.props)
+
   }
+
 
   setHeroCompleted = () => {
     this.setState({
@@ -61,38 +33,7 @@ export default class AuthProvider extends Component {
     });
   };
 
-  dateDifference =  async () => {
-    const checkDate = await
-      firebase
-      .database()
-      .ref(`UserInfo/${getScopedUser()}`)
-      .once('value', snap => {
-        if (snap.val() !== null) {
-          let date = snap.val().date;
-          const todaysDate = moment().startOf('day');
-          const initialDate = moment(date);
-          const returnedDays = todaysDate.diff(initialDate, 'days');
-          console.log('inital/todays', todaysDate, initialDate);
-          console.log('number of days since signup', returnedDays);
-          this.setState({daysSinceSignUp: returnedDays});
-        }
-      })
-
-      const checkSurveyComplete = await 
-      firebase
-      .database()
-      .ref(`FeedbackSurvey/${getScopedUser()}`)
-      .once('value', snap => {
-        if (snap.val() !== null) {
-          this.setState({isSurveyComplete: true});
-        } else {
-          this.setState({isSurveyComplete: false});
-        }
-      })
-    
-      return Promise.all([checkDate, checkSurveyComplete]);
   
-  };
 
   LoadingIndicator = () => {
     console.log("loading is running 87")
@@ -115,30 +56,6 @@ export default class AuthProvider extends Component {
         }
       });
   };
-
-  // getUser = () => {
-  //   var user = firebase.auth().currentUser;
-  //   if (user) {
-  //     var res = user.email.split('.');
-  //     var userEm = res[0].toString();
-  //     this.setState({
-  //       user: userEm,
-  //     });
-  //   } else {
-  //     console.log('noperz');
-  //   }
-  //   var today = new Date();
-  //   var date =
-  //     today.getFullYear() +
-  //     '-' +
-  //     (today.getMonth() + 1) +
-  //     '-' +
-  //     today.getDate();
-  //   var dateTime = date;
-  //   this.setState({
-  //     date: dateTime,
-  //   });
-  // };
 
   getTrackingData = () => {
     const ref = scopeRefByUserAndDate('Surveys');

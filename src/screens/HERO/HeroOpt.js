@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Dimensions, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
-import { Actions } from "react-native-router-flux";
 import firebase from 'react-native-firebase';
 import { Slider } from "react-native-elements";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
@@ -9,12 +8,12 @@ import {RFValue} from 'react-native-responsive-fontsize'
 import {SurveyTitle, SurveyQuestion, SurveySlider, SurveyValue, SurveyBtn, SurveyWrapper} from '../../components/heroSurvey/index'
 
 const screenheight = Dimensions.get("window").height;
-const HeroOpt = () => {
+const HeroOpt = (props) => {
  
 
  const [optimismValue, setOptimismValue] = useState(0)
 
-  submit = () => {
+  const submit = () => {
     const heroRef = scopeRefByUserAndDate('HERO')
     firebase
       .database()
@@ -22,10 +21,10 @@ const HeroOpt = () => {
       .update({
         optimismValue
       });
-    Actions.heroment();
+      props.navigation.navigate('Survey',{screen:'MentalWellness'})
   }
 
-  feeling = () => {
+  const feeling = () => {
     if (optimismValue === 0) {
       return (
         <Text
@@ -108,7 +107,7 @@ const HeroOpt = () => {
           <SurveySlider value={optimismValue} onValueChange={setOptimismValue}/>
           <SurveyValue value={optimismValue}/>
           {feeling()}
-          <SurveyBtn onPress={() => submit()}/>
+          <SurveyBtn title="Next" onPress={() => submit()}/>
         </SurveyWrapper>
         </View>
     );

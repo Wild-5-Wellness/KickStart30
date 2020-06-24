@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import {View, Alert, Modal, Text, TouchableOpacity, SafeAreaView, Platform} from 'react-native';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
-import {Actions} from 'react-native-router-flux';
 import sleepTrackingImage from '../../images/sleeptracking.jpg';
 import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
@@ -53,7 +52,7 @@ const displayDateText = () => {
       });
 
     Alert.alert('Success!', `Your sleep hygiene practices for ${displayDateText()} have been recorded.`, [
-      {text: 'OK', onPress: Actions.landing()},
+      {text: 'OK', onPress: console.log("navigate to landing")},
     ]);
   }
   }, [
@@ -87,7 +86,7 @@ const displayDateText = () => {
     
   }
 
-  onDateChange = (e, date) => {
+  const onDateChange = (e, date) => {
     setState(prevState=>({...prevState, date: date}))
   };
 

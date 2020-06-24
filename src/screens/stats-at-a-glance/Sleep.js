@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Actions} from 'react-native-router-flux';
 import {StatTile} from './StatTile';
 
 const sum = arr => arr.reduce((total, num) => total + num, 0);

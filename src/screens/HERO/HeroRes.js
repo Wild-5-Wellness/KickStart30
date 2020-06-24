@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { View, Dimensions, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
-import { Actions } from "react-native-router-flux";
 import firebase from 'react-native-firebase';
-import { Slider } from "react-native-elements";
-import Navbar from "../../components/Navbar";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
 import {RFValue} from 'react-native-responsive-fontsize'
 import {SurveyTitle, SurveyQuestion, SurveySlider, SurveyValue, SurveyBtn, SurveyWrapper} from '../../components/heroSurvey/index'
 
 const screenheight = Dimensions.get("window").height;
-const HeroRes = () => {
-  state = {
-    resval: 0
-  };
+const HeroRes = (props) => {
+
 
 const [resilienceValue, setResilienceValue] = useState(0)
 
-  submit = () => {
+  const submit = () => {
     const heroRef = scopeRefByUserAndDate('HERO')
     firebase
       .database()
@@ -25,10 +20,10 @@ const [resilienceValue, setResilienceValue] = useState(0)
       .update({
         resilienceValue
       });
-    Actions.heroopt();
+      props.navigation.navigate('Survey',{screen:'Optimism'})
   }
 
-  feeling = () => {
+  const feeling = () => {
     if (resilienceValue === 0) {
       return (
         <Text
@@ -111,7 +106,7 @@ const [resilienceValue, setResilienceValue] = useState(0)
           <SurveySlider value={resilienceValue} onValueChange={setResilienceValue}/>
           <SurveyValue value={resilienceValue} />
           {feeling()}
-          <SurveyBtn onPress={() => submit()}/>
+          <SurveyBtn title="Next" onPress={() => submit()}/>
         </SurveyWrapper>
         </View>
     );

@@ -1,5 +1,4 @@
 import firebase from 'react-native-firebase';
-import {Actions} from 'react-native-router-flux';
 import {format} from 'date-fns';
 
 /**
@@ -22,9 +21,9 @@ export function scopeRefByUser(ref) {
 function getScopedUser() {
   const user = firebase.auth().currentUser;
 
-  if (!user) {
-    Actions.newlogin({error: 'Something went wrong, please log back in.'});
-  }
+  // if (!user) {
+  //   Actions.newlogin({error: 'Something went wrong, please log back in.'});
+  // }
 
   const [scopedUser] = user.email.split('.');
 

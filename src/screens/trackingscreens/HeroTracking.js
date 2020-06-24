@@ -14,7 +14,6 @@ import heroBackground from '../../images/herobackground.jpeg';
 import firebase from 'react-native-firebase';
 import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
-import {Actions} from 'react-native-router-flux';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format, compareAsc} from 'date-fns';
 import {RFValue} from 'react-native-responsive-fontsize'
@@ -67,7 +66,7 @@ const displayDateText = () => {
             [
               {
                 text: 'OK',
-                onPress: () => Actions.landing(),
+                onPress: () => console.log("navigate to Landing"),
                 style: 'ok',
               },
             ],

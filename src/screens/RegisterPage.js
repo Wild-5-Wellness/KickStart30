@@ -19,7 +19,6 @@ import {
 } from "native-base";
 import DatePicker from "react-native-datepicker";
 import firebase from "react-native-firebase";
-import { Actions } from "react-native-router-flux";
 import { withAuthProvider } from "../context/authcontext";
 import { scopeRefByUser } from "../utils/registration";
 import abstractimg from "../images/abstract2.jpeg";
@@ -336,7 +335,7 @@ const RegisterPage = (props) => {
         </TouchableOpacity>
         </View>
         <View style={{ alignSelf: "center" }}>
-        <TouchableOpacity style={{height: 70, width:150, backgroundColor:"#041D5D", borderRadius:7, justifyContent:'center'}} onPress={() => Actions.newlogin()}>
+        <TouchableOpacity style={{height: 70, width:150, backgroundColor:"#041D5D", borderRadius:7, justifyContent:'center'}} onPress={() => console.log("navigate to newlogin?")}>
                <Text style={{fontSize: RFValue(24), color:"#fff", alignSelf:'center'}} onPress={()=> decline()}>Decline</Text>
              </TouchableOpacity>
         </View>

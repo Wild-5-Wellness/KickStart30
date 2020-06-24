@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Dimensions, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
-import { Actions } from "react-native-router-flux";
 import firebase from 'react-native-firebase';
 import { Slider } from "react-native-elements";
 import { scopeRefByUserAndDate } from '../../utils/firebase'
@@ -10,7 +9,7 @@ import {RFValue} from 'react-native-responsive-fontsize'
 import {SurveyTitle, SurveyQuestion, SurveySlider, SurveyValue, SurveyBtn, SurveyWrapper} from '../../components/heroSurvey/index'
 
 const screenheight = Dimensions.get("window").height;
-const HeroHappy = () => {
+const HeroHappy = (props) => {
   
 const [happyValue, setHappyValue] = useState(0)
 const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
@@ -20,7 +19,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
 
   
 
-  submit = () => {
+  const submit = () => {
     const heroRef = scopeRefByUserAndDate('HERO')
     firebase
       .database()
@@ -28,10 +27,10 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
       .update({
         happyValue
       });
-    Actions.heroenth();
+    props.navigation.navigate('Survey',{screen:'Enthusiasm'})
   }
 
-  feeling = () => {
+  const feeling = () => {
     if (happyValue === 0) {
       return (
         <Text
@@ -117,7 +116,7 @@ const [date, setDate] =  useState(format(new Date(), 'YYYY-MM-DD'))
           />
           <SurveyValue value={happyValue}/>
           {feeling()}
-          <SurveyBtn onPress={() => submit()}/>
+          <SurveyBtn title="Next" onPress={() => submit()}/>
           </SurveyWrapper>
           </View>
     );
