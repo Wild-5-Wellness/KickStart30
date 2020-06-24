@@ -93,10 +93,6 @@ function Landing(props) {
       });
   };
 
-  const onNotif = notif => {
-    // console.log(notif);
-    Alert.alert(notif.title, notif.message);
-  };
 
   return !loading ? (
     <LandingView hero={hero} hero2={hero2} day={day()} />

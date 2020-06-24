@@ -186,7 +186,8 @@ const HeroScore = (props) => {
             </Text>
           </ImageBackground>
         </View>
-                <SurveyBtn title="To Home" onPress={()=> props.navigation.navigate("Home")}/>
+                <SurveyBtn title="To Home" onPress={()=> props.navigation.reset({index: 0, routes: [{name: 'Home'}]})}
+                />
         {/* <View>{totalScore ? totalReview() : <Spinner />}</View> */}
       </SafeAreaView>
     </View>
