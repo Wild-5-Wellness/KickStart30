@@ -1,5 +1,4 @@
 import firebase from 'react-native-firebase';
-import {Actions} from 'react-native-router-flux';
 
 /**
  * Return a firebase ref scoped by user and date.
@@ -8,24 +7,24 @@ import {Actions} from 'react-native-router-flux';
  */
 export function scopeRefByUserHero(ref) {
   const user = getScopedUser();
-
-  const segments = ["initialSurvey", user];
-
+if(user !== null){
+  const segments = ['initialSurvey', user];
   return segments.join('/');
+}
 }
 
 /**
  * Get a scoped user from the current firebase user
- * Example: fakeemail@gmail.com -> fakeemail@gmail
+ * Example: fakeemail@gmail.com -> fakeemail'@'gmail
  */
 function getScopedUser() {
   const user = firebase.auth().currentUser;
 
-  if (!user) {
-    Actions.newlogin({error: 'Something went wrong, please log back in.'});
-  }
-
+  // if (!user) {
+  //   Actions.newlogin({error: 'Something went wrong, please log back in.'});
+  // }
+if(user !== null){
   const [scopedUser] = user.email.split('.');
-
   return scopedUser;
+}
 }

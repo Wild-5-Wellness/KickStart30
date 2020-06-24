@@ -13,7 +13,6 @@ import {
   Dimensions
 } from "react-native";
 import { withAuthProvider } from "../context/authcontext";
-import {Actions} from 'react-native-router-flux';
 import KS30 from "../images/KS30_login.png";
 import Register from './RegisterPage'
 import LoginModal from '../components/LoginModal'

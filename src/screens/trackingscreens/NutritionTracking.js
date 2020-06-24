@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import {ScrollView, View, SafeAreaView, Alert, Modal, Text, TouchableOpacity, Platform} from 'react-native';
 import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
-import {Actions} from 'react-native-router-flux';
 import nutriTrackingImage from '../../images/nutritracking.jpg';
 import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
@@ -48,7 +47,7 @@ const displayDateText = () => {
       });
 
     Alert.alert('Success!', `Your nutrition for ${displayDateText()} has been recorded.`, [
-      {text: 'OK', onPress: Actions.landing()},
+      {text: 'OK', onPress: console.log("navigate to landing")},
     ]);
   }
   }, [
@@ -82,7 +81,7 @@ const displayDateText = () => {
     
   }
 
-  onDateChange = (e, date) => {
+  const onDateChange = (e, date) => {
     setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
   };
 

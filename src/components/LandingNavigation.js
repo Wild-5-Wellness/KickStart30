@@ -10,58 +10,57 @@ import {
   ScrollView,
 } from 'react-native';
 import {Icon} from 'native-base';
-import {Actions} from 'react-native-router-flux';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
-import Navbar from '../components/Navbar';
 import LinearGradient from 'react-native-linear-gradient';
 import chunk from 'lodash/chunk';
 import {withAuthProvider} from '../context/authcontext';
+import { useNavigation } from '@react-navigation/native';
 import HEROlogo from '../images/herologo.png';
 import wild5title from '../images/wild5_logo_resized4.png';
 import KS30title from '../images/KS30_578_113.png';
 
 const {width, height} = Dimensions.get('window');
 
-const navigationItems = [
-  {
-    title: 'Track Exercise',
-    icon: 'bicycle',
-    action: () => Actions.exercisetracking(),
-    background: ['#a8eb12', '#79c141'],
-  },
-  {
-    title: 'Track Mindfulness',
-    icon: 'headset',
-    action: () => Actions.mindfulnesstracking(),
-    background: ['#00cbea', '#3fb5eb'],
-  },
-  {
-    title: 'Track Sleep',
-    icon: 'moon',
-    action: () => Actions.sleeptracking(),
-    background: ['#e94c7e', '#b92e91'],
-  },
-  {
-    title: 'Track Social',
-    icon: 'contacts',
-    action: () => Actions.socialtracking(),
-    background: ['#db1b63', '#ee3422'],
-  },
-  {
-    title: 'Track Nutrition',
-    icon: 'restaurant',
-    action: () => Actions.nutritiontracking(),
-    background: ['#f66f63', '#f79a2e'],
-  },
-  {
-    title: 'HERO Exercises',
-    icon: HEROlogo,
-    action: () => Actions.herotracking(),
-    background: ['#DD3121', '#0BA2D4', '#70B43C', '#B72B90'],
-  },
-];
-
 export function Navigation(props) {
+  const navigation = useNavigation()
+  const navigationItems = [
+    {
+      title: 'Track Exercise',
+      icon: 'bicycle',
+      action: () => navigation.navigate('Tracking',{screen:'Exercise'}),
+      background: ['#a8eb12', '#79c141'],
+    },
+    {
+      title: 'Track Mindfulness',
+      icon: 'headset',
+      action: () => navigation.navigate('Tracking',{screen:'Mindfulness'}),
+      background: ['#00cbea', '#3fb5eb'],
+    },
+    {
+      title: 'Track Sleep',
+      icon: 'moon',
+      action: () => navigation.navigate('Tracking',{screen:'Sleep'}),
+      background: ['#e94c7e', '#b92e91'],
+    },
+    {
+      title: 'Track Social',
+      icon: 'contacts',
+      action: () => navigation.navigate('Tracking',{screen:'Social'}),
+      background: ['#db1b63', '#ee3422'],
+    },
+    {
+      title: 'Track Nutrition',
+      icon: 'restaurant',
+      action: () =>navigation.navigate('Tracking',{screen:'Nutrition'}),
+      background: ['#f66f63', '#f79a2e'],
+    },
+    {
+      title: 'HERO Exercises',
+      icon: HEROlogo,
+      action: () => navigation.navigate('Tracking',{screen:'HeroIntro'}),
+      background: ['#DD3121', '#0BA2D4', '#70B43C', '#B72B90'],
+    },
+  ];
   const [bothTrue, setBothTrue] = useState(false);
 
   useEffect(() => {
@@ -126,7 +125,7 @@ export function Navigation(props) {
               )}
               <TouchableOpacity
                 style={[styles.touchableHERO3]}
-                onPress={() => Actions.herointro()}>
+                onPress={() => navigation.navigate("Survey")}>
                 <LinearGradient
                   style={[styles.itemHERO3]}
                   colors={['#041D5D', '#082774']}>
@@ -167,9 +166,6 @@ export function Navigation(props) {
               />
             </ScrollView>
           </View>
-          <View style={{justifyContent: 'flex-end'}}>
-            <Navbar homedisable />
-          </View>
         </SafeAreaView>
       ) : (
         <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -206,9 +202,6 @@ export function Navigation(props) {
                   resizeMode: 'contain',
                 }}
               />
-            </View>
-            <View style={{justifyContent: 'flex-end'}}>
-              <Navbar homedisable />
             </View>
           </SafeAreaView>
         </View>

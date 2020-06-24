@@ -21,10 +21,10 @@ font-size: ${RFValue(24)};
 font-weight:800;
 `
 
-export const SurveyBtn = ({onPress})=> {
+export const SurveyBtn = ({title,onPress})=> {
     return (
         <StyledButton {...{onPress}}>
-            <StyledText>Next</StyledText>
+            <StyledText>{title}</StyledText>
         </StyledButton>
     )
 }

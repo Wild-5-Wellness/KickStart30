@@ -80,7 +80,7 @@ function Landing(props) {
       });
   }, [initialSurveydate]);
 
-  checkHeroData = () => {
+  const checkHeroData = () => {
     const heroRef = scopeRefByUserHero('HERO');
     firebase
       .database()
@@ -93,10 +93,6 @@ function Landing(props) {
       });
   };
 
-  onNotif = notif => {
-    // console.log(notif);
-    Alert.alert(notif.title, notif.message);
-  };
 
   return !loading ? (
     <LandingView hero={hero} hero2={hero2} day={day()} />

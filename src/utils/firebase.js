@@ -1,5 +1,4 @@
 import firebase from 'react-native-firebase';
-import {Actions} from 'react-native-router-flux';
 import {format} from 'date-fns';
 
 /**
@@ -9,15 +8,18 @@ import {format} from 'date-fns';
  */
 export function scopeRefByUserAndDate(ref,subType, date) {
   const user = getScopedUser();
-  const dateRef = date ? format(new Date(date), 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD');
+  if(user !== null){
 
-  const segments = [ref, user, dateRef];
-
-  if (subType) {
-    segments.push(subType);
+    const dateRef = date ? format(new Date(date), 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD');
+  
+    const segments = [ref, user, dateRef];
+  
+    if (subType) {
+      segments.push(subType);
+    }
+  
+    return segments.join('/');
   }
-
-  return segments.join('/');
 }
 
 /**
@@ -26,12 +28,11 @@ export function scopeRefByUserAndDate(ref,subType, date) {
  */
 export function getScopedUser() {
   const user = firebase.auth().currentUser;
-
-  if (!user) {
-    Actions.newlogin({error: 'Something went wrong, please log back in.'});
-  }
-
+  // if (!user) {
+  //   Actions.newlogin({error: 'Something went wrong, please log back in.'});
+  // }
+if(user !== null){
   const [scopedUser] = user.email.split('.');
-
   return scopedUser;
+}
 }
