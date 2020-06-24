@@ -1,9 +1,6 @@
 import React, {useEffect} from 'react'
-import {View, SafeAreaView, Image, Text, ScrollView, Dimensions} from 'react-native'
-import KS30title from "../../images/KS30_578_113.png";
-import wild5title from "../../images/wild5_logo_resized4.png";
+import {Dimensions} from 'react-native'
 import Navigation from "../LandingNavigation"
-import Navbar from "../Navbar"
 
 const { width, height} = Dimensions.get('window')
 export default LandingView = (props) => {

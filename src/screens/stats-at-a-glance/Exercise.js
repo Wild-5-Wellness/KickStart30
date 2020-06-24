@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Actions} from 'react-native-router-flux';
 import {StatTile} from './StatTile';
 
 export function Exercise(props) {

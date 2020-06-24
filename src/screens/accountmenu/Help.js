@@ -1,13 +1,12 @@
 import React from "react";
 import { View, Platform, SafeAreaView, Text } from "react-native";
 import { Accordion, Icon } from 'native-base'
-import Navbar from "../../components/Navbar";
 import { aboutData }from '../../components/common/aboutData'
 import {RFValue} from 'react-native-responsive-fontsize'
 
 const Help = () => {
 
-  _renderHeader = (item, expanded) => {
+  const _renderHeader = (item, expanded) => {
     return (
       <View style={{
         borderColor:'#fff',
@@ -34,7 +33,6 @@ const Help = () => {
     <SafeAreaView style={{flex:1}}>
       <Accordion dataArray={aboutData} expanded={3} renderHeader={_renderHeader}
             contentStyle={{ backgroundColor: "#fff", color: "#000", lineHeight: Platform.OS === 'ios' ? 23 : null, margin:0 }}/>
-        <Navbar faqdisable/>
         </SafeAreaView>
     </View>
     </SafeAreaView>

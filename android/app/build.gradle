@@ -156,14 +156,7 @@ android {
 
 }
 dependencies {
-    implementation project(':react-native-vector-icons')
-    implementation project(':rollbar-react-native')
-    implementation project(':@react-native-community_audio-toolkit')
-    implementation project(':@react-native-community_netinfo')
-    implementation project(':react-native-firebase')
     implementation project(':react-native-push-notification')
-    implementation project(':react-native-linear-gradient')
-    implementation project(':@react-native-community_slider')
     implementation 'androidx.exifinterface:exifinterface:1.0.0'
     implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

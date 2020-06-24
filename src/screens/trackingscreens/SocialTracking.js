@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Modal, Text, TouchableOpacity, SafeAreaView, Platform} from 'react-native'
 import {Alert, StyleSheet} from 'react-native';
 import firebase from 'react-native-firebase';
-import {Actions} from 'react-native-router-flux';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
 import {TrackingScreen} from './TrackingScreen';
 import RadioForm from "react-native-simple-radio-button";
@@ -41,7 +40,7 @@ useEffect(() => {
   console.log(displayDateText())
 }, [date])
  
-  submitForm = async () => {
+  const submitForm = async () => {
    
 
     const socialRef = scopeRefByUserAndDate('Surveys', 'social', Platform.OS === 'android' ? date : state.date);
@@ -61,7 +60,7 @@ useEffect(() => {
     Alert.alert(
       "Success!",
       `Your social interactions for ${displayDateText()} have been recorded.`,
-      [{text: "OK", onPress: Actions.landing()}]
+      [{text: "OK", onPress: console.log("navigate to landing")}]
     );
     }
   };
@@ -93,7 +92,7 @@ useEffect(() => {
     
   }
 
-  onDateChange = (e, date) => {
+  const onDateChange = (e, date) => {
     setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
   };;
 

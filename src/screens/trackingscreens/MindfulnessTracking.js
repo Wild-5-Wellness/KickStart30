@@ -4,7 +4,6 @@ import firebase from 'react-native-firebase';
 import RadioForm from 'react-native-simple-radio-button';
 import {TrackingScreen} from './TrackingScreen';
 import {scopeRefByUserAndDate} from '../../utils/firebase';
-import {Actions} from 'react-native-router-flux';
 import mindTrackingImage from '../../images/mindfultracking1.jpg';
 import {mindfulnessColor} from '../../components/common/colors'
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -50,7 +49,7 @@ const displayDateText = () => {
       });
 
     Alert.alert('Success!', `Your mindfulness for ${displayDateText()} has been recorded.`, [
-      {text: 'OK', onPress: Actions.landing()},
+      {text: 'OK', onPress: console.log("navigate to landing")},
     ]);
   }
   }, [didMeditateToday]);
@@ -82,7 +81,7 @@ const displayDateText = () => {
     
   }
 
-  onDateChange = (e, date) => {
+  const onDateChange = (e, date) => {
     setState(prevState=>({...prevState, date: date, show: Platform.OS === 'ios' ? true : false}))
   };
 

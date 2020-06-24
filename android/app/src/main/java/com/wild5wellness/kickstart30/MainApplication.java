@@ -1,16 +1,9 @@
 package com.wild5wellness.kickstart30;
 import android.app.Application;
 import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.rollbar.RollbarReactNative;
-import com.reactnativecommunity.rctaudiotoolkit.AudioPackage;
-import com.reactnativecommunity.netinfo.NetInfoPackage;
-import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

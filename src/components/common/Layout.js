@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View, SafeAreaView, ScrollView, Text, StyleSheet, Platform} from 'react-native';
-import Navbar from '../Navbar';
 
 export function Layout(props) {
   return (
@@ -12,9 +11,6 @@ export function Layout(props) {
           <Text style={styles.title}>{props.title}</Text>
           <View style={styles.mainArea}>{props.children}</View>
         </ScrollView>
-        <SafeAreaView>
-      <Navbar statsdisable/>
-      </SafeAreaView>
     </View>
     </SafeAreaView>
     </>

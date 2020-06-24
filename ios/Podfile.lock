@@ -2,7 +2,7 @@ PODS:
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.4):
     - React
-  - Crashlytics (3.13.4):
+  - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - DoubleConversion (1.1.6)
   - Fabric (1.10.2)
@@ -268,6 +268,8 @@ PODS:
     - React
   - react-native-netinfo (4.4.0):
     - React
+  - react-native-safe-area-context (3.0.6):
+    - React
   - react-native-slider (2.0.2):
     - React
   - React-RCTActionSheet (0.61.0):
@@ -311,7 +313,9 @@ PODS:
     - React
   - ReactNativeExceptionHandler (2.10.8):
     - React
-  - RNDateTimePicker (2.1.0):
+  - RNCMaskedView (0.1.10):
+    - React
+  - RNDateTimePicker (2.4.2):
     - React
   - RNFirebase (5.5.6):
     - Firebase/Core
@@ -321,6 +325,12 @@ PODS:
     - Crashlytics
     - Fabric
     - Firebase/Core
+    - React
+  - RNGestureHandler (1.6.1):
+    - React
+  - RNReanimated (1.9.0):
+    - React
+  - RNScreens (2.9.0):
     - React
   - RNSVG (9.5.1):
     - React
@@ -355,7 +365,8 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../node_modules/react-native-config`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
-  - "react-native-slider (from `../node_modules/@react-native-community/slider/react-native-slider.podspec`)"
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -369,12 +380,17 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "ReactNativeAudioToolkit (from `../node_modules/@react-native-community/audio-toolkit`)"
-  - ReactNativeExceptionHandler (from `../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec`)
-  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec`)"
+  - ReactNativeExceptionHandler (from `../node_modules/react-native-exception-handler`)
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - RollbarReactNative (from `../node_modules/rollbar-react-native/`)
+  - RollbarReactNative (from `../node_modules/rollbar-react-native`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -431,8 +447,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
-    :podspec: "../node_modules/@react-native-community/slider/react-native-slider.podspec"
+    :path: "../node_modules/@react-native-community/slider"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -458,11 +476,19 @@ EXTERNAL SOURCES:
   ReactNativeAudioToolkit:
     :path: "../node_modules/@react-native-community/audio-toolkit"
   ReactNativeExceptionHandler:
-    :podspec: "../node_modules/react-native-exception-handler/ReactNativeExceptionHandler.podspec"
+    :path: "../node_modules/react-native-exception-handler"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
   RNDateTimePicker:
-    :path: "../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec"
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -475,7 +501,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: 8cbc5155c978f2e43098818c91d206d07aae6d30
-  Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FBLazyVector: 815d415da87ffb4308b229ffe4b531799d118c6c
@@ -505,6 +531,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 99b82aeb51d67d9025ab4eb8ccb8132f8dcebf69
   react-native-config: 55548054279d92e0e4566ea15a8b9b81028ec342
   react-native-netinfo: 6bb847e64f45a2d69c6173741111cfd95c669301
+  react-native-safe-area-context: e22a8ca00f758273d2408953965cb8db67da7925
   react-native-slider: 5d61590f26a51cf0a858bfd1543f6d6ec8b78a6e
   React-RCTActionSheet: 5f9a1733ec8e380aae8a97877f1166cb058733ae
   React-RCTAnimation: 3e0a55305b70b1eb5a5e34230ed8198d4a782da9
@@ -519,14 +546,18 @@ SPEC CHECKSUMS:
   ReactCommon: 584ef683c340894c1c82be43ce760390493ae8bf
   ReactNativeAudioToolkit: 4506c3df44edce0b3a95dfc80853e5c3ca0360a3
   ReactNativeExceptionHandler: 8025d98049c25f186835a3af732dd7c9974d6dce
-  RNDateTimePicker: 9db00606d689f5653f08aa601c81b9d3266a0a19
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNDateTimePicker: bacbf754c3298b061c7eaa0a5352cbb2ede8d5a2
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
+  RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
+  RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
+  RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNSVG: 0eb087cfb5d7937be93c45b163b26352a647e681
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Rollbar: 5060e3fc9fa28ae75e70c61e95b1b31b2b22710c
   RollbarReactNative: 25ee22263928c9c7f3ba89ecc9af03e71a5c1ec8
   Yoga: 3f70bbd9aa01e04eefec36e2a085b2fc0ff1dd98
 
-PODFILE CHECKSUM: 6aacfa74d07d4293a11f1da224c0991967228aa7
+PODFILE CHECKSUM: f857fcd69d5f6248922934ee0136afee3e728e6f
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.9.3
