@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from "react";
+import {View, ActivityIndicator} from 'react-native'
 import firebase from 'react-native-firebase';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -16,6 +17,7 @@ import AboutStack from './navigation/stacks/About'
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true);
   const Stack = createStackNavigator();
 
   const dateDifference =  async () => {
@@ -56,8 +58,10 @@ const App = () => {
     unsubscribe = firebase.auth().onAuthStateChanged(user => {
          if (user) {
           setUser(user)
-         } else{
-           setUser(null)
+          setLoading(false);
+        } else{
+          setUser(null)
+          setLoading(false);
          }
         });
         return () => {
@@ -65,6 +69,12 @@ const App = () => {
         }
       
   },[user])
+
+  if(loading){
+    return <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+        <ActivityIndicator size="large"/>
+    </View>
+  }
  
     return (
       <NavigationContainer>
