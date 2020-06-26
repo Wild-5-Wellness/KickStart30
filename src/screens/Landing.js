@@ -17,22 +17,20 @@ function Landing(props) {
   console.log('rerendered');
 
   useEffect(() => {
-    checkHeroData();
+    console.log("propsLANDING". props)
   }, []);
-
+  
   useEffect(() => {
-    console.log('got a mount');
-    return () => console.log('got an unmount');
-  }, []);
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      checkHeroData();
+      console.log("navigationLISTENER")
+    });
+
+    return unsubscribe;
+  }, [props.navigation]);
 
   const day = () => {
     const date = format(new Date(), 'YYYY-MM-DD');
-    // const year = Number(date.slice(0,4))
-    //   const month = Number(date.slice(5,7))
-    //   const day = Number(date.slice(8,10))
-    // const year2 = Number(initialSurveydate.slice(0,4))
-    // const month2 = Number(initialSurveydate.slice(5,7))
-    // const day2 = Number(initialSurveydate.slice(8,10))
     const sliceInitialDate = initialSurveydate.slice(0, -6);
     const todaysDate = moment().startOf('day');
     const initialDate = moment(sliceInitialDate);
@@ -44,7 +42,7 @@ function Landing(props) {
   useEffect(() => {
     const date = format(new Date(), 'YYYY-MM-DD-HH-mm');
     const user = firebase.auth().currentUser;
-    // console.log(user);
+    console.log("checkHEROReRendering?",user);
     const [scopedUser] = user.email.split('.') || undefined;
 
     setLoading(true);
@@ -81,14 +79,21 @@ function Landing(props) {
   }, [initialSurveydate]);
 
   const checkHeroData = () => {
+    console.log("runningCHECKHERO")
     const heroRef = scopeRefByUserHero('HERO');
     firebase
       .database()
       .ref(heroRef)
       .once('value', snapshot => {
         if (snapshot.val() !== null) {
+          console.log("intiailValue",snapshot.val())
           setInitialSurveyDate(snapshot.val());
           setHero(true);
+        }else{
+          console.log("ELSE", snapshot.val())
+          setInitialSurveyDate('')
+          setHero(false)
+          
         }
       });
   };

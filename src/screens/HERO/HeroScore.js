@@ -7,9 +7,9 @@ import {
   ImageBackground,
   SafeAreaView,
 } from 'react-native';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import {Text, Spinner} from 'native-base';
-import {SurveyBtn} from '../../components/heroSurvey/index'
+import {SurveyBtn} from '../../components/heroSurvey/index';
 import firebase from 'react-native-firebase';
 import HEROlogo from '../../images/herologo.png';
 import AnimateNumber from 'react-native-animate-number';
@@ -19,10 +19,8 @@ import {scopeRefByUserHero} from '../../utils/heroRef';
 import {format} from 'date-fns';
 import {RFValue} from 'react-native-responsive-fontsize';
 
-
-
 const screenheight = Dimensions.get('window').height;
-const HeroScore = (props) => {
+const HeroScore = props => {
   const [data, setData] = useState(null);
   const [totalScore, setTotalScore] = useState(0);
   const [surveyDate, setInitialSurveyDate] = useState(
@@ -186,8 +184,21 @@ const HeroScore = (props) => {
             </Text>
           </ImageBackground>
         </View>
-                <SurveyBtn title="To Home" onPress={()=> props.navigation.reset({index: 0, routes: [{name: 'Home'}]})}
-                />
+        <View
+          style={{
+            flex: 1,
+            // borderWidth: 1,
+            // borderColor: 'red',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <SurveyBtn
+            title="To Home"
+            onPress={() =>
+              props.navigation.reset({index: 0, routes: [{name: 'Home'}]})
+            }
+          />
+        </View>
         {/* <View>{totalScore ? totalReview() : <Spinner />}</View> */}
       </SafeAreaView>
     </View>

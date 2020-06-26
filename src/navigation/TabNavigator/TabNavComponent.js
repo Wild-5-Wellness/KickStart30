@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Icon } from "native-base";
-
+import { TabActions } from '@react-navigation/native';
 
 const Container = styled.View`
 flex: 1;
@@ -25,7 +25,7 @@ color: ${props=> props.theme.colors.white};
 `
 
 export const TabBar = (props) => {
-
+console.log("TABS", props)
     const displayIcon = route => {
         switch(route){
             case 'Track': 
@@ -41,6 +41,7 @@ export const TabBar = (props) => {
         <Container>
             {
                 props.state.routes.map((route, i)=>{
+                    console.log({route})
                     const isFocused = props.state.index === i;
                     const onPress = () => {
                         const event = props.navigation.emit({
@@ -48,9 +49,10 @@ export const TabBar = (props) => {
                           target: route.key,
                           canPreventDefault: true,
                         });
-              
+                        const jumpToAction =TabActions.jumpTo(`${route.name}`);
                         if (!isFocused && !event.defaultPrevented) {
-                          props.navigation.navigate(route.name);
+                            props.navigation.dispatch(jumpToAction)
+                        //   props.navigation.reset({index: 0, routes: [{name: `${route.name}`}]});
                         }
                       };
               
