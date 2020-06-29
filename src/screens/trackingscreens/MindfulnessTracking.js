@@ -161,7 +161,7 @@ const displayDateText = () => {
                 fontWeight: '600',
               }}
             >
-              Did I mindfully meditate at least 10 mintues today?
+              Did I mindfully meditate at least 10 minutes today?
             </Text>
             <RadioForm
               radio_props={[
