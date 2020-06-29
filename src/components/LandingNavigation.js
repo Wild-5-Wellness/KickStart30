@@ -57,7 +57,7 @@ export function Navigation(props) {
     {
       title: 'HERO Exercises',
       icon: HEROlogo,
-      action: () => navigation.navigate('Tracking',{screen:'HeroIntro'}),
+      action: () => navigation.navigate('Tracking',{screen:'Hero'}),
       background: ['#DD3121', '#0BA2D4', '#70B43C', '#B72B90'],
     },
   ];

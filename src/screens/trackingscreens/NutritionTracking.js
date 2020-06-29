@@ -128,7 +128,8 @@ const displayDateText = () => {
                 backgroundColor: nutritionColor,
                 width: '100%',
                 alignSelf: 'center',
-                marginVertical: 10
+                marginVertical: 10,
+                padding: 1
               }}
             >
               <Text
@@ -144,7 +145,7 @@ const displayDateText = () => {
               </Text>
               <Text allowFontScaling={false} style={{fontSize: RFValue(16), color: 'white', textAlign: 'center', paddingBottom:5}}>
                 Log your daily meals/snacks/beverages/alcohol each day for 30
-                days, follow the MIND diet principles as closely as you can
+                days,and follow the MIND diet principles as closely as you can.
               </Text>
             </View>
             <View style={{alignItems: 'center', marginTop: 10}}>
