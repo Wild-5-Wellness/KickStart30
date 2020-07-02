@@ -117,8 +117,8 @@ const LoginModal = props => {
           shadowOffset: { width: 4, height: 4 },
           shadowOpacity: 0.8,
           shadowRadius: 6,
-          borderColor:'red',
-          borderWidth: 1       
+          // borderColor:'red',
+          // borderWidth: 1       
          }}
         >
           <View
