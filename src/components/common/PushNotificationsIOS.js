@@ -92,9 +92,10 @@ class PushNotificationsIOS {
     }
     try{
     PushNotification.localNotificationSchedule(config)
+      PushNotification.setApplicationIconBadgeNumber(0)
     }
     catch(e){
-      rollbar.error(e)
+      rollbar.error(e) 
     }
     console.log(config)
   };
